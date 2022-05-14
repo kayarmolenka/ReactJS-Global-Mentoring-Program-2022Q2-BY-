@@ -4,7 +4,7 @@ import { ListItem } from "../ListItem";
 export class SubmitForm extends React.Component {
   state: {
     value: string;
-    data: [];
+    data: string[];
   };
 
   constructor(props: { value: string; data: [] }) {
@@ -31,9 +31,9 @@ export class SubmitForm extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <input
-          placeholder="What do you want to add?"
+          placeholder="What do you want to watch?"
           value={this.state.value}
           onChange={this.changeValue}
         />
@@ -41,7 +41,7 @@ export class SubmitForm extends React.Component {
           Submit
         </button>
         <ListItem listItem={this.state.data} />
-      </React.Fragment>
+      </>
     );
   }
 }
