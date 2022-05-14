@@ -1,13 +1,10 @@
 import React from "react";
 
-interface ListItemProps {
-  listItem: string[];
-}
+import styles from "./ListItem.module.scss";
 
-export function ListItem(props: ListItemProps) {
-  const { listItem } = props;
+export function ListItem({ listItem }: { listItem: string[] }) {
   return (
-    <ul style={{ listStyle: "none" }}>
+    <ul className={styles.list}>
       {listItem.map((item) => (
         <li key={item}>{item}</li>
       ))}

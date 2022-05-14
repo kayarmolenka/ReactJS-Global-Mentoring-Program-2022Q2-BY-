@@ -1,16 +1,14 @@
 import React from "react";
 
-import "./App.scss";
-import { HelloMessage } from "../Hello";
+import styles from "./App.module.scss";
 import { Counter } from "../Counter";
 import { SubmitForm } from "../SubmitForm";
 
 export function App() {
-  const react = new HelloMessage("React!!");
-  const helloMessage = React.createElement("div", null, `Hello ${react.name}`);
+  const helloMessage = React.createElement("div", null, `Hello React!!`);
 
   return (
-    <div className="app-component">
+    <div className={styles.app}>
       {helloMessage}
       <Counter />
       <SubmitForm />
