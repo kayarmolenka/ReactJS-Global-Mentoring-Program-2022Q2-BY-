@@ -29,7 +29,7 @@
 
 
 
-
+npm install --save-dev jest
 
 npm install -D sass-loader postcss-loader css-loader style-loader postcss-preset-env node-sass
 14. npm install eslint --save-dev

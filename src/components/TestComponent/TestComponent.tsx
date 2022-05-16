@@ -1,15 +1,11 @@
 import React from 'react';
 
-interface TestComponentProps {
-  listItems: string[];
-}
+import styles from './TestComponent.module.scss';
 
-export const TestComponent = (props: TestComponentProps) => {
-  const { listItems } = props;
-
+export const TestComponent = ({ listItems }: { listItems: string[] }) => {
   return (
     <>
-      <div className="test-component">Test Component</div>
+      <div className={styles['test-try']}>Test Component</div>
       <ul>
         {listItems.map((item) => (
           <li key={item}>{item}</li>
