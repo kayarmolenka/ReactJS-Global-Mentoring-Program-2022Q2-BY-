@@ -26,15 +26,24 @@
 26. npm i fork-ts-checker-webpack-plugin --save-dev
 27. npm install --save-dev @babel/preset-typescript
 
-
+npm install --save-dev identity-obj-proxy
+npm install --save-dev @testing-library/jest-dom
+npm i jsdom
 
 
 npm install --save-dev jest
+npm install --save-dev @types/jest
+npm install --save-dev @testing-library/react
+npm i --save-dev @testing-library/jest-dom
+npm i jest-css-modules-transform
+npm i babel-jest
+npm install --save-dev react-test-renderer
+npm i jest-environment-jsdom
+
 
 npm install -D sass-loader postcss-loader css-loader style-loader postcss-preset-env node-sass
 14. npm install eslint --save-dev
 15. npm install --save-dev ts-loader source-map-loader
 16. npm install typescript
-
-
+17. npm i ts-node
 
