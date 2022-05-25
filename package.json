@@ -4,9 +4,9 @@
   "description": "task 2",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development && webpack-dev-server --config webpack.dev.js",
-    "build:dev": "npm run clean && cross-env NODE_ENV=development webpack --config webpack.dev.js",
-    "build:prod": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "start": "cross-env NODE_ENV=development && webpack-dev-server --config ./configs/webpack.dev.js",
+    "build:dev": "npm run clean && cross-env NODE_ENV=development webpack --config ./configs/webpack.dev.js",
+    "build:prod": "npm run clean && cross-env NODE_ENV=production webpack --config ./configs/webpack.prod.js",
     "clean": "node ./scripts/clean.js",
     "test": "jest"
   },
