@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+1. npm init
+2. npm i react react-dom
+3. npm i --save-dev webpack 
+4. npm i --save-dev webpack-cli
+5. npm install babel-loader @babel/core --save-dev
+6. npm install --save-dev @babel/preset-env
+7. npm install react react-dom --save
+8. npm install @babel/preset-react --save-dev
+9. npm install style-loader css-loader --save-dev
+10. npm install url-loader --save-dev
+11. npm install webpack-dev-server --save-dev
+12. npm install html-webpack-plugin --save-dev
+13. npm install --save-dev typescript ts-loader
+14. npm install --save-dev --save-exact prettier
+15. npm i --save-dev @types/react-dom
+16. npm i --save-dev @types/react
+17. npm i --save-dev @types/react-router-dom
+18. npm install sass-loader sass webpack --save-dev
+19. npm i clean-webpack-plugin
+20. npm i webpack-merge
+21. npm i mini-css-extract-plugin --save-dev
+22. npm i optimize-css-assets-webpack-plugin
+23. npm i terser-webpack-plugin
+24. npm i cross-env
+25. npm i rimraf
+26. npm i fork-ts-checker-webpack-plugin --save-dev
+27. npm install --save-dev @babel/preset-typescript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm install --save-dev identity-obj-proxy
+npm install --save-dev @testing-library/jest-dom
+npm i jsdom
 
-## Available Scripts
 
-In the project directory, you can run:
+npm install --save-dev jest
+npm install --save-dev @types/jest
+npm install --save-dev @testing-library/react
+npm i --save-dev @testing-library/jest-dom
+npm i jest-css-modules-transform
+npm i babel-jest
+npm install --save-dev react-test-renderer
+npm i jest-environment-jsdom
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+npm install -D sass-loader postcss-loader css-loader style-loader postcss-preset-env node-sass
+14. npm install eslint --save-dev
+15. npm install --save-dev ts-loader source-map-loader
+16. npm install typescript
+17. npm i ts-node
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
