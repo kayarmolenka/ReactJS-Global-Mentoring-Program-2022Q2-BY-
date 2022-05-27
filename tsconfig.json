@@ -4,10 +4,11 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "ES2021",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
 	"esModuleInterop": true,
+
   }
 }

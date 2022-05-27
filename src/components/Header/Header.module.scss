@@ -1,0 +1,31 @@
+@import "src/style/variables";
+@import "src/style/mixins";
+
+.header {
+  height: 450px;
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),url("../../assets/images/poster_netflix.png") no-repeat;
+  background-size: cover;
+
+  .headerBot {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-left: 90px;
+  }
+
+  .headerAddMovieBtn {
+    @include font-family;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: right;
+    text-transform: uppercase;
+    color: $pink;
+    background: rgba(96, 96, 96, 0.68);
+    border-radius: 4px;
+    padding: 11px 18px 11px 18px;
+    cursor: pointer;
+    margin-right: 85px;
+    border: none;
+  }
+}
+

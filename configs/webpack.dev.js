@@ -9,7 +9,7 @@ module.exports = merge(common, {
     compress: true,
     https: true,
     open: true,
-    port: process.env.PORT || 8000,
+    port: 8000,
   },
   plugins: [
     new HtmlWebpackPlugin({

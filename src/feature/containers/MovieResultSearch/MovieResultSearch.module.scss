@@ -1,0 +1,15 @@
+.movieResultSearch {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-right: 74px;
+
+  .movieResultSearchBorderLine {
+    border-bottom: 2px solid #555555;
+    width: 97%;
+    position: absolute;
+    bottom: 0;
+    margin-left: 57px;
+  }
+
+}

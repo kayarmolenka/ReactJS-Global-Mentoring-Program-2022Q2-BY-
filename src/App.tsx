@@ -1,13 +1,20 @@
 import React from 'react';
-import { TestComponent } from './components/TestComponent';
+import styles from './App.module.scss';
+import { Header } from './components/Header';
 
-import styles from './style.module.scss';
+import { Footer } from './components/Footer';
+
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
+import { Main } from './components/Main';
 
 export const App = () => {
   return (
-    <div className={styles.container}>
-      <h1>Hello React!!!!</h1>
-      <TestComponent listItems={['item1', 'item2']} />
-    </div>
+    <ErrorBoundary>
+      <div className={styles.app}>
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 };
