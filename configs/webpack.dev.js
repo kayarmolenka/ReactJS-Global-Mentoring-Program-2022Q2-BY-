@@ -16,6 +16,7 @@ module.exports = merge(common, {
       hash: true,
       template: 'src/index.html',
       filename: 'index.html',
+      favicon: 'src/public/favicon.ico',
     }),
   ],
 });
