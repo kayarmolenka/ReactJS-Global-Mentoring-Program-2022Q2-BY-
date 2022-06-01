@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import classNames from 'classnames';
 
 import styles from './MovieFilter.module.scss';
@@ -7,8 +7,8 @@ import { valueFilter } from '../../constants';
 export const MovieFilter = () => {
   const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
 
-  const onHandleGenre = (genre: string) => {
-    setActiveGenre(genre);
+  const onHandleGenre = (e: MouseEvent<HTMLButtonElement>) => {
+    setActiveGenre(e.currentTarget.innerHTML);
   };
 
   return (
@@ -20,7 +20,7 @@ export const MovieFilter = () => {
             `${styles.movieFilterBtn}`,
             genre === activeGenre ? `${styles.movieFilterBtnChosen}` : '',
           )}
-          onClick={() => onHandleGenre(genre)}
+          onClick={onHandleGenre}
         >
           {genre}
         </button>
