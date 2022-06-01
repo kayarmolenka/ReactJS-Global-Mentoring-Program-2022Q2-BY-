@@ -1,15 +1,15 @@
-import styles from './Header.module.scss';
-
 import { SearchForm } from '../SearchForm';
 import { NetflixRoulette } from '../NetflixRoulette';
 import { Button } from '../Button';
+import { ButtonType } from '../../models';
+
+import styles from './Header.module.scss';
+import { ADD_MOVIE_TEXT } from '../../constants';
 
 export const Header = () => {
   const addMovieHandle = () => {
     console.log('addMovieHandle');
   };
-
-  const ADD_MOVIE_TEXT = '+ add movie';
 
   return (
     <header className={styles.header}>
@@ -18,7 +18,7 @@ export const Header = () => {
         <Button
           text={ADD_MOVIE_TEXT}
           onClick={addMovieHandle}
-          type="submit"
+          type={ButtonType.SUBMIT}
           className={styles.headerAddMovieBtn}
         />
       </div>

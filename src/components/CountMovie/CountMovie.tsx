@@ -1,10 +1,5 @@
 import styles from './CountMovie.module.scss';
 
-interface countMovieProps {
-  countMovie: number;
-}
-
-export const CountMovie = (props: countMovieProps) => {
-  const { countMovie } = props;
+export const CountMovie = ({ countMovie }: { countMovie: number }) => {
   return <div className={styles.movieCount}>{`${countMovie} movies found`}</div>;
 };

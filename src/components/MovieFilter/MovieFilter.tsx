@@ -1,8 +1,8 @@
-import styles from './MovieFilter.module.scss';
 import { useState } from 'react';
 import classNames from 'classnames';
 
-const valueFilter = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
+import styles from './MovieFilter.module.scss';
+import { valueFilter } from '../../constants';
 
 export const MovieFilter = () => {
   const [activeGenre, setActiveGenre] = useState(valueFilter[0]);

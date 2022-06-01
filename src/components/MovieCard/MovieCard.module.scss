@@ -55,9 +55,10 @@
     position: relative;
     bottom: 500px;
     left: 273px;
-    display: flex;
+    //display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
   }
 
   .movieCardCircleHidden {
@@ -69,4 +70,8 @@
     font-size: 25px;
     background-size: cover;
   }
+}
+
+.movieCard:hover .movieCardCircle {
+  display: flex;
 }

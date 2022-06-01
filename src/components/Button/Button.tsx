@@ -1,7 +1,9 @@
+import { ButtonType } from '../../models';
+
 interface ButtonProps {
   text: string;
   onClick: () => void;
-  type: 'submit' | 'reset' | 'button' | undefined;
+  type?: ButtonType;
   className?: string;
 }
 

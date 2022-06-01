@@ -1,19 +1,11 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo } from 'react';
 
-interface Props {
-  children: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+export class ErrorBoundary extends Component<{}, { hasError: boolean }> {
+  public state = {
     hasError: false,
   };
 
-  public static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(_: Error) {
     return { hasError: true };
   }
 

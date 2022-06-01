@@ -1,5 +1,7 @@
-import styles from './SearchForm.module.scss';
 import { Button } from '../Button';
+import { ButtonType } from '../../models';
+
+import styles from './SearchForm.module.scss';
 
 export const SearchForm = () => {
   const searchHandle = () => {
@@ -18,7 +20,7 @@ export const SearchForm = () => {
         <Button
           text="Search"
           onClick={searchHandle}
-          type="submit"
+          type={ButtonType.SUBMIT}
           className={styles.searchFormBtn}
         />
       </div>
