@@ -1,8 +1,8 @@
 import { useState, MouseEvent } from 'react';
 import classNames from 'classnames';
+import { valueFilter } from '../../constants';
 
 import styles from './MovieFilter.module.scss';
-import { valueFilter } from '../../constants';
 
 export const MovieFilter = () => {
   const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
