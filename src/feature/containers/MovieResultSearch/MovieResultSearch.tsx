@@ -1,6 +1,4 @@
-import { MovieFilter } from '../../../components/MovieFilter';
-import { MovieSort } from '../../../components/MovieSort';
-import React from 'react';
+import { MovieFilter, MovieSort } from '../../../components';
 
 import styles from './MovieResultSearch.module.scss';
 

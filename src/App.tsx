@@ -1,8 +1,5 @@
 import React from 'react';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { ErrorBoundary } from './components/ErrorBoundary';
-import { Main } from './components/Main';
+import { Header, Footer, ErrorBoundary, Main } from './components';
 
 import styles from './App.module.scss';
 

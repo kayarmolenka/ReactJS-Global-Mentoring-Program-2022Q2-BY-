@@ -1,10 +1,8 @@
-import { SearchForm } from '../SearchForm';
-import { NetflixRoulette } from '../NetflixRoulette';
-import { Button } from '../Button';
+import { SearchForm, NetflixRoulette, Button } from '../index';
 import { ButtonType } from '../../models';
+import { ADD_MOVIE_TEXT } from '../../constants';
 
 import styles from './Header.module.scss';
-import { ADD_MOVIE_TEXT } from '../../constants';
 
 export const Header = () => {
   const addMovieHandle = () => {
