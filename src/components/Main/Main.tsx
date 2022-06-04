@@ -1,7 +1,5 @@
-import { Divider } from '../Divider';
+import { Divider, CountMovie, MovieList } from '../index';
 import { MovieResultSearch } from '../../feature/containers/MovieResultSearch';
-import { CountMovie } from '../CountMovie';
-import { MovieList } from '../MovieList';
 
 export const Main = () => {
   return (
