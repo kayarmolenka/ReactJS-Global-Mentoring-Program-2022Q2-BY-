@@ -9,13 +9,14 @@ module.exports = merge(common, {
     compress: true,
     https: true,
     open: true,
-    port: process.env.PORT || 8000,
+    port: 8000,
   },
   plugins: [
     new HtmlWebpackPlugin({
       hash: true,
       template: 'src/index.html',
       filename: 'index.html',
+      favicon: 'src/public/favicon.ico',
     }),
   ],
 });

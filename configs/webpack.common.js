@@ -48,6 +48,15 @@ module.exports = {
           { loader: 'sass-loader' },
         ],
       },
+      {
+        test: /\.scss$/,
+        exclude: /\.module\.scss$/,
+        use: ['style-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [new MiniCssExtractPlugin(), new ForkTsCheckerWebpackPlugin()],

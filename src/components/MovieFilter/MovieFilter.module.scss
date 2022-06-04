@@ -1,0 +1,25 @@
+@import "src/style/variables";
+@import "src/style/mixins";
+
+.movieFilter {
+  display: flex;
+  margin-left: 54px;
+  gap: 30px;
+
+  .movieFilterBtn {
+    @include font-family;
+    background: #232323;
+    color: $white;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+  }
+
+  .movieFilterBtnChosen {
+    border-bottom: 2px solid $pink;
+    z-index: 1;
+  }
+}
+
