@@ -1,4 +1,4 @@
-import { date } from '../mockDate/date';
+import { MockData } from '../mockDate/date';
 
 enum SORT_RULE {
   SORT_A_BEFORE_B = -1,
@@ -34,28 +34,28 @@ const sortByDateFromOldestToNewest = <T extends Object>(
   return SORT_RULE.KEEP_ORIGINAL;
 };
 
-const sortForReleaseDateA_Z = () => {
-  date.sort((date, dateToCompare) =>
+const sortForReleaseDateA_Z = (activeMovies: MockData[]) => {
+  activeMovies.sort((date, dateToCompare) =>
     sortByDateFromNewestToOldest(date, dateToCompare, 'realiseDate'),
   );
 };
-const sortForReleaseDateZ_A = () => {
-  date.sort((date, dateToCompare) =>
+const sortForReleaseDateZ_A = (activeMovies: MockData[]) => {
+  activeMovies.sort((date, dateToCompare) =>
     sortByDateFromOldestToNewest(date, dateToCompare, 'realiseDate'),
   );
 };
 
-const sortForTitleA_Z = () => {
-  date.sort((a, b) => b.title.localeCompare(a.title));
+const sortForTitleA_Z = (activeMovies: MockData[]) => {
+  activeMovies.sort((a, b) => b.title.localeCompare(a.title));
 };
 
-const sortForTitleZ_A = () => {
-  date.sort((a, b) => a.title.localeCompare(b.title));
+const sortForTitleZ_A = (activeMovies: MockData[]) => {
+  activeMovies.sort((a, b) => a.title.localeCompare(b.title));
 };
 
-export const sortMovies = (activeSortType: string) => {
-  if (activeSortType === 'Release Date (A-Z)') sortForReleaseDateA_Z();
-  if (activeSortType === 'Release Date (Z-A)') sortForReleaseDateZ_A();
-  if (activeSortType === 'Title (A-Z)') sortForTitleA_Z();
-  if (activeSortType === 'Title (Z-A)') sortForTitleZ_A();
+export const sortMovies = (activeSortType: string, activeMovies: MockData[]) => {
+  if (activeSortType === 'Release Date (A-Z)') sortForReleaseDateA_Z(activeMovies);
+  if (activeSortType === 'Release Date (Z-A)') sortForReleaseDateZ_A(activeMovies);
+  if (activeSortType === 'Title (A-Z)') sortForTitleA_Z(activeMovies);
+  if (activeSortType === 'Title (Z-A)') sortForTitleZ_A(activeMovies);
 };

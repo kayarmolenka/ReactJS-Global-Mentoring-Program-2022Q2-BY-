@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEvent } from 'react';
 
 export enum ButtonType {
   SUBMIT = 'submit',
@@ -9,4 +9,9 @@ export enum ButtonType {
 export interface IMovieSortProps {
   activeSortType: string;
   handleSort: (e: ChangeEvent<HTMLSelectElement>) => void;
+}
+
+export interface IMovieResulSearchProps extends IMovieSortProps {
+  activeGenre: string;
+  handleGenre: (e: MouseEvent<HTMLButtonElement>) => void;
 }
