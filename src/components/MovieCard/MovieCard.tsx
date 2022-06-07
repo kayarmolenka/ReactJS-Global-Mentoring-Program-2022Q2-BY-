@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { PopupMovieCard, DeleteMovie, Modal } from '../index';
+import { useState } from 'react';
 
 import styles from './MovieCard.module.scss';
 
@@ -8,18 +10,90 @@ export interface MovieCardProps {
   poster: string;
   realiseDate: number;
   genre: string;
+  isShowEditModal: boolean;
+  setIsShowEditModal: (param: boolean) => void;
+  idMovie: number;
+  setActivePopup: (id: number) => void;
+  activePopupId: number;
+  runtime?: string;
+  overview?: string;
+  rating?: string;
+  movieUrl?: string;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
-  const { genre, poster, title, realiseDate } = props;
+  const {
+    genre,
+    poster,
+    title,
+    realiseDate,
+    isShowEditModal,
+    setIsShowEditModal,
+    idMovie,
+    setActivePopup,
+    activePopupId,
+    overview,
+    movieUrl,
+    runtime,
+    rating,
+  } = props;
+
+  const handleEditMenu = () => {
+    setActivePopup(idMovie);
+    setIsShowEditModal(true);
+  };
+
+  const [isOpenEditMode, setOpenEditMode] = useState(false);
+  const [isOpenDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const completeEditMovie = () => {
+    console.log('Completed edit movie');
+  };
+
+  const descriptionMovie = {
+    title,
+    releaseDate: realiseDate,
+    movieUrl,
+    rating,
+    genre,
+    runtime,
+    overview,
+  };
 
   return (
     <div className={styles.movieCard}>
       <div className={styles.movieCardImage}>
         <img src={poster} alt={title} className={styles.movieCardPoster} />
-        <div className={styles.movieCardCircle}>
-          <FontAwesomeIcon icon={faEllipsisVertical} className={styles.movieCardThreeDots} />
+        <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={idMovie}>
+          <FontAwesomeIcon
+            icon={faEllipsisVertical}
+            className={styles.movieCardThreeDots}
+            data-name={idMovie}
+          />
         </div>
+        {isShowEditModal && activePopupId === idMovie && (
+          <PopupMovieCard
+            isOpenModal={isShowEditModal}
+            setIsOpenModal={setIsShowEditModal}
+            setOpenEditMode={setOpenEditMode}
+            setOpenDeleteModal={setOpenDeleteModal}
+          />
+        )}
+        {isOpenDeleteModal && (
+          <DeleteMovie
+            isDeleteMovieModal={isOpenDeleteModal}
+            setIsDeleteMovie={setOpenDeleteModal}
+          />
+        )}
+        {isOpenEditMode && (
+          <Modal
+            textHeader="Edit Movie"
+            isOpenModal={isOpenEditMode}
+            setIsOpenModal={setOpenEditMode}
+            setSuccessModal={completeEditMovie}
+            initialState={descriptionMovie}
+          />
+        )}
       </div>
       <div className={styles.movieCardDescription}>
         <div className={styles.movieCardTitle}>{title}</div>

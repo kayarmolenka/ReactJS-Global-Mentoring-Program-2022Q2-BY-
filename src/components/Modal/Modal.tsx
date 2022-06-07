@@ -8,15 +8,26 @@ import { date } from '../../mockDate/date';
 
 import styles from './Modal.module.scss';
 
+interface IInitialStateMovieDescription {
+  title: string;
+  releaseDate: number;
+  genre: string;
+  runtime?: string;
+  overview?: string;
+  rating?: string;
+  movieUrl?: string;
+}
+
 interface IModalProps {
   textHeader: string;
   isOpenModal: boolean;
   setIsOpenModal: (data: boolean) => void;
   setSuccessModal: (data: boolean) => void;
+  initialState?: IInitialStateMovieDescription;
 }
 
 export const Modal = (props: IModalProps) => {
-  const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal } = props;
+  const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal, initialState } = props;
 
   const [genreIsOpen, setGenreIsOpen] = useState(false);
 
@@ -37,7 +48,7 @@ export const Modal = (props: IModalProps) => {
     e.stopPropagation();
   }, []);
 
-  const [stateForm, setStateForm] = useState({
+  const initState = initialState || {
     title: '',
     releaseDate: '',
     movieUrl: '',
@@ -45,7 +56,9 @@ export const Modal = (props: IModalProps) => {
     genre: '',
     runtime: '',
     overview: '',
-  });
+  };
+
+  const [stateForm, setStateForm] = useState(initState);
 
   const onHandleFormItems = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,

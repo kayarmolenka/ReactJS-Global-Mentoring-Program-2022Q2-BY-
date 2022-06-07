@@ -9,6 +9,7 @@ export const Main = () => {
   const [activeSortType, setActiveSortType] = useState(valueSortMovie[0]);
   const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
   const [listActiveMovies, setListActiveMovies] = useState(date);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   const handleSort = (e: ChangeEvent<HTMLSelectElement>) => {
     setActiveSortType(e.target.value);
@@ -30,7 +31,11 @@ export const Main = () => {
         handleGenre={handleGenre}
       />
       <CountMovie countMovie={listActiveMovies.length} />
-      <MovieList movies={listActiveMovies} />
+      <MovieList
+        movies={listActiveMovies}
+        isShowEditModal={isShowEditModal}
+        setIsShowEditModal={setIsShowEditModal}
+      />
     </main>
   );
 };
