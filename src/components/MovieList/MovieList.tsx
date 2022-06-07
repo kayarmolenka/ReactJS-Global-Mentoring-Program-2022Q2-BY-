@@ -23,11 +23,11 @@ export const MovieList = (props: IMovieListProps) => {
   return (
     <div className={styles.movieList}>
       {movies.map(
-        ({ id, title, poster, realiseDate, genre, movieUrl, runtime, rating, overview }) => (
+        ({ id, title, poster, releaseDate, genre, movieUrl, runtime, rating, overview }) => (
           <MovieCard
             title={title}
             poster={poster}
-            realiseDate={realiseDate}
+            releaseDate={releaseDate}
             genre={genre}
             key={id}
             isShowEditModal={isShowEditModal}

@@ -28,8 +28,18 @@ interface IModalProps {
 
 export const Modal = (props: IModalProps) => {
   const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal, initialState } = props;
-
   const [genreIsOpen, setGenreIsOpen] = useState(false);
+  const initState = initialState || {
+    title: '',
+    releaseDate: '',
+    movieUrl: '',
+    rating: '',
+    genre: '',
+    runtime: '',
+    overview: '',
+  };
+
+  const [stateForm, setStateForm] = useState(initState);
 
   const revertArrow = () => {
     setGenreIsOpen(!genreIsOpen);
@@ -48,18 +58,6 @@ export const Modal = (props: IModalProps) => {
     e.stopPropagation();
   }, []);
 
-  const initState = initialState || {
-    title: '',
-    releaseDate: '',
-    movieUrl: '',
-    rating: '',
-    genre: '',
-    runtime: '',
-    overview: '',
-  };
-
-  const [stateForm, setStateForm] = useState(initState);
-
   const onHandleFormItems = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
@@ -70,8 +68,11 @@ export const Modal = (props: IModalProps) => {
   };
 
   const completeAddMovie = () => {
+    document.body.style.overflow = 'auto';
     setIsOpenModal(false);
     setSuccessModal(true);
+    console.log(stateForm);
+    setStateForm(initState);
   };
 
   return isOpenModal ? (
@@ -137,7 +138,7 @@ export const Modal = (props: IModalProps) => {
                 value={stateForm.genre}
                 onChange={onHandleFormItems}
               >
-                <option value="" disabled selected>
+                <option value="Select Genre" disabled selected>
                   Select Genre
                 </option>
                 {valueFilter.map((typeSort) => (

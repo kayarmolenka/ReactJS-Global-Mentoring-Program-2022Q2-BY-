@@ -17,6 +17,7 @@ export const PopupMovieCard = (props: IPopupMovieCardProps) => {
 
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
+    document.body.style.overflow = 'auto';
   }, [setIsOpenModal]);
 
   const stopClosed = useCallback((e) => {

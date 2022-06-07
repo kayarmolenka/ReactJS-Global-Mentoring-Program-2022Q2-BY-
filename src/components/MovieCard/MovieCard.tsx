@@ -8,7 +8,7 @@ import styles from './MovieCard.module.scss';
 export interface MovieCardProps {
   title: string;
   poster: string;
-  realiseDate: number;
+  releaseDate: number;
   genre: string;
   isShowEditModal: boolean;
   setIsShowEditModal: (param: boolean) => void;
@@ -26,7 +26,7 @@ export const MovieCard = (props: MovieCardProps) => {
     genre,
     poster,
     title,
-    realiseDate,
+    releaseDate,
     isShowEditModal,
     setIsShowEditModal,
     idMovie,
@@ -52,7 +52,7 @@ export const MovieCard = (props: MovieCardProps) => {
 
   const descriptionMovie = {
     title,
-    releaseDate: realiseDate,
+    releaseDate,
     movieUrl,
     rating,
     genre,
@@ -97,7 +97,7 @@ export const MovieCard = (props: MovieCardProps) => {
       </div>
       <div className={styles.movieCardDescription}>
         <div className={styles.movieCardTitle}>{title}</div>
-        <div className={styles.movieCardRealiseDate}>{realiseDate}</div>
+        <div className={styles.movieCardRealiseDate}>{releaseDate}</div>
       </div>
       <p className={styles.movieCardGenre}>{genre}</p>
     </div>

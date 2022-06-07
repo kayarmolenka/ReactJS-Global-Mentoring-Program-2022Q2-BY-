@@ -36,12 +36,12 @@ const sortByDateFromOldestToNewest = <T extends Object>(
 
 const sortForReleaseDateA_Z = (activeMovies: MockData[]) => {
   activeMovies.sort((date, dateToCompare) =>
-    sortByDateFromNewestToOldest(date, dateToCompare, 'realiseDate'),
+    sortByDateFromNewestToOldest(date, dateToCompare, 'releaseDate'),
   );
 };
 const sortForReleaseDateZ_A = (activeMovies: MockData[]) => {
   activeMovies.sort((date, dateToCompare) =>
-    sortByDateFromOldestToNewest(date, dateToCompare, 'realiseDate'),
+    sortByDateFromOldestToNewest(date, dateToCompare, 'releaseDate'),
   );
 };
 
