@@ -138,7 +138,7 @@ export const Modal = (props: IModalProps) => {
                 value={stateForm.genre}
                 onChange={onHandleFormItems}
               >
-                <option value="Select Genre" disabled selected>
+                <option value="" disabled selected>
                   Select Genre
                 </option>
                 {valueFilter.map((typeSort) => (
