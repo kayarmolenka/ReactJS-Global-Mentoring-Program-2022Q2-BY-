@@ -36,7 +36,7 @@
   }
 
   .modalContent {
-    label {
+    .modalContentLabel {
       @include font-family;
       letter-spacing: 0.888889px;
       text-transform: uppercase;

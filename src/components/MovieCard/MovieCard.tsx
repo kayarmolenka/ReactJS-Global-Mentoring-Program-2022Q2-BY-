@@ -55,7 +55,7 @@ export const MovieCard = (props: MovieCardProps) => {
     releaseDate,
     movieUrl,
     rating,
-    genre,
+    genre: [genre],
     runtime,
     overview,
   };

@@ -1,6 +1,6 @@
+import { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useCallback } from 'react';
 import { Button } from '../index';
 
 import styles from './PopupMovieCard.module.scss';

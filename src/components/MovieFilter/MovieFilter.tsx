@@ -1,19 +1,14 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import classNames from 'classnames';
 import { valueFilter } from '../../constants';
 
 import styles from './MovieFilter.module.scss';
 
-interface IMovieFilterProps {
-  activeGenre: string;
-  handleGenre: (e: MouseEvent<HTMLButtonElement>) => void;
-}
-
-export const MovieFilter = (props: IMovieFilterProps) => {
-  const { activeGenre, handleGenre } = props;
+export const MovieFilter = () => {
+  const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
 
   const onHandleGenre = (e: MouseEvent<HTMLButtonElement>) => {
-    handleGenre(e);
+    setActiveGenre(e.currentTarget.innerHTML);
   };
 
   return (

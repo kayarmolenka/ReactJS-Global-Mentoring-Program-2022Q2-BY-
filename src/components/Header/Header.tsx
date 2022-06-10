@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { SearchForm, NetflixRoulette, Button, Modal, CongratulationsModal } from '../index';
 import { ButtonType } from '../../models';
 import { ADD_MOVIE_TEXT } from '../../constants';
-import { useState } from 'react';
 
 import styles from './Header.module.scss';
 
@@ -31,8 +31,9 @@ export const Header = () => {
           setSuccessModal={setSuccessModal}
         />
       </div>
-      isSuccessModal &&
-      <CongratulationsModal isOpenModal={isSuccessModal} setIsOpenModal={setSuccessModal} />
+      {isSuccessModal && (
+        <CongratulationsModal isOpenModal={isSuccessModal} setIsOpenModal={setSuccessModal} />
+      )}
       <SearchForm />
     </header>
   );

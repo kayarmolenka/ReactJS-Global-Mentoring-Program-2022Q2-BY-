@@ -1,17 +1,15 @@
-import { valueFilter } from '../../constants';
-import { Button } from '../index';
-import { faCaretDown, faCaretUp, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useCallback, useState } from 'react';
+import { Button, MultipleDropdown } from '../index';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonType } from '../../models';
-import { date } from '../../mockDate/date';
 
 import styles from './Modal.module.scss';
 
 interface IInitialStateMovieDescription {
   title: string;
   releaseDate: number;
-  genre: string;
+  genre: string[];
   runtime?: string;
   overview?: string;
   rating?: string;
@@ -34,20 +32,12 @@ export const Modal = (props: IModalProps) => {
     releaseDate: '',
     movieUrl: '',
     rating: '',
-    genre: '',
+    genre: [],
     runtime: '',
     overview: '',
   };
 
   const [stateForm, setStateForm] = useState(initState);
-
-  const revertArrow = () => {
-    setGenreIsOpen(!genreIsOpen);
-  };
-
-  const switchToDateType = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.type = 'date';
-  };
 
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
@@ -64,6 +54,14 @@ export const Modal = (props: IModalProps) => {
     setStateForm((state) => ({
       ...state,
       [`${e.target.name}`]: e.target.value,
+    }));
+  };
+
+  const handleValueDropDown = (param: string[]) => {
+    // @ts-ignore
+    setStateForm((state) => ({
+      ...state,
+      genre: [...state.genre, ...param],
     }));
   };
 
@@ -89,7 +87,9 @@ export const Modal = (props: IModalProps) => {
         <div className={styles.modalContent}>
           <div className={styles.modalInputsFields}>
             <div className={styles.modalTitle}>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title" className={styles.modalContentLabel}>
+                Title
+              </label>
               <input
                 name="title"
                 type="text"
@@ -99,18 +99,21 @@ export const Modal = (props: IModalProps) => {
               />
             </div>
             <div className={styles.modalReleaseDate}>
-              <label htmlFor="release-date">Release date</label>
+              <label htmlFor="release-date" className={styles.modalContentLabel}>
+                Release date
+              </label>
               <input
                 name="releaseDate"
                 type="text"
                 placeholder="Select Date"
-                onFocus={switchToDateType}
                 value={stateForm.releaseDate}
                 onChange={onHandleFormItems}
               />
             </div>
             <div className={styles.modalMovieUrl}>
-              <label htmlFor="movie-url">Movie url</label>
+              <label htmlFor="movie-url" className={styles.modalContentLabel}>
+                Movie url
+              </label>
               <input
                 name="movieUrl"
                 type="text"
@@ -120,7 +123,9 @@ export const Modal = (props: IModalProps) => {
               />
             </div>
             <div className={styles.modalRating}>
-              <label htmlFor="rating">Rating</label>
+              <label htmlFor="rating" className={styles.modalContentLabel}>
+                Rating
+              </label>
               <input
                 name="rating"
                 type="text"
@@ -130,30 +135,18 @@ export const Modal = (props: IModalProps) => {
               />
             </div>
             <div className={styles.modalGenre}>
-              <label htmlFor="genre">Genre</label>
-              <select
-                className={styles.modalGenreSelect}
-                name="genre"
-                onClick={revertArrow}
-                value={stateForm.genre}
-                onChange={onHandleFormItems}
-              >
-                <option value="" disabled selected>
-                  Select Genre
-                </option>
-                {valueFilter.map((typeSort) => (
-                  <option key={typeSort} value={typeSort}>
-                    {typeSort}
-                  </option>
-                ))}
-              </select>
-              <FontAwesomeIcon
-                icon={genreIsOpen ? faCaretUp : faCaretDown}
-                className={styles.modalGenreIcon}
+              <MultipleDropdown
+                title="Select Genre"
+                isDropdownOpen={genreIsOpen}
+                setDropdownOpen={setGenreIsOpen}
+                initialValue={stateForm.genre}
+                handleValue={handleValueDropDown}
               />
             </div>
             <div className={styles.modalRuntime}>
-              <label htmlFor="runtime">Runtime</label>
+              <label htmlFor="runtime" className={styles.modalContentLabel}>
+                Runtime
+              </label>
               <input
                 name="runtime"
                 type="text"
@@ -164,7 +157,9 @@ export const Modal = (props: IModalProps) => {
             </div>
           </div>
           <div className={styles.modalOverview}>
-            <label htmlFor="overview">Overview</label>
+            <label htmlFor="overview" className={styles.modalContentLabel}>
+              Overview
+            </label>
             <textarea
               name="overview"
               placeholder="Movie description"
