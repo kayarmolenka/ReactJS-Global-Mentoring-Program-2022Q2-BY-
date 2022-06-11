@@ -160,6 +160,7 @@ export const Modal = (props: IModalProps) => {
                 handleValue={handleCheckbox}
                 choseGenres={stateForm.genre}
                 isShowValidationError={isShowValidationError}
+                setIsShowValidationError={setIsShowValidationError}
               />
             </div>
             <div className={styles.modalRuntime}>

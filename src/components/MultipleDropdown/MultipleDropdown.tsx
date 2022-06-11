@@ -12,6 +12,7 @@ interface IDropdownProps {
   handleValue: (e: ChangeEvent<HTMLInputElement>) => void;
   choseGenres: string[];
   isShowValidationError: boolean;
+  setIsShowValidationError: (params: boolean) => void;
 }
 
 export const MultipleDropdown = (props: IDropdownProps) => {
@@ -22,10 +23,12 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     choseGenres,
     handleValue,
     isShowValidationError,
+    setIsShowValidationError,
   } = props;
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
+    setIsShowValidationError(false);
   };
 
   return (
