@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { faCaretDown, faCaretUp, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { valueFilter } from '../../constants';
@@ -9,28 +9,23 @@ interface IDropdownProps {
   title: string;
   isDropdownOpen: boolean;
   setDropdownOpen: (params: boolean) => void;
-  initialValue: string[];
-  handleValue: (params: string[]) => void;
+  handleValue: (e: ChangeEvent<HTMLInputElement>) => void;
+  choseGenres: string[];
+  isShowValidationError: boolean;
 }
 
 export const MultipleDropdown = (props: IDropdownProps) => {
-  const { title, isDropdownOpen, setDropdownOpen, initialValue, handleValue } = props;
-  const [choseGenre, setChoseGenre] = useState<string[]>(initialValue);
+  const {
+    title,
+    isDropdownOpen,
+    setDropdownOpen,
+    choseGenres,
+    handleValue,
+    isShowValidationError,
+  } = props;
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    const clickedGenre = e.target.name;
-
-    if (choseGenre.includes(clickedGenre)) {
-      setChoseGenre([...choseGenre.filter((genre) => genre !== clickedGenre)]);
-      handleValue(choseGenre);
-    } else {
-      setChoseGenre([...choseGenre, clickedGenre]);
-      handleValue(choseGenre);
-    }
   };
 
   return (
@@ -46,6 +41,9 @@ export const MultipleDropdown = (props: IDropdownProps) => {
           <FontAwesomeIcon icon={faCaretDown} />
         )}
       </div>
+      {isShowValidationError && (
+        <span className={styles.genreValidationWarning}>Select at least one genre to proceed</span>
+      )}
       {isDropdownOpen ? (
         <div className={styles.multipleDropdownModal}>
           {valueFilter
@@ -57,11 +55,11 @@ export const MultipleDropdown = (props: IDropdownProps) => {
                   name={genre}
                   id={genre}
                   className={styles.input}
-                  checked={choseGenre.includes(genre)}
-                  onChange={handleCheckbox}
+                  checked={choseGenres.includes(genre)}
+                  onChange={handleValue}
                 />
                 <label htmlFor={genre} className={styles.option}>
-                  {choseGenre.includes(genre) && (
+                  {choseGenres.includes(genre) && (
                     <FontAwesomeIcon icon={faSquareCheck} className={styles.checkboxIcon} />
                   )}
                   {genre}

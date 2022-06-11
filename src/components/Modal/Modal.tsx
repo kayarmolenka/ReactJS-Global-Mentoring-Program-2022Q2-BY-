@@ -8,7 +8,7 @@ import styles from './Modal.module.scss';
 
 interface IInitialStateMovieDescription {
   title: string;
-  releaseDate: number;
+  releaseDate: number | string;
   genre: string[];
   runtime?: string;
   overview?: string;
@@ -27,7 +27,8 @@ interface IModalProps {
 export const Modal = (props: IModalProps) => {
   const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal, initialState } = props;
   const [genreIsOpen, setGenreIsOpen] = useState(false);
-  const initState = initialState || {
+  const [isShowValidationError, setIsShowValidationError] = useState(false);
+  const initState: IInitialStateMovieDescription = initialState || {
     title: '',
     releaseDate: '',
     movieUrl: '',
@@ -41,6 +42,9 @@ export const Modal = (props: IModalProps) => {
 
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
+    setGenreIsOpen(false);
+    setStateForm(initState);
+    setIsShowValidationError(false);
     document.body.style.overflow = 'auto';
   }, [setIsOpenModal]);
 
@@ -57,20 +61,34 @@ export const Modal = (props: IModalProps) => {
     }));
   };
 
-  const handleValueDropDown = (param: string[]) => {
-    // @ts-ignore
-    setStateForm((state) => ({
-      ...state,
-      genre: [...state.genre, ...param],
-    }));
+  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    const clickedGenre = e.target.name;
+
+    if (stateForm.genre.includes(clickedGenre)) {
+      setStateForm((state) => ({
+        ...state,
+        genre: [...state.genre.filter((genre) => genre !== clickedGenre)],
+      }));
+    } else {
+      setStateForm((state) => ({
+        ...state,
+        genre: [...state.genre, clickedGenre],
+      }));
+      setIsShowValidationError(false);
+    }
   };
 
   const completeAddMovie = () => {
-    document.body.style.overflow = 'auto';
-    setIsOpenModal(false);
-    setSuccessModal(true);
-    console.log(stateForm);
-    setStateForm(initState);
+    setGenreIsOpen(false);
+    if (!stateForm.genre.length) {
+      setIsShowValidationError(true);
+    } else {
+      document.body.style.overflow = 'auto';
+      setIsOpenModal(false);
+      setSuccessModal(true);
+      console.log(stateForm); //TODO for verify the data after submitting the form
+      setStateForm(initState);
+    }
   };
 
   return isOpenModal ? (
@@ -139,8 +157,9 @@ export const Modal = (props: IModalProps) => {
                 title="Select Genre"
                 isDropdownOpen={genreIsOpen}
                 setDropdownOpen={setGenreIsOpen}
-                initialValue={stateForm.genre}
-                handleValue={handleValueDropDown}
+                handleValue={handleCheckbox}
+                choseGenres={stateForm.genre}
+                isShowValidationError={isShowValidationError}
               />
             </div>
             <div className={styles.modalRuntime}>

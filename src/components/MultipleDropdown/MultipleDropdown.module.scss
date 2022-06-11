@@ -25,6 +25,17 @@
     line-height: 20px;
 }
 
+.genreValidationWarning {
+  @include font-family;
+  color: $pink;
+  font-size: 14px;
+  line-height: 17px;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  position: relative;
+  bottom: 23px;
+}
+
 .arrowIcon {
   color: $pink;
   position: relative;
@@ -74,5 +85,3 @@
     font-size: 19px;
   }
 }
-
-
