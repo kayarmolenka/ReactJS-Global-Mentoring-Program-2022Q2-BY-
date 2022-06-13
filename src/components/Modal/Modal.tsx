@@ -78,6 +78,14 @@ export const Modal = (props: IModalProps) => {
     }
   };
 
+  const switchToDateType = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.type = 'date';
+  };
+
+  const switchToTextType = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.type = 'text';
+  };
+
   const completeAddMovie = () => {
     setGenreIsOpen(false);
     if (!stateForm.genre.length) {
@@ -125,6 +133,8 @@ export const Modal = (props: IModalProps) => {
                 type="text"
                 placeholder="Select Date"
                 value={stateForm.releaseDate}
+                onFocus={switchToDateType}
+                onBlur={switchToTextType}
                 onChange={onHandleFormItems}
               />
             </div>

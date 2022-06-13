@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal } from '../index';
-import { useState } from 'react';
 
 import styles from './MovieCard.module.scss';
 
