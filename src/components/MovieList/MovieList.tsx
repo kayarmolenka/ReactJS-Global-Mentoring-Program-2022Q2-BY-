@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { MockData } from '../../mockDate/date';
 import { MovieCard } from '../index';
-import { useState } from 'react';
 
 import styles from './MovieList.module.scss';
 
