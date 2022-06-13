@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import classNames from 'classnames';
 import { valueFilter } from '../../constants';
 

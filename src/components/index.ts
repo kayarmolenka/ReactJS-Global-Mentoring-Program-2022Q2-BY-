@@ -11,3 +11,8 @@ export * from './CountMovie';
 export * from './MovieFilter';
 export * from './MovieSort';
 export * from './NetflixRoulette';
+export * from './Modal';
+export * from './CongratulationsModal';
+export * from './PopupMovieCard';
+export * from './DeleteMovie';
+export * from './MultipleDropdown';

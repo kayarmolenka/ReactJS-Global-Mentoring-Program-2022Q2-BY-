@@ -1,6 +1,6 @@
-import styles from './MovieSort.module.scss';
+import { valueSortMovie } from '../../constants';
 
-const valueSortMovie = ['Release Date', 'Rating', 'Runtime'];
+import styles from './MovieSort.module.scss';
 
 export const MovieSort = () => {
   return (
@@ -10,7 +10,7 @@ export const MovieSort = () => {
         <li className={styles.movieSortRealiseDate}>
           <select className={styles.movieSortSelect}>
             {valueSortMovie.map((typeSort) => (
-              <option key={typeSort} value={typeSort} defaultValue="Release Date">
+              <option key={typeSort} value={typeSort}>
                 {typeSort}
               </option>
             ))}

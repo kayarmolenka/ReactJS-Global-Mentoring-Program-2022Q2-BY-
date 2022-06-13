@@ -1,52 +1,60 @@
 @import "src/style/variables";
 @import "src/style/mixins";
 
-h1 {
-  @include font-family;
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 49px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: $white;
-  margin: 35px 0 38px 150px;
-}
-
-.searchForm {
-  flex-wrap: wrap;
+.searchFormWrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  .searchFormInput {
+  h1 {
     @include font-family;
-    background: rgba(50, 50, 50, 0.8);
-    mix-blend-mode: normal;
-    opacity: 0.7;
-    border-radius: 4px;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: $white;
-    padding: 0 0 0 19px;
-    height: 53px;
-    min-width: 300px;
-    width: 818px;
-    margin: 0 0 0 150px;
-  }
-  .searchFormBtn {
-    @include font-family;
-    color: $white;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 49px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    text-align: center;
-    background: $pink;
-    border-radius: 4px;
-    padding: 18px 73px 15px 74px;
-    cursor: pointer;
-    margin-left: 14px;
+    color: $white;
+    padding-right: 981px;
+  }
+
+  .searchForm {
+    flex-wrap: wrap;
     display: flex;
-    justify-content: center;
-    border: none;
+
+    .searchFormInput {
+      @include font-family;
+      background: rgba(50, 50, 50, 0.8);
+      mix-blend-mode: normal;
+      opacity: 0.7;
+      border-radius: 4px;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: $white;
+      padding: 0 800px 0 19px;
+      height: 53px;
+      min-width: 300px;
+    }
+    .searchFormBtn {
+      @include font-family;
+      color: $white;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+      background: $pink;
+      border-radius: 4px;
+      padding: 18px 73px 15px 74px;
+      cursor: pointer;
+      margin-left: 14px;
+      display: flex;
+      justify-content: center;
+      border: none;
+    }
   }
 }
+
+
+

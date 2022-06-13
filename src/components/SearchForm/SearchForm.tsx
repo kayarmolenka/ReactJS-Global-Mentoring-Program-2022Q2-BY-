@@ -9,7 +9,7 @@ export const SearchForm = () => {
   };
 
   return (
-    <>
+    <div className={styles.searchFormWrapper}>
       <h1>Find your movie</h1>
       <div className={styles.searchForm}>
         <input
@@ -24,6 +24,6 @@ export const SearchForm = () => {
           className={styles.searchFormBtn}
         />
       </div>
-    </>
+    </div>
   );
 };
