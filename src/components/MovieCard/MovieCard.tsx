@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal } from '../index';
@@ -19,6 +19,7 @@ export interface MovieCardProps {
   overview?: string;
   rating?: string;
   movieUrl?: string;
+  handleMovieCard: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
@@ -36,6 +37,7 @@ export const MovieCard = (props: MovieCardProps) => {
     movieUrl,
     runtime,
     rating,
+    handleMovieCard,
   } = props;
 
   const handleEditMenu = () => {
@@ -61,7 +63,7 @@ export const MovieCard = (props: MovieCardProps) => {
   };
 
   return (
-    <div className={styles.movieCard}>
+    <div className={styles.movieCard} onClick={handleMovieCard} id={title}>
       <div className={styles.movieCardImage}>
         <img src={poster} alt={title} className={styles.movieCardPoster} />
         <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={idMovie}>

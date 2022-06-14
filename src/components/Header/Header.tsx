@@ -1,40 +1,74 @@
-import { useState } from 'react';
-import { SearchForm, NetflixRoulette, Button, Modal, CongratulationsModal } from '../index';
-import { ButtonType } from '../../models';
-import { ADD_MOVIE_TEXT } from '../../constants';
+import { useCallback, useEffect, useState } from 'react';
+import { HeaderComponent } from './components';
+import { DescriptionMovie } from '../DescriptionMovie';
+import { date, MockData } from '../../mockDate/date';
 
-import styles from './Header.module.scss';
+interface IHeaderProps {
+  activeMovieDescriptionId: string;
+  isShowDescriptionMovie: boolean;
+  setIsShowDescriptionMovie: (param: boolean) => void;
+}
+export const Header = (props: IHeaderProps) => {
+  const { activeMovieDescriptionId, isShowDescriptionMovie, setIsShowDescriptionMovie } = props;
 
-export const Header = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSuccessModal, setSuccessModal] = useState(false);
+  const initState = {
+    id: 0,
+    genre: '',
+    poster: '',
+    movieUrl: '',
+    rating: '',
+    title: '',
+    releaseDate: 0,
+    overview: '',
+    runtime: '',
+  };
+  const [movieForDescription, setMovieForDescription] = useState<MockData>(initState);
+  const { genre, poster, title, releaseDate, rating, runtime, overview } = movieForDescription;
+
+  const handleSearchIcon = useCallback(() => {
+    setIsShowDescriptionMovie(false);
+  }, [isShowDescriptionMovie, setIsShowDescriptionMovie]);
 
   const addMovieHandle = () => {
     setIsOpenModal(true);
     document.body.style.overflow = 'hidden';
   };
 
+  const getDescriptionMovieData = useCallback(() => {
+    const [active] = date.filter((movie) => movie.title === activeMovieDescriptionId);
+    setMovieForDescription(active);
+  }, [activeMovieDescriptionId]);
+
+  useEffect(() => {
+    if (isShowDescriptionMovie) {
+      getDescriptionMovieData();
+    }
+  }, [setMovieForDescription, activeMovieDescriptionId, isShowDescriptionMovie]);
+
   return (
-    <header className={styles.header}>
-      <div className={styles.headerBot}>
-        <NetflixRoulette />
-        <Button
-          text={ADD_MOVIE_TEXT}
-          onClick={addMovieHandle}
-          type={ButtonType.SUBMIT}
-          className={styles.headerAddMovieBtn}
+    <>
+      {isShowDescriptionMovie ? (
+        <DescriptionMovie
+          title={title}
+          rating={rating}
+          overview={overview}
+          genre={genre}
+          runtime={runtime}
+          poster={poster}
+          realiseDate={releaseDate}
+          handleSearchIcon={handleSearchIcon}
         />
-        <Modal
-          textHeader="Add Movie"
+      ) : (
+        <HeaderComponent
           isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
+          isSuccessModal={isSuccessModal}
           setSuccessModal={setSuccessModal}
+          setIsOpenModal={setIsOpenModal}
+          addMovieHandle={addMovieHandle}
         />
-      </div>
-      {isSuccessModal && (
-        <CongratulationsModal isOpenModal={isSuccessModal} setIsOpenModal={setSuccessModal} />
       )}
-      <SearchForm />
-    </header>
+    </>
   );
 };

@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { Divider, CountMovie, MovieList } from '../index';
 import { MovieResultSearch } from '../../feature/containers/MovieResultSearch';
 import { date } from '../../mockDate/date';
 
-export const Main = () => {
+export const Main = ({
+  handleMovieCard,
+}: {
+  handleMovieCard: (e: MouseEvent<HTMLDivElement>) => void;
+}) => {
   const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   return (
@@ -15,6 +19,7 @@ export const Main = () => {
         movies={date}
         isShowEditModal={isShowEditModal}
         setIsShowEditModal={setIsShowEditModal}
+        handleMovieCard={handleMovieCard}
       />
     </main>
   );
