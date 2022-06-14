@@ -2,7 +2,7 @@ import { SearchForm, NetflixRoulette, Button, Modal, CongratulationsModal } from
 import { ADD_MOVIE_TEXT } from '../../../constants';
 import { ButtonType } from '../../../models';
 
-import styles from '../Header.module.scss';
+import styles from './HeaderComponent.module.scss';
 
 export interface IHeaderComponentProps {
   isOpenModal: boolean;

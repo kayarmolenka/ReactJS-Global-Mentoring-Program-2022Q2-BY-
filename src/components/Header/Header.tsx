@@ -47,28 +47,24 @@ export const Header = (props: IHeaderProps) => {
     }
   }, [setMovieForDescription, activeMovieDescriptionId, isShowDescriptionMovie]);
 
-  return (
-    <>
-      {isShowDescriptionMovie ? (
-        <DescriptionMovie
-          title={title}
-          rating={rating}
-          overview={overview}
-          genre={genre}
-          runtime={runtime}
-          poster={poster}
-          realiseDate={releaseDate}
-          handleSearchIcon={handleSearchIcon}
-        />
-      ) : (
-        <HeaderComponent
-          isOpenModal={isOpenModal}
-          isSuccessModal={isSuccessModal}
-          setSuccessModal={setSuccessModal}
-          setIsOpenModal={setIsOpenModal}
-          addMovieHandle={addMovieHandle}
-        />
-      )}
-    </>
+  return isShowDescriptionMovie ? (
+    <DescriptionMovie
+      title={title}
+      rating={rating}
+      overview={overview}
+      genre={genre}
+      runtime={runtime}
+      poster={poster}
+      realiseDate={releaseDate}
+      handleSearchIcon={handleSearchIcon}
+    />
+  ) : (
+    <HeaderComponent
+      isOpenModal={isOpenModal}
+      isSuccessModal={isSuccessModal}
+      setSuccessModal={setSuccessModal}
+      setIsOpenModal={setIsOpenModal}
+      addMovieHandle={addMovieHandle}
+    />
   );
 };

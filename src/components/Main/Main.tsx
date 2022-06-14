@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from 'react';
 import { Divider, CountMovie, MovieList } from '../index';
-import { MovieResultSearch } from '../../feature/containers/MovieResultSearch';
+import { MovieResultSearch } from '../../feature/containers';
 import { date } from '../../mockDate/date';
 
 export const Main = ({

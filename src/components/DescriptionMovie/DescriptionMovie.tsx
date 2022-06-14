@@ -20,12 +20,14 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
   return (
     <div className={styles.descriptionWrapper}>
       <div className={styles.descriptionHeader}>
-        <NetflixRoulette />
+        <div onClick={handleSearchIcon}>
+          <NetflixRoulette />
+        </div>
         <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} onClick={handleSearchIcon} />
       </div>
       <div className={styles.descriptionContent}>
         <div>
-          <img src={poster} alt={title} />
+          <img src={poster} alt={title} className={styles.descriptionImg} />
         </div>
         <div>
           <div className={styles.wrapperTitleRating}>

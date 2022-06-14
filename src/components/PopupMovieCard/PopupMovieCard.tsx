@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '../index';
+import { useClickOutside } from '../../hooks';
 
 import styles from './PopupMovieCard.module.scss';
 
@@ -35,8 +36,12 @@ export const PopupMovieCard = (props: IPopupMovieCardProps) => {
     setIsOpenModal(false);
   };
 
+  const domNode = useClickOutside(() => {
+    setIsOpenModal(false);
+  });
+
   return isOpenModal ? (
-    <div className={styles.modal} onClick={stopClosed}>
+    <div className={styles.modal} onClick={stopClosed} ref={domNode}>
       <div className={styles.modalCloseWrapper}>
         <FontAwesomeIcon
           icon={faXmark}
