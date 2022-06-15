@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { MockData } from '../../mockDate/date';
 import { MovieCard } from '../index';
 
@@ -8,7 +8,7 @@ interface IMovieListProps {
   movies: MockData[];
   isShowEditModal: boolean;
   setIsShowEditModal: (param: boolean) => void;
-  handleMovieCard: (e: MouseEvent<HTMLDivElement>) => void;
+  handleMovieCard: (id: number) => void;
 }
 
 export const MovieList = (props: IMovieListProps) => {
@@ -19,6 +19,10 @@ export const MovieList = (props: IMovieListProps) => {
   const setActivePopup = (id: number) => {
     setActivePopupById(id);
     setIsShowEditModal(true);
+  };
+
+  const openDescriptionCard = (id: number) => {
+    handleMovieCard(id);
   };
 
   return (
@@ -40,7 +44,7 @@ export const MovieList = (props: IMovieListProps) => {
             overview={overview}
             rating={rating}
             runtime={runtime}
-            handleMovieCard={handleMovieCard}
+            handleMovieCard={openDescriptionCard}
           />
         ),
       )}

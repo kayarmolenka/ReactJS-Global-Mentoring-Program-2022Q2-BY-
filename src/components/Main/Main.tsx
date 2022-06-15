@@ -1,13 +1,15 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { Divider, CountMovie, MovieList } from '../index';
 import { MovieResultSearch } from '../../feature/containers';
 import { date } from '../../mockDate/date';
 
-export const Main = ({
-  handleMovieCard,
-}: {
-  handleMovieCard: (e: MouseEvent<HTMLDivElement>) => void;
-}) => {
+interface IMainProps {
+  handleMovieCard: (id: number) => void;
+}
+
+export const Main = (props: IMainProps) => {
+  const { handleMovieCard } = props;
+
   const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   return (

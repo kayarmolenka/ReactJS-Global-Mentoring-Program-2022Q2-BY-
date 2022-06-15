@@ -1,27 +1,29 @@
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import { Header, Footer, ErrorBoundary, Main } from './components';
+import { INIT_STATE } from './constants';
+import { date } from './mockDate/date';
 
 import styles from './App.module.scss';
 
 export const App = () => {
-  const [activeMovieDescriptionId, setActiveMovieDescriptionId] = useState('');
-  const [isShowDescriptionMovie, setIsShowDescriptionMovie] = useState(false);
+  const [activeMovieDescription, setActiveMovieDescription] = useState(INIT_STATE);
 
-  const handleMovieCard = (e: SyntheticEvent) => {
-    const target = e.target as HTMLImageElement;
-    if (target.localName === 'img') {
-      setActiveMovieDescriptionId(e.currentTarget.id);
-      setIsShowDescriptionMovie(true);
-    }
+  const handleMovieCard = (id: number) => {
+    const [description] = date.filter((movie) => movie.id === id) || INIT_STATE;
+    console.log(description);
+    setActiveMovieDescription(description);
+  };
+
+  const handleMovieDescription = () => {
+    setActiveMovieDescription(INIT_STATE);
   };
 
   return (
     <ErrorBoundary>
       <div className={styles.app}>
         <Header
-          activeMovieDescriptionId={activeMovieDescriptionId}
-          isShowDescriptionMovie={isShowDescriptionMovie}
-          setIsShowDescriptionMovie={setIsShowDescriptionMovie}
+          activeMovieDescription={activeMovieDescription}
+          handleMovieDescription={handleMovieDescription}
         />
         <Main handleMovieCard={handleMovieCard} />
         <Footer />

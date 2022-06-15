@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal } from '../index';
@@ -19,7 +19,7 @@ export interface MovieCardProps {
   overview?: string;
   rating?: string;
   movieUrl?: string;
-  handleMovieCard: (e: MouseEvent<HTMLDivElement>) => void;
+  handleMovieCard: (id: number) => void;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
@@ -40,7 +40,8 @@ export const MovieCard = (props: MovieCardProps) => {
     handleMovieCard,
   } = props;
 
-  const handleEditMenu = () => {
+  const handleEditMenu = (e: SyntheticEvent) => {
+    e.stopPropagation();
     setActivePopup(idMovie);
     setIsShowEditModal(true);
   };
@@ -62,8 +63,12 @@ export const MovieCard = (props: MovieCardProps) => {
     overview,
   };
 
+  const showDescription = () => {
+    handleMovieCard(idMovie);
+  };
+
   return (
-    <div className={styles.movieCard} onClick={handleMovieCard} id={title}>
+    <div className={styles.movieCard} onClick={showDescription} id={title}>
       <div className={styles.movieCardImage}>
         <img src={poster} alt={title} className={styles.movieCardPoster} />
         <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={idMovie}>
