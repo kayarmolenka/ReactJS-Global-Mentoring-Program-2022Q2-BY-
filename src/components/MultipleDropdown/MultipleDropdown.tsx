@@ -35,7 +35,19 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     <>
       <label className={styles.modalLabel}>Genre</label>
       <button className={styles.title} onClick={toggleDropdown}>
-        {title}
+        {!choseGenres.length ? (
+          title
+        ) : (
+          <div>
+            <ul className={styles.listTags}>
+              {choseGenres.map((genre) => (
+                <li className={styles.listItem} key={genre}>
+                  {genre}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </button>
       <div className={styles.arrowIcon}>
         {isDropdownOpen ? (
