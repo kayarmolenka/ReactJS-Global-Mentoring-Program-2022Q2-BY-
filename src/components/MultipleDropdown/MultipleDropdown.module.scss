@@ -15,33 +15,16 @@
 
   .wrapperListTags {
     height: 47px;
-    overflow: hidden;
     width: 335px;
 
     .listTags {
-      list-style-type: none;
-      display: flex;
-      gap: 5px;
       margin-left: -40px;
-      margin-bottom: 14px;
       white-space: nowrap;
-
-      .listItem {
-        color: $white;
-      }
-
-      :last-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      :before {
-        content: ', ';
-      }
-
-      :first-child:before {
-        content: none;
-      }
+      color: $white;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 335px;
+      height: 47px;
     }
   }
 }

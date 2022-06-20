@@ -45,13 +45,7 @@ export const MultipleDropdown = (props: IDropdownProps) => {
             title
           ) : (
             <div className={styles.wrapperListTags}>
-              <ul className={styles.listTags}>
-                {choseGenres.map((genre) => (
-                  <div className={styles.listItem} key={genre}>
-                    {genre}
-                  </div>
-                ))}
-              </ul>
+              <ul className={styles.listTags}>{choseGenres.join()}</ul>
             </div>
           )}
         </button>
