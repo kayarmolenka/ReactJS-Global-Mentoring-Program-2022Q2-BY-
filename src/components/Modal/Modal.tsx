@@ -84,6 +84,7 @@ export const Modal = (props: IModalProps) => {
 
   const switchToTextType = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.type = 'text';
+    stateForm.releaseDate ? (e.target.value = String(stateForm.releaseDate)) : '';
   };
 
   const completeAddMovie = () => {

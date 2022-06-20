@@ -68,9 +68,14 @@ export const MovieCard = (props: MovieCardProps) => {
   };
 
   return (
-    <div className={styles.movieCard} onClick={showDescription} id={title}>
+    <div className={styles.movieCard} id={title}>
       <div className={styles.movieCardImage}>
-        <img src={poster} alt={title} className={styles.movieCardPoster} />
+        <img
+          src={poster}
+          alt={title}
+          className={styles.movieCardPoster}
+          onClick={showDescription}
+        />
         <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={idMovie}>
           <FontAwesomeIcon
             icon={faEllipsisVertical}

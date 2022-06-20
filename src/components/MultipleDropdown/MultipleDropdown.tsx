@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import { faCaretDown, faCaretUp, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { valueFilter } from '../../constants';
+import { useClickOutside } from '../../hooks';
 
 import styles from './MultipleDropdown.module.scss';
 
@@ -31,58 +32,66 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     setIsShowValidationError(false);
   };
 
+  const domNode = useClickOutside(() => {
+    setDropdownOpen(false);
+  });
+
   return (
     <>
       <label className={styles.modalLabel}>Genre</label>
-      <button className={styles.title} onClick={toggleDropdown}>
-        {!choseGenres.length ? (
-          title
-        ) : (
-          <div>
-            <ul className={styles.listTags}>
-              {choseGenres.map((genre) => (
-                <li className={styles.listItem} key={genre}>
-                  {genre}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </button>
-      <div className={styles.arrowIcon}>
-        {isDropdownOpen ? (
-          <FontAwesomeIcon icon={faCaretUp} />
-        ) : (
-          <FontAwesomeIcon icon={faCaretDown} />
-        )}
-      </div>
-      {isShowValidationError && (
-        <span className={styles.genreValidationWarning}>Select at least one genre to proceed</span>
-      )}
-      {isDropdownOpen ? (
-        <div className={styles.multipleDropdownModal}>
-          {valueFilter
-            .filter((genre) => genre !== 'All')
-            .map((genre) => (
-              <div key={genre}>
-                <input
-                  type="checkbox"
-                  name={genre}
-                  id={genre}
-                  className={styles.input}
-                  checked={choseGenres.includes(genre)}
-                  onChange={handleValue}
-                />
-                <label htmlFor={genre} className={styles.option}>
-                  {choseGenres.includes(genre) && (
-                    <FontAwesomeIcon icon={faSquareCheck} className={styles.checkboxIcon} />
-                  )}
-                  {genre}
-                </label>
-              </div>
-            ))}
+      <div ref={domNode}>
+        <button className={styles.title} onClick={toggleDropdown}>
+          {!choseGenres.length ? (
+            title
+          ) : (
+            <div className={styles.wrapperListTags}>
+              <ul className={styles.listTags}>
+                {choseGenres.map((genre) => (
+                  <div className={styles.listItem} key={genre}>
+                    {genre}
+                  </div>
+                ))}
+              </ul>
+            </div>
+          )}
+        </button>
+        <div className={styles.arrowIcon}>
+          {isDropdownOpen ? (
+            <FontAwesomeIcon icon={faCaretUp} />
+          ) : (
+            <FontAwesomeIcon icon={faCaretDown} />
+          )}
         </div>
-      ) : null}
+        {isShowValidationError && (
+          <span className={styles.genreValidationWarning}>
+            Select at least one genre to proceed
+          </span>
+        )}
+        {isDropdownOpen ? (
+          <div className={styles.multipleDropdownModal}>
+            {valueFilter
+              .filter((genre) => genre !== 'All')
+              .map((genre) => (
+                <div key={genre}>
+                  <input
+                    type="checkbox"
+                    name={genre}
+                    id={genre}
+                    className={styles.input}
+                    checked={choseGenres.includes(genre)}
+                    onChange={handleValue}
+                  />
+                  <label htmlFor={genre} className={styles.option}>
+                    {choseGenres.includes(genre) && (
+                      <FontAwesomeIcon icon={faSquareCheck} className={styles.checkboxIcon} />
+                    )}
+                    {genre}
+                  </label>
+                </div>
+              ))}
+          </div>
+        ) : null}
+      </div>
     </>
   );
 };

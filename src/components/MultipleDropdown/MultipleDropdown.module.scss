@@ -13,15 +13,35 @@
   text-align: initial;
   padding-left: 16px;
 
-  .listTags {
-    list-style-type: none;
-    display: flex;
-    gap: 5px;
-    margin-left: -40px;
-    margin-bottom: 14px;
+  .wrapperListTags {
+    height: 47px;
+    overflow: hidden;
+    width: 335px;
 
-    .listItem {
-      color: $white;
+    .listTags {
+      list-style-type: none;
+      display: flex;
+      gap: 5px;
+      margin-left: -40px;
+      margin-bottom: 14px;
+      white-space: nowrap;
+
+      .listItem {
+        color: $white;
+      }
+
+      :last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      :before {
+        content: ', ';
+      }
+
+      :first-child:before {
+        content: none;
+      }
     }
   }
 }

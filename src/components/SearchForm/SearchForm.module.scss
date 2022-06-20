@@ -34,7 +34,18 @@
       color: $white;
       height: 53px;
       min-width: 300px;
+      padding: 0 20px;
+      width: 91%;
     }
+
+    .searchFormIcon {
+      color: $pink;
+      position: relative;
+      right: 28px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
     .searchFormBtn {
       @include font-family;
       color: $white;
@@ -54,6 +65,3 @@
     }
   }
 }
-
-
-
