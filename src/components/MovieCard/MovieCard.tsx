@@ -58,7 +58,7 @@ export const MovieCard = (props: MovieCardProps) => {
     releaseDate,
     movieUrl,
     rating,
-    genre: [genre],
+    genre: [...genre.split(',').map((s) => s.trim())],
     runtime,
     overview,
   };

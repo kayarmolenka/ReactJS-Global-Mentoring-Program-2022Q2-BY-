@@ -3,6 +3,7 @@ import { Button, MultipleDropdown } from '../index';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonType } from '../../models';
+import { valueFilter } from '../../constants';
 
 import styles from './Modal.module.scss';
 
@@ -39,6 +40,15 @@ export const Modal = (props: IModalProps) => {
   };
 
   const [stateForm, setStateForm] = useState(initState);
+
+  const genresValue = [
+    ...new Set([
+      ...valueFilter
+        .filter((genre) => genre !== 'All')
+        .concat(initialState?.genre || [])
+        .sort(),
+    ]),
+  ];
 
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
@@ -172,6 +182,7 @@ export const Modal = (props: IModalProps) => {
                 choseGenres={stateForm.genre}
                 isShowValidationError={isShowValidationError}
                 setIsShowValidationError={setIsShowValidationError}
+                genresValue={genresValue}
               />
             </div>
             <div className={styles.modalRuntime}>

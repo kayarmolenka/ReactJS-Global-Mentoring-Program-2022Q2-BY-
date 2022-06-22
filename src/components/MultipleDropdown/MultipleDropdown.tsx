@@ -1,7 +1,6 @@
 import { ChangeEvent } from 'react';
 import { faCaretDown, faCaretUp, faSquareCheck, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { valueFilter } from '../../constants';
 import { useClickOutside } from '../../hooks';
 
 import styles from './MultipleDropdown.module.scss';
@@ -14,6 +13,7 @@ interface IDropdownProps {
   choseGenres: string[];
   isShowValidationError: boolean;
   setIsShowValidationError: (params: boolean) => void;
+  genresValue: string[];
 }
 
 export const MultipleDropdown = (props: IDropdownProps) => {
@@ -25,6 +25,7 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     handleValue,
     isShowValidationError,
     setIsShowValidationError,
+    genresValue,
   } = props;
 
   const toggleDropdown = () => {
@@ -62,10 +63,9 @@ export const MultipleDropdown = (props: IDropdownProps) => {
           </span>
         )}
         {isDropdownOpen ? (
-          <div className={styles.multipleDropdownModal}>
-            {valueFilter
-              .filter((genre) => genre !== 'All')
-              .map((genre) => (
+          <div>
+            <div className={styles.multipleDropdownModal}>
+              {genresValue.map((genre) => (
                 <div key={genre} className={styles.row}>
                   <input
                     type="checkbox"
@@ -86,6 +86,7 @@ export const MultipleDropdown = (props: IDropdownProps) => {
                   </label>
                 </div>
               ))}
+            </div>
           </div>
         ) : null}
       </div>
