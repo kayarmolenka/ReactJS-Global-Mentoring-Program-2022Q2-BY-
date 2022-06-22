@@ -11,6 +11,7 @@
     color: $white;
     mix-blend-mode: normal;
     opacity: 0.6;
+    padding:8px;
   }
 
   .movieSortRealiseDate {
@@ -21,6 +22,8 @@
       color: $pink;
       position: relative;
       right: 16px;
+      font-size: 21px;
+      top: 4px;
     }
   }
 
@@ -35,6 +38,7 @@
     cursor: pointer;
     appearance: none;
     background: rgba(35, 35, 35, 1);
+    padding: 8px;
   }
 
   ul {
