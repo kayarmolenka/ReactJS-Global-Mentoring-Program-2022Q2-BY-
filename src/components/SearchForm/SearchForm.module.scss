@@ -22,6 +22,10 @@
     display: grid;
     grid-template-columns: 5fr 1fr;
 
+    .inputBlock {
+      white-space: nowrap;
+    }
+
     .searchFormInput {
       @include font-family;
       background: rgba(50, 50, 50, 0.8);

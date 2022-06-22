@@ -30,7 +30,7 @@ export const SearchForm = () => {
     <div className={styles.searchFormWrapper}>
       <h1>Find your movie</h1>
       <div className={styles.searchForm}>
-        <div>
+        <div className={styles.inputBlock}>
           <input
             placeholder="What do you want to watch?"
             className={styles.searchFormInput}
