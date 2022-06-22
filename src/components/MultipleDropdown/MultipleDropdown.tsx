@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { faCaretDown, faCaretUp, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faSquareCheck, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { valueFilter } from '../../constants';
 import { useClickOutside } from '../../hooks';
@@ -66,7 +66,7 @@ export const MultipleDropdown = (props: IDropdownProps) => {
             {valueFilter
               .filter((genre) => genre !== 'All')
               .map((genre) => (
-                <div key={genre}>
+                <div key={genre} className={styles.row}>
                   <input
                     type="checkbox"
                     name={genre}
@@ -77,7 +77,10 @@ export const MultipleDropdown = (props: IDropdownProps) => {
                   />
                   <label htmlFor={genre} className={styles.option}>
                     {choseGenres.includes(genre) && (
-                      <FontAwesomeIcon icon={faSquareCheck} className={styles.checkboxIcon} />
+                      <div className={styles.wrapperIcons}>
+                        <FontAwesomeIcon icon={faSquare} className={styles.faSquare} />
+                        <FontAwesomeIcon icon={faSquareCheck} className={styles.checkboxIcon} />
+                      </div>
                     )}
                     {genre}
                   </label>

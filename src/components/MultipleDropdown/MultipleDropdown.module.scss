@@ -74,29 +74,42 @@
   flex-direction: column;
   gap: 4px;
 
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
   .option {
     border: none;
     @include font-family;
     font-size: 20px;
     color: #FFFFFF;
     mix-blend-mode: normal;
-    opacity: 0.8;
     background: rgba(35, 35, 35, 0.918051);
     cursor: pointer;
-  }
+    display: flex;
 
-  .option:hover {
-    color: $pink;
+    .wrapperIcons {
+      position: absolute;
+    }
   }
 
   .input {
-    transform: scale(1.3);
+    transform: scale(1.2);
+  }
+
+  .faSquare {
+    position: relative;
+    right: 18px;
+    font-size: 18px;
   }
 
   .checkboxIcon {
     position: relative;
-    right: 18px;
+    right: 35px;
+    top: 1px;
     color: $pink;
-    font-size: 19px;
+    font-size: 21px;
   }
 }
