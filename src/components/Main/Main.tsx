@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { Divider, CountMovie, MovieList } from '../index';
-import { MovieResultSearch } from '../../feature/containers/MovieResultSearch';
+import { MovieResultSearch } from '../../feature/containers';
 import { date } from '../../mockDate/date';
 
-export const Main = () => {
+interface IMainProps {
+  handleMovieCard: (id: number) => void;
+}
+
+export const Main = (props: IMainProps) => {
+  const { handleMovieCard } = props;
+
   const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   return (
@@ -15,6 +21,7 @@ export const Main = () => {
         movies={date}
         isShowEditModal={isShowEditModal}
         setIsShowEditModal={setIsShowEditModal}
+        handleMovieCard={handleMovieCard}
       />
     </main>
   );

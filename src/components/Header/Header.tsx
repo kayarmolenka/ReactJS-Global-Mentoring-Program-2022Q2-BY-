@@ -1,40 +1,46 @@
-import { useState } from 'react';
-import { SearchForm, NetflixRoulette, Button, Modal, CongratulationsModal } from '../index';
-import { ButtonType } from '../../models';
-import { ADD_MOVIE_TEXT } from '../../constants';
+import { useCallback, useState } from 'react';
+import { HeaderComponent } from './components';
+import { DescriptionMovie } from '../DescriptionMovie';
+import { MockData } from '../../mockDate/date';
 
-import styles from './Header.module.scss';
+interface IHeaderProps {
+  activeMovieDescription: MockData;
+  handleMovieDescription: () => void;
+}
+export const Header = (props: IHeaderProps) => {
+  const { activeMovieDescription, handleMovieDescription } = props;
 
-export const Header = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSuccessModal, setSuccessModal] = useState(false);
+  const { genre, poster, title, releaseDate, rating, runtime, overview } = activeMovieDescription;
+
+  const handleSearchIcon = useCallback(() => {
+    handleMovieDescription();
+  }, [activeMovieDescription]);
 
   const addMovieHandle = () => {
     setIsOpenModal(true);
     document.body.style.overflow = 'hidden';
   };
 
-  return (
-    <header className={styles.header}>
-      <div className={styles.headerBot}>
-        <NetflixRoulette />
-        <Button
-          text={ADD_MOVIE_TEXT}
-          onClick={addMovieHandle}
-          type={ButtonType.SUBMIT}
-          className={styles.headerAddMovieBtn}
-        />
-        <Modal
-          textHeader="Add Movie"
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
-          setSuccessModal={setSuccessModal}
-        />
-      </div>
-      {isSuccessModal && (
-        <CongratulationsModal isOpenModal={isSuccessModal} setIsOpenModal={setSuccessModal} />
-      )}
-      <SearchForm />
-    </header>
+  return !!activeMovieDescription.id ? (
+    <DescriptionMovie
+      title={title}
+      rating={rating}
+      overview={overview}
+      genre={genre}
+      runtime={runtime}
+      poster={poster}
+      realiseDate={releaseDate}
+      handleSearchIcon={handleSearchIcon}
+    />
+  ) : (
+    <HeaderComponent
+      isOpenModal={isOpenModal}
+      isSuccessModal={isSuccessModal}
+      setSuccessModal={setSuccessModal}
+      setIsOpenModal={setIsOpenModal}
+      addMovieHandle={addMovieHandle}
+    />
   );
 };

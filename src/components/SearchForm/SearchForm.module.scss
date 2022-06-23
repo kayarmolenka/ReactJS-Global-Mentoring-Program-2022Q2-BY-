@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding: 0 150px;
 
   h1 {
     @include font-family;
@@ -15,12 +15,16 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     color: $white;
-    padding-right: 981px;
   }
 
   .searchForm {
     flex-wrap: wrap;
-    display: flex;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+
+    .inputBlock {
+      white-space: nowrap;
+    }
 
     .searchFormInput {
       @include font-family;
@@ -32,10 +36,20 @@
       font-size: 20px;
       line-height: 24px;
       color: $white;
-      padding: 0 800px 0 19px;
       height: 53px;
       min-width: 300px;
+      padding: 0 20px;
+      width: 91%;
     }
+
+    .searchFormIcon {
+      color: $pink;
+      position: relative;
+      right: 28px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
     .searchFormBtn {
       @include font-family;
       color: $white;
@@ -55,6 +69,3 @@
     }
   }
 }
-
-
-

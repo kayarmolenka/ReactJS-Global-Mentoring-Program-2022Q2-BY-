@@ -1,4 +1,6 @@
 import { valueSortMovie } from '../../constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './MovieSort.module.scss';
 
@@ -15,6 +17,7 @@ export const MovieSort = () => {
               </option>
             ))}
           </select>
+          <FontAwesomeIcon icon={faCaretDown} className={styles.movieSortIconCaret} />
         </li>
       </ul>
     </div>

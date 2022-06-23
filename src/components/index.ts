@@ -16,3 +16,4 @@ export * from './CongratulationsModal';
 export * from './PopupMovieCard';
 export * from './DeleteMovie';
 export * from './MultipleDropdown';
+export * from './DescriptionMovie';

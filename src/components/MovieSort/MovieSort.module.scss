@@ -11,24 +11,34 @@
     color: $white;
     mix-blend-mode: normal;
     opacity: 0.6;
+    padding:8px;
   }
 
   .movieSortRealiseDate {
     display: flex;
     align-items: flex-start;
+
+    .movieSortIconCaret {
+      color: $pink;
+      position: relative;
+      right: 16px;
+      font-size: 21px;
+      top: 4px;
+    }
   }
 
   .movieSortSelect {
     @include font-family;
     font-size: 16px;
-    width: 196px;
+    width: 210px;
     letter-spacing: 0.888889px;
     text-transform: uppercase;
     color: $white;
     border: none;
     cursor: pointer;
     appearance: none;
-    background: rgba(35, 35, 35, 1) url("../../assets/images/arrow.png") no-repeat right;
+    background: rgba(35, 35, 35, 1);
+    padding: 8px;
   }
 
   ul {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal } from '../index';
@@ -19,6 +19,7 @@ export interface MovieCardProps {
   overview?: string;
   rating?: string;
   movieUrl?: string;
+  handleMovieCard: (id: number) => void;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
@@ -36,9 +37,11 @@ export const MovieCard = (props: MovieCardProps) => {
     movieUrl,
     runtime,
     rating,
+    handleMovieCard,
   } = props;
 
-  const handleEditMenu = () => {
+  const handleEditMenu = (e: SyntheticEvent) => {
+    e.stopPropagation();
     setActivePopup(idMovie);
     setIsShowEditModal(true);
   };
@@ -55,15 +58,24 @@ export const MovieCard = (props: MovieCardProps) => {
     releaseDate,
     movieUrl,
     rating,
-    genre: [genre],
+    genre: [...genre.split(',').map((s) => s.trim())],
     runtime,
     overview,
   };
 
+  const showDescription = () => {
+    handleMovieCard(idMovie);
+  };
+
   return (
-    <div className={styles.movieCard}>
+    <div className={styles.movieCard} id={title}>
       <div className={styles.movieCardImage}>
-        <img src={poster} alt={title} className={styles.movieCardPoster} />
+        <img
+          src={poster}
+          alt={title}
+          className={styles.movieCardPoster}
+          onClick={showDescription}
+        />
         <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={idMovie}>
           <FontAwesomeIcon
             icon={faEllipsisVertical}

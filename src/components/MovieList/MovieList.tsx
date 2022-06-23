@@ -8,16 +8,21 @@ interface IMovieListProps {
   movies: MockData[];
   isShowEditModal: boolean;
   setIsShowEditModal: (param: boolean) => void;
+  handleMovieCard: (id: number) => void;
 }
 
 export const MovieList = (props: IMovieListProps) => {
-  const { movies, isShowEditModal, setIsShowEditModal } = props;
+  const { movies, isShowEditModal, setIsShowEditModal, handleMovieCard } = props;
 
   const [activePopupId, setActivePopupById] = useState(0);
 
   const setActivePopup = (id: number) => {
     setActivePopupById(id);
     setIsShowEditModal(true);
+  };
+
+  const openDescriptionCard = (id: number) => {
+    handleMovieCard(id);
   };
 
   return (
@@ -39,6 +44,7 @@ export const MovieList = (props: IMovieListProps) => {
             overview={overview}
             rating={rating}
             runtime={runtime}
+            handleMovieCard={openDescriptionCard}
           />
         ),
       )}
