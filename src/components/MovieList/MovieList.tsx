@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { MockData } from '../../mockDate/date';
+import { IMovieList } from '../../models';
 import { MovieCard } from '../index';
 
 import styles from './MovieList.module.scss';
 
 interface IMovieListProps {
-  movies: MockData[];
+  movies: IMovieList[];
   isShowEditModal: boolean;
   setIsShowEditModal: (param: boolean) => void;
   handleMovieCard: (id: number) => void;
@@ -28,23 +28,39 @@ export const MovieList = (props: IMovieListProps) => {
   return (
     <div className={styles.movieList}>
       {movies.map(
-        ({ id, title, poster, releaseDate, genre, movieUrl, runtime, rating, overview }) => (
+        ({
+          id,
+          title,
+          poster_path,
+          release_date,
+          genres,
+          runtime,
+          revenue,
+          tagline,
+          vote_count,
+          budget,
+          vote_average,
+          overview,
+        }) => (
           <MovieCard
             title={title}
-            poster={poster}
-            releaseDate={releaseDate}
-            genre={genre}
+            poster_path={poster_path}
+            release_date={release_date}
+            genres={genres}
             key={id}
             isShowEditModal={isShowEditModal}
             setIsShowEditModal={setIsShowEditModal}
-            idMovie={id}
+            id={id}
             setActivePopup={setActivePopup}
             activePopupId={activePopupId}
-            movieUrl={movieUrl}
             overview={overview}
-            rating={rating}
+            vote_average={vote_average}
             runtime={runtime}
             handleMovieCard={openDescriptionCard}
+            revenue={revenue}
+            tagline={tagline}
+            vote_count={vote_count}
+            budget={budget}
           />
         ),
       )}

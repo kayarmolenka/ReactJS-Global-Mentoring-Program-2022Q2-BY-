@@ -7,16 +7,28 @@ import styles from './DescriptionMovie.module.scss';
 interface IDescriptionMovieProps {
   title: string;
   poster: string;
-  realiseDate: number;
-  genre: string;
-  rating?: string;
-  runtime?: string;
+  realiseDate: string;
+  genres: string[];
+  rating?: number;
+  runtime?: number;
   overview?: string;
   handleSearchIcon: () => void;
+  handleErrorImage: () => void;
 }
 
 export const DescriptionMovie = (props: IDescriptionMovieProps) => {
-  const { realiseDate, title, poster, genre, rating, runtime, overview, handleSearchIcon } = props;
+  const {
+    realiseDate,
+    title,
+    poster,
+    genres,
+    rating,
+    runtime,
+    overview,
+    handleSearchIcon,
+    handleErrorImage,
+  } = props;
+
   return (
     <div className={styles.descriptionWrapper}>
       <div className={styles.descriptionHeader}>
@@ -27,7 +39,12 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
       </div>
       <div className={styles.descriptionContent}>
         <div>
-          <img src={poster} alt={title} className={styles.descriptionImg} />
+          <img
+            src={poster}
+            alt={title}
+            className={styles.descriptionImg}
+            onError={handleErrorImage}
+          />
         </div>
         <div>
           <div className={styles.wrapperTitleRating}>
@@ -35,7 +52,11 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
             <span className={styles.descriptionRating}>{rating}</span>
           </div>
           <div>
-            <span className={styles.descriptionGenre}>{genre}</span>
+            <span className={styles.descriptionGenre}>
+              {genres.map((genre) => (
+                <li key={genre}>{genre}</li>
+              ))}
+            </span>
           </div>
           <div className={styles.wrapperReleaseDataRuntime}>
             <span>{realiseDate}</span>

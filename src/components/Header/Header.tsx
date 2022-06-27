@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HeaderComponent } from './components';
 import { DescriptionMovie } from '../DescriptionMovie';
-import { MockData } from '../../mockDate/date';
+import { IMovieList } from '../../models';
+import { DEFAULT_SRC } from '../../constants';
 
 interface IHeaderProps {
-  activeMovieDescription: MockData;
+  activeMovieDescription: IMovieList;
   handleMovieDescription: () => void;
 }
 export const Header = (props: IHeaderProps) => {
@@ -12,7 +13,9 @@ export const Header = (props: IHeaderProps) => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSuccessModal, setSuccessModal] = useState(false);
-  const { genre, poster, title, releaseDate, rating, runtime, overview } = activeMovieDescription;
+  const { genres, poster_path, title, release_date, vote_average, runtime, overview } =
+    activeMovieDescription;
+  const [srcImg, setSrcImg] = useState(poster_path ? poster_path : DEFAULT_SRC);
 
   const handleSearchIcon = useCallback(() => {
     handleMovieDescription();
@@ -23,16 +26,27 @@ export const Header = (props: IHeaderProps) => {
     document.body.style.overflow = 'hidden';
   };
 
+  const handleErrorImage = () => {
+    setSrcImg(DEFAULT_SRC);
+  };
+
+  useEffect(() => {
+    if (activeMovieDescription.id) {
+      setSrcImg(poster_path);
+    }
+  }, [activeMovieDescription, poster_path]);
+
   return !!activeMovieDescription.id ? (
     <DescriptionMovie
       title={title}
-      rating={rating}
+      rating={vote_average}
       overview={overview}
-      genre={genre}
+      genres={genres}
       runtime={runtime}
-      poster={poster}
-      realiseDate={releaseDate}
+      poster={srcImg}
+      realiseDate={release_date}
       handleSearchIcon={handleSearchIcon}
+      handleErrorImage={handleErrorImage}
     />
   ) : (
     <HeaderComponent

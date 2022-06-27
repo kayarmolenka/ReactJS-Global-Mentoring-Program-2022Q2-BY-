@@ -9,12 +9,12 @@ import styles from './Modal.module.scss';
 
 interface IInitialStateMovieDescription {
   title: string;
-  releaseDate: number | string;
+  releaseDate: string;
   genre: string[];
-  runtime?: string;
-  overview?: string;
-  rating?: string;
-  movieUrl?: string;
+  runtime: number | string;
+  overview: string;
+  rating: number | string;
+  movieUrl: string;
 }
 
 interface IModalProps {
