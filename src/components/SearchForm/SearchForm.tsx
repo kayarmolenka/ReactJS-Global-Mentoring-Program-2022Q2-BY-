@@ -8,7 +8,7 @@ import styles from './SearchForm.module.scss';
 
 export const SearchForm = () => {
   const searchHandle = () => {
-    console.log('searchHandle');
+    console.log('searchHandle'); //TODO for search form
   };
 
   const [isVisibleCross, setIsVisibleCross] = useState(false);

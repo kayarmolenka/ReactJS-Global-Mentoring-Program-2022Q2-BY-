@@ -1,24 +1,31 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { MovieFilter, MovieSort } from '../../../components';
-import { fetchSortedMovieList } from '../../../store/applications';
+import {
+  fetchFilteredMovieList,
+  fetchMovieList,
+  fetchSortedMovieList,
+} from '../../../store/applications';
 import { useAppDispatch } from '../../../store';
+import { mapSortsName } from '../../../utils';
+import { valueFilter } from '../../../constants';
 
 import styles from './MovieResultSearch.module.scss';
 
-const mapSortsName = (typeSort: string) => {
-  if (typeSort === 'Release date') {
-    return 'release_date';
-  }
-  if (typeSort === 'Genre') {
-    return 'genres';
-  }
-
-  return 'vote_average';
-};
-
 export const MovieResultSearch = () => {
   const [chosenTypeSorting, setChosenTypeSorting] = useState('');
+  const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
+
   const dispatch = useAppDispatch();
+
+  const onHandleGenre = (e: MouseEvent<HTMLButtonElement>) => {
+    setActiveGenre(e.currentTarget.innerHTML);
+
+    if (e.currentTarget.innerHTML !== 'All') {
+      dispatch(fetchFilteredMovieList(e.currentTarget.innerHTML));
+      return;
+    }
+    dispatch(fetchMovieList());
+  };
 
   useEffect(() => {
     if (chosenTypeSorting) {
@@ -28,7 +35,7 @@ export const MovieResultSearch = () => {
 
   return (
     <div className={styles.movieResultSearch}>
-      <MovieFilter />
+      <MovieFilter activeGenre={activeGenre} onHandleGenre={onHandleGenre} />
       <MovieSort
         chosenTypeSorting={chosenTypeSorting}
         setChosenTypeSorting={setChosenTypeSorting}

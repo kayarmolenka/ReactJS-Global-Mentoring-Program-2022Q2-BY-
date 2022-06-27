@@ -22,6 +22,7 @@ const initialState: IApplicationState = {
 
 const FETCH_MOVIE_LIST = 'application/fetchMovieList';
 const FETCH_SORTED_MOVIE_LIST = 'application/fetchSortedMovieList';
+const FETCH_FILTERED_MOVIE_LIST = 'application/fetchFilteredMovieList';
 const API_URL = 'http://localhost:4000/';
 
 export const fetchMovieList = createAsyncThunk<
@@ -42,10 +43,21 @@ export const fetchSortedMovieList = createAsyncThunk<
   { state: RootState; rejectedValue: string }
 >(FETCH_SORTED_MOVIE_LIST, async (payload, thunkApi) => {
   try {
-    console.log(payload);
     return await applicationService(
       `${API_URL}movies?sortBy=${payload}&sortOrder=asc&offset=1&limit=12`,
     );
+  } catch (error) {
+    thunkApi.rejectWithValue((error as Error).message);
+  }
+});
+
+export const fetchFilteredMovieList = createAsyncThunk<
+  IFetchMovieListResponse | undefined,
+  ISortingType,
+  { state: RootState; rejectedValue: string }
+>(FETCH_FILTERED_MOVIE_LIST, async (filterName, thunkApi) => {
+  try {
+    return await applicationService(`${API_URL}movies?filter=${filterName}&offset=1&limit=12`);
   } catch (error) {
     thunkApi.rejectWithValue((error as Error).message);
   }
@@ -61,6 +73,10 @@ export const applicationSlice = createSlice({
     });
 
     builder.addCase(fetchSortedMovieList.fulfilled, (state, action) => {
+      state.movieList = action.payload?.data || [];
+    });
+
+    builder.addCase(fetchFilteredMovieList.fulfilled, (state, action) => {
       state.movieList = action.payload?.data || [];
     });
   },

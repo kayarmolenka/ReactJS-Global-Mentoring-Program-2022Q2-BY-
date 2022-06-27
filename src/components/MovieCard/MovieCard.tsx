@@ -35,7 +35,7 @@ export const MovieCard = (props: MovieCardProps) => {
   const [srcImg, setSrcImg] = useState(poster_path ? poster_path : DEFAULT_SRC);
 
   const completeEditMovie = () => {
-    console.log('Completed edit movie');
+    console.log('Completed edit movie'); // TODO for edit movie functionality
   };
 
   const descriptionMovie = {

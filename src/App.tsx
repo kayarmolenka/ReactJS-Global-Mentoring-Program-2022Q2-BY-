@@ -13,7 +13,6 @@ export const App = () => {
 
   const handleMovieCard = (id: number) => {
     const [description] = movies.filter((movie) => movie.id === id) || INIT_STATE;
-    console.log(description);
     setActiveMovieDescription(description);
   };
 

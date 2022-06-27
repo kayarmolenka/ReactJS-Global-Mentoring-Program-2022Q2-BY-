@@ -60,7 +60,7 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
           </div>
           <div className={styles.wrapperReleaseDataRuntime}>
             <span>{realiseDate}</span>
-            <span>{runtime}</span>
+            <span>{`${runtime} min`}</span>
           </div>
           <p className={styles.descriptionOverview}>{overview}</p>
         </div>
