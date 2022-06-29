@@ -2,7 +2,7 @@ import { IMovieList } from '../models';
 
 export const ADD_MOVIE_TEXT = '+ add movie';
 export const valueFilter = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-export const valueSortMovie = ['Select', 'Release date', 'Genre', 'Rating'];
+export const valueSortMovie = ['Release date', 'Genre', 'Rating'];
 
 export const INIT_STATE: IMovieList = {
   budget: 0,

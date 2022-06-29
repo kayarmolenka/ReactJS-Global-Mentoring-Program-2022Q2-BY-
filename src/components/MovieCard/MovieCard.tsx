@@ -9,21 +9,16 @@ import styles from './MovieCard.module.scss';
 
 export const MovieCard = (props: MovieCardProps) => {
   const {
-    genres,
-    poster_path,
-    title,
-    release_date,
     isShowEditModal,
     setIsShowEditModal,
-    id,
     setActivePopup,
     activePopupId,
-    overview,
-    runtime,
-    vote_average,
     handleMovieCard,
+    movieData,
   } = props;
 
+  const { id, title, release_date, genres, runtime, vote_average, overview, poster_path } =
+    movieData;
   const handleEditMenu = (e: SyntheticEvent) => {
     e.stopPropagation();
     setActivePopup(id);

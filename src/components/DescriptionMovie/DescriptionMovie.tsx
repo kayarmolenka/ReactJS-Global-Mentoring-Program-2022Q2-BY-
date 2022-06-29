@@ -1,4 +1,4 @@
-import { NetflixRoulette } from '../NetflixRoulette';
+import { NetflixRoulette } from '../index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,6 +29,7 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
     handleErrorImage,
   } = props;
 
+  const runtimeDescription = !runtime ? 'No Data' : `${runtime} min`;
   return (
     <div className={styles.descriptionWrapper}>
       <div className={styles.descriptionHeader}>
@@ -60,7 +61,7 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
           </div>
           <div className={styles.wrapperReleaseDataRuntime}>
             <span>{realiseDate}</span>
-            <span>{`${runtime} min`}</span>
+            <span>{runtimeDescription}</span>
           </div>
           <p className={styles.descriptionOverview}>{overview}</p>
         </div>

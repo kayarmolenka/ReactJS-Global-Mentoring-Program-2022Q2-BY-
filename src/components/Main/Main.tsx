@@ -5,6 +5,8 @@ import { MovieResultSearch } from '../../feature/containers';
 import { useSelector } from 'react-redux';
 import { movieListSelector } from '../../store/selectors';
 import { fetchMovieList } from '../../store/applications';
+import { valueSortMovie } from '../../constants';
+import { mapSortsName } from '../../utils';
 
 interface IMainProps {
   handleMovieCard: (id: number) => void;
@@ -17,7 +19,7 @@ export const Main = (props: IMainProps) => {
   const movies = useSelector(movieListSelector);
 
   useEffect(() => {
-    dispatch(fetchMovieList());
+    dispatch(fetchMovieList({ sortBy: mapSortsName(valueSortMovie[0]) }));
   }, [dispatch]);
 
   return (

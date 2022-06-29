@@ -3,7 +3,10 @@ import { RootState } from './index';
 import { applicationService } from './applicationService';
 import { IMovieList } from '../models';
 
-type ISortingType = string;
+interface ISortingParams {
+  sortBy: string;
+  activeGenre?: string;
+}
 
 interface IApplicationState {
   movieList: IMovieList[];
@@ -27,11 +30,13 @@ const API_URL = 'http://localhost:4000/';
 
 export const fetchMovieList = createAsyncThunk<
   IFetchMovieListResponse | undefined,
-  void,
+  ISortingParams,
   { state: RootState; rejectedValue: string }
->(FETCH_MOVIE_LIST, async (_, thunkApi) => {
+>(FETCH_MOVIE_LIST, async ({ sortBy }, thunkApi) => {
   try {
-    return await applicationService(`${API_URL}movies?offset=1&limit=12`);
+    return await applicationService(
+      `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`,
+    );
   } catch (error) {
     thunkApi.rejectWithValue((error as Error).message);
   }
@@ -39,12 +44,12 @@ export const fetchMovieList = createAsyncThunk<
 
 export const fetchSortedMovieList = createAsyncThunk<
   IFetchMovieListResponse | undefined,
-  ISortingType,
+  ISortingParams,
   { state: RootState; rejectedValue: string }
->(FETCH_SORTED_MOVIE_LIST, async (payload, thunkApi) => {
+>(FETCH_SORTED_MOVIE_LIST, async ({ sortBy, activeGenre }, thunkApi) => {
   try {
     return await applicationService(
-      `${API_URL}movies?sortBy=${payload}&sortOrder=asc&offset=1&limit=12`,
+      `${API_URL}movies?sortBy=${sortBy}&sortOrder=asc&filter=${activeGenre}&offset=1&limit=12`,
     );
   } catch (error) {
     thunkApi.rejectWithValue((error as Error).message);
@@ -53,11 +58,13 @@ export const fetchSortedMovieList = createAsyncThunk<
 
 export const fetchFilteredMovieList = createAsyncThunk<
   IFetchMovieListResponse | undefined,
-  ISortingType,
+  ISortingParams,
   { state: RootState; rejectedValue: string }
->(FETCH_FILTERED_MOVIE_LIST, async (filterName, thunkApi) => {
+>(FETCH_FILTERED_MOVIE_LIST, async ({ sortBy, activeGenre }, thunkApi) => {
   try {
-    return await applicationService(`${API_URL}movies?filter=${filterName}&offset=1&limit=12`);
+    return await applicationService(
+      `${API_URL}movies?sortBy=${sortBy}&sortOrder=asc&filter=${activeGenre}&offset=1&limit=12`,
+    );
   } catch (error) {
     thunkApi.rejectWithValue((error as Error).message);
   }

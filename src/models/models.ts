@@ -17,7 +17,8 @@ export interface IMovieList {
   vote_count: number;
 }
 
-export interface MovieCardProps extends IMovieList {
+export interface MovieCardProps {
+  movieData: IMovieList;
   isShowEditModal: boolean;
   setIsShowEditModal: (param: boolean) => void;
   setActivePopup: (id: number) => void;

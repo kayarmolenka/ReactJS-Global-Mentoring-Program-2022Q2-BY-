@@ -7,29 +7,39 @@ import {
 } from '../../../store/applications';
 import { useAppDispatch } from '../../../store';
 import { mapSortsName } from '../../../utils';
-import { valueFilter } from '../../../constants';
+import { valueFilter, valueSortMovie } from '../../../constants';
 
 import styles from './MovieResultSearch.module.scss';
 
 export const MovieResultSearch = () => {
-  const [chosenTypeSorting, setChosenTypeSorting] = useState('');
+  const [chosenTypeSorting, setChosenTypeSorting] = useState(valueSortMovie[0]);
   const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
 
   const dispatch = useAppDispatch();
 
-  const onHandleGenre = (e: MouseEvent<HTMLButtonElement>) => {
+  const onHandleGenre = async (e: MouseEvent<HTMLButtonElement>) => {
     setActiveGenre(e.currentTarget.innerHTML);
 
     if (e.currentTarget.innerHTML !== 'All') {
-      dispatch(fetchFilteredMovieList(e.currentTarget.innerHTML));
+      await dispatch(
+        fetchFilteredMovieList({
+          activeGenre: e.currentTarget.innerHTML,
+          sortBy: mapSortsName(chosenTypeSorting),
+        }),
+      );
       return;
     }
-    dispatch(fetchMovieList());
+    await dispatch(fetchMovieList({ sortBy: mapSortsName(chosenTypeSorting) }));
   };
 
   useEffect(() => {
+    if (chosenTypeSorting && activeGenre !== valueSortMovie[0]) {
+      dispatch(
+        fetchSortedMovieList({ sortBy: mapSortsName(chosenTypeSorting), activeGenre: activeGenre }),
+      );
+    }
     if (chosenTypeSorting) {
-      dispatch(fetchSortedMovieList(mapSortsName(chosenTypeSorting)));
+      dispatch(fetchMovieList({ sortBy: mapSortsName(chosenTypeSorting) }));
     }
   }, [chosenTypeSorting, dispatch]);
 

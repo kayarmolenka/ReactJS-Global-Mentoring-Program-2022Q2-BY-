@@ -27,43 +27,17 @@ export const MovieList = (props: IMovieListProps) => {
 
   return (
     <div className={styles.movieList}>
-      {movies.map(
-        ({
-          id,
-          title,
-          poster_path,
-          release_date,
-          genres,
-          runtime,
-          revenue,
-          tagline,
-          vote_count,
-          budget,
-          vote_average,
-          overview,
-        }) => (
-          <MovieCard
-            title={title}
-            poster_path={poster_path}
-            release_date={release_date}
-            genres={genres}
-            key={id}
-            isShowEditModal={isShowEditModal}
-            setIsShowEditModal={setIsShowEditModal}
-            id={id}
-            setActivePopup={setActivePopup}
-            activePopupId={activePopupId}
-            overview={overview}
-            vote_average={vote_average}
-            runtime={runtime}
-            handleMovieCard={openDescriptionCard}
-            revenue={revenue}
-            tagline={tagline}
-            vote_count={vote_count}
-            budget={budget}
-          />
-        ),
-      )}
+      {movies.map((movie) => (
+        <MovieCard
+          movieData={movie}
+          key={movie.id}
+          setActivePopup={setActivePopup}
+          activePopupId={activePopupId}
+          handleMovieCard={openDescriptionCard}
+          isShowEditModal={isShowEditModal}
+          setIsShowEditModal={setIsShowEditModal}
+        />
+      ))}
     </div>
   );
 };
