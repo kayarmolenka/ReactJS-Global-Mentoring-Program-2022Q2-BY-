@@ -38,6 +38,7 @@ export const MovieResultSearch = () => {
       dispatch(
         fetchSortedMovieList({ sortBy: mapSortsName(chosenTypeSorting), activeGenre: activeGenre }),
       );
+      return;
     }
     if (chosenTypeSorting) {
       dispatch(fetchMovieList({ sortBy: mapSortsName(chosenTypeSorting) }));
