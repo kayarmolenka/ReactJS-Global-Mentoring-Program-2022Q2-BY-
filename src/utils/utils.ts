@@ -1,8 +1,10 @@
+import { ValueSortMovie } from '../models';
+
 export const mapSortsName = (typeSort: string) => {
-  if (typeSort === 'Release date') {
+  if (typeSort === ValueSortMovie.RELEASE_DATE) {
     return 'release_date';
   }
-  if (typeSort === 'Genre') {
+  if (typeSort === ValueSortMovie.GENRE) {
     return 'genres';
   }
 

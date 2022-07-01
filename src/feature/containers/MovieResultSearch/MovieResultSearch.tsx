@@ -4,10 +4,11 @@ import {
   fetchFilteredMovieList,
   fetchMovieList,
   fetchSortedMovieList,
-} from '../../../store/applications';
+} from '../../../store/thunks';
 import { useAppDispatch } from '../../../store';
 import { mapSortsName } from '../../../utils';
 import { valueFilter, valueSortMovie } from '../../../constants';
+import { ValueFilter } from '../../../models';
 
 import styles from './MovieResultSearch.module.scss';
 
@@ -20,7 +21,7 @@ export const MovieResultSearch = () => {
   const onHandleGenre = async (e: MouseEvent<HTMLButtonElement>) => {
     setActiveGenre(e.currentTarget.innerHTML);
 
-    if (e.currentTarget.innerHTML !== 'All') {
+    if (e.currentTarget.innerHTML !== ValueFilter.ALL) {
       await dispatch(
         fetchFilteredMovieList({
           activeGenre: e.currentTarget.innerHTML,

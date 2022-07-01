@@ -25,3 +25,17 @@ export interface MovieCardProps {
   activePopupId: number;
   handleMovieCard: (id: number) => void;
 }
+
+export enum ValueSortMovie {
+  RELEASE_DATE = 'Release date',
+  GENRE = 'Genre',
+  RATING = 'Rating',
+}
+
+export enum ValueFilter {
+  ALL = 'All',
+  DOCUMENTARY = 'Documentary',
+  COMEDY = 'Comedy',
+  HORROR = 'Horror',
+  CRIME = 'Crime',
+}

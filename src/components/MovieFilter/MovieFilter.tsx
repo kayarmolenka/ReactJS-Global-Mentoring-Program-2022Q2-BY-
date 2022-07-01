@@ -17,10 +17,9 @@ export const MovieFilter = (props: IMovieFilterProps) => {
       {valueFilter.map((genre) => (
         <button
           key={genre}
-          className={classNames(
-            `${styles.movieFilterBtn}`,
-            genre === activeGenre ? `${styles.movieFilterBtnChosen}` : '',
-          )}
+          className={classNames(`${styles.movieFilterBtn}`, {
+            [styles.movieFilterBtnChosen]: genre === activeGenre,
+          })}
           onClick={onHandleGenre}
         >
           {genre}

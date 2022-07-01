@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
-import { valueSortMovie } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { valueSortMovie } from '../../constants';
 
 import styles from './MovieSort.module.scss';
 

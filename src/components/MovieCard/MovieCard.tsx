@@ -76,21 +76,14 @@ export const MovieCard = (props: MovieCardProps) => {
             setOpenDeleteModal={setOpenDeleteModal}
           />
         )}
-        {isOpenDeleteModal && (
-          <DeleteMovie
-            isDeleteMovieModal={isOpenDeleteModal}
-            setIsDeleteMovie={setOpenDeleteModal}
-          />
-        )}
-        {isOpenEditMode && (
-          <Modal
-            textHeader="Edit Movie"
-            isOpenModal={isOpenEditMode}
-            setIsOpenModal={setOpenEditMode}
-            setSuccessModal={completeEditMovie}
-            initialState={descriptionMovie}
-          />
-        )}
+        <DeleteMovie isDeleteMovieModal={isOpenDeleteModal} setIsDeleteMovie={setOpenDeleteModal} />
+        <Modal
+          textHeader="Edit Movie"
+          isOpenModal={isOpenEditMode}
+          setIsOpenModal={setOpenEditMode}
+          setSuccessModal={completeEditMovie}
+          initialState={descriptionMovie}
+        />
       </div>
       <div className={styles.movieCardDescription}>
         <div className={styles.movieCardTitle}>{title}</div>

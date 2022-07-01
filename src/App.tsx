@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Header, Footer, ErrorBoundary, Main } from './components';
 import { INIT_STATE } from './constants';
-import { useSelector } from 'react-redux';
-import { movieListSelector } from './store/selectors';
+import { movieListSelector } from './store';
 
 import styles from './App.module.scss';
 

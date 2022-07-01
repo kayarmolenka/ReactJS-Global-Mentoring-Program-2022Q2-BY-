@@ -1,4 +1,9 @@
-export async function useFetch<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
+import { IFetchMovieListResponse } from '../store';
+
+export async function useFetch(
+  input: RequestInfo,
+  init?: RequestInit,
+): Promise<IFetchMovieListResponse> {
   const response = await fetch(input, init);
-  return response.ok ? await response.json() : await response;
+  return response.ok ? response.json() : response;
 }

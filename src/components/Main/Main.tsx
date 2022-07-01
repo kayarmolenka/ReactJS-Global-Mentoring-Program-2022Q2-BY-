@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../store';
 import { Divider, CountMovie, MovieList } from '../index';
 import { MovieResultSearch } from '../../feature/containers';
-import { useSelector } from 'react-redux';
 import { movieListSelector } from '../../store/selectors';
-import { fetchMovieList } from '../../store/applications';
+import { fetchMovieList } from '../../store/thunks';
 import { valueSortMovie } from '../../constants';
 import { mapSortsName } from '../../utils';
 
