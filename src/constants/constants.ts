@@ -1,22 +1,22 @@
-import { MockData } from '../mockDate/date';
+import { IMovieList } from '../models';
 
 export const ADD_MOVIE_TEXT = '+ add movie';
 export const valueFilter = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-export const valueSortMovie = [
-  'Release Date (A-Z)',
-  'Release Date (Z-A)',
-  'Title (A-Z)',
-  'Title (Z-A)',
-];
+export const valueSortMovie = ['Release date', 'Genre', 'Rating'];
 
-export const INIT_STATE: MockData = {
+export const INIT_STATE: IMovieList = {
+  budget: 0,
+  genres: [],
   id: 0,
-  genre: '',
-  poster: '',
-  movieUrl: '',
-  rating: '',
-  title: '',
-  releaseDate: 0,
   overview: '',
-  runtime: '',
+  poster_path: '',
+  release_date: '',
+  revenue: 0,
+  runtime: 0,
+  tagline: '',
+  title: '',
+  vote_average: 0,
+  vote_count: 0,
 };
+
+export const DEFAULT_SRC = require('../assets/images/default_poster.png');

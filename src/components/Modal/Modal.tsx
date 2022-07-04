@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Button, MultipleDropdown } from '../index';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, MultipleDropdown } from '../index';
 import { ButtonType } from '../../models';
 import { valueFilter } from '../../constants';
 
@@ -9,12 +9,12 @@ import styles from './Modal.module.scss';
 
 interface IInitialStateMovieDescription {
   title: string;
-  releaseDate: number | string;
+  releaseDate: string;
   genre: string[];
-  runtime?: string;
-  overview?: string;
-  rating?: string;
-  movieUrl?: string;
+  runtime: number | string;
+  overview: string;
+  rating: number | string;
+  movieUrl: string;
 }
 
 interface IModalProps {

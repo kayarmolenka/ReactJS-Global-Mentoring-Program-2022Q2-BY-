@@ -1,14 +1,14 @@
 import { ChangeEvent, useState } from 'react';
-import { Button } from '../Button';
-import { ButtonType } from '../../models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Button } from '../Button';
+import { ButtonType } from '../../models';
 
 import styles from './SearchForm.module.scss';
 
 export const SearchForm = () => {
   const searchHandle = () => {
-    console.log('searchHandle');
+    console.log('searchHandle'); //TODO for search form
   };
 
   const [isVisibleCross, setIsVisibleCross] = useState(false);

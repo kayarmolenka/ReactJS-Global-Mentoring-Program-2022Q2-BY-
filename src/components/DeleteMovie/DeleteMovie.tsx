@@ -22,7 +22,7 @@ export const DeleteMovie = (props: IDeleteMovieProps) => {
   }, []);
 
   const handleConfirmDelete = () => {
-    console.log('The movie was successfully deleted');
+    console.log('The movie was successfully deleted'); //TODO for functionality of delete movie
     setIsDeleteMovie(false);
   };
 
