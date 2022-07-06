@@ -1,20 +1,27 @@
 import { ChangeEvent, useCallback, useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { FieldProps } from 'formik/dist/Field';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, MultipleDropdown } from '../index';
+import { Button, FormField, MultipleDropdown } from '../index';
 import { ButtonType } from '../../models';
 import { valueFilter } from '../../constants';
+import { addMovie, useAppDispatch } from '../../store';
+import { validationSchema } from '../../utils';
 
 import styles from './Modal.module.scss';
 
 interface IInitialStateMovieDescription {
   title: string;
-  releaseDate: string;
-  genre: string[];
+  release_date: string;
+  genres: string[];
   runtime: number | string;
   overview: string;
-  rating: number | string;
-  movieUrl: string;
+  rating?: number | string;
+  movieUrl?: string;
+  id?: number;
+  poster_path: string;
+  vote_average: number | string;
 }
 
 interface IModalProps {
@@ -23,20 +30,23 @@ interface IModalProps {
   setIsOpenModal: (data: boolean) => void;
   setSuccessModal: (data: boolean) => void;
   initialState?: IInitialStateMovieDescription;
+  editMode?: boolean;
 }
 
 export const Modal = (props: IModalProps) => {
-  const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal, initialState } = props;
+  const { textHeader, isOpenModal, setIsOpenModal, setSuccessModal, initialState, editMode } =
+    props;
   const [genreIsOpen, setGenreIsOpen] = useState(false);
-  const [isShowValidationError, setIsShowValidationError] = useState(false);
+
+  const dispatch = useAppDispatch();
   const initState: IInitialStateMovieDescription = initialState || {
     title: '',
-    releaseDate: '',
-    movieUrl: '',
-    rating: '',
-    genre: [],
+    release_date: '',
+    genres: [],
     runtime: '',
     overview: '',
+    poster_path: '',
+    vote_average: '',
   };
 
   const [stateForm, setStateForm] = useState(initState);
@@ -45,7 +55,7 @@ export const Modal = (props: IModalProps) => {
     ...new Set([
       ...valueFilter
         .filter((genre) => genre !== 'All')
-        .concat(initialState?.genre || [])
+        .concat(initialState?.genres || [])
         .sort(),
     ]),
   ];
@@ -53,8 +63,6 @@ export const Modal = (props: IModalProps) => {
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
     setGenreIsOpen(false);
-    setStateForm(initState);
-    setIsShowValidationError(false);
     document.body.style.overflow = 'auto';
   }, [setIsOpenModal]);
 
@@ -62,29 +70,19 @@ export const Modal = (props: IModalProps) => {
     e.stopPropagation();
   }, []);
 
-  const onHandleFormItems = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => {
-    setStateForm((state) => ({
-      ...state,
-      [`${e.target.name}`]: e.target.value,
-    }));
-  };
-
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const clickedGenre = e.target.name;
 
-    if (stateForm.genre.includes(clickedGenre)) {
+    if (stateForm.genres.includes(clickedGenre)) {
       setStateForm((state) => ({
         ...state,
-        genre: [...state.genre.filter((genre) => genre !== clickedGenre)],
+        genres: [...state.genres.filter((genre) => genre !== clickedGenre)],
       }));
     } else {
       setStateForm((state) => ({
         ...state,
-        genre: [...state.genre, clickedGenre],
+        genres: [...state.genres, clickedGenre],
       }));
-      setIsShowValidationError(false);
     }
   };
 
@@ -94,20 +92,23 @@ export const Modal = (props: IModalProps) => {
 
   const switchToTextType = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.type = 'text';
-    stateForm.releaseDate ? (e.target.value = String(stateForm.releaseDate)) : '';
+    stateForm.release_date ? (e.target.value = String(stateForm.release_date)) : '';
   };
 
-  const completeAddMovie = () => {
+  const completeAddMovie = (values: IInitialStateMovieDescription) => {
+    editMode
+      ? console.log(1)
+      : dispatch(
+          addMovie({
+            ...values,
+            runtime: Number(values.runtime),
+            vote_average: Number(values.vote_average),
+          }),
+        );
+    setIsOpenModal(false);
     setGenreIsOpen(false);
-    if (!stateForm.genre.length) {
-      setIsShowValidationError(true);
-    } else {
-      document.body.style.overflow = 'auto';
-      setIsOpenModal(false);
-      setSuccessModal(true);
-      console.log(stateForm); //TODO for verify the data after submitting the form
-      setStateForm(initState);
-    }
+    document.body.style.overflow = 'auto';
+    setSuccessModal(true);
   };
 
   return isOpenModal ? (
@@ -121,109 +122,108 @@ export const Modal = (props: IModalProps) => {
             onClick={closeModalWindow}
           />
         </header>
-        <div className={styles.modalContent}>
-          <div className={styles.modalInputsFields}>
-            <div className={styles.modalTitle}>
-              <label htmlFor="title" className={styles.modalContentLabel}>
-                Title
-              </label>
-              <input
-                name="title"
-                type="text"
-                placeholder="Movie title"
-                value={stateForm.title}
-                onChange={onHandleFormItems}
-              />
-            </div>
-            <div className={styles.modalReleaseDate}>
-              <label htmlFor="release-date" className={styles.modalContentLabel}>
-                Release date
-              </label>
-              <input
-                name="releaseDate"
-                type="text"
-                placeholder="Select Date"
-                value={stateForm.releaseDate}
-                onFocus={switchToDateType}
-                onBlur={switchToTextType}
-                onChange={onHandleFormItems}
-              />
-            </div>
-            <div className={styles.modalMovieUrl}>
-              <label htmlFor="movie-url" className={styles.modalContentLabel}>
-                Movie url
-              </label>
-              <input
-                name="movieUrl"
-                type="text"
-                placeholder="htpps://"
-                value={stateForm.movieUrl}
-                onChange={onHandleFormItems}
-              />
-            </div>
-            <div className={styles.modalRating}>
-              <label htmlFor="rating" className={styles.modalContentLabel}>
-                Rating
-              </label>
-              <input
-                name="rating"
-                type="text"
-                placeholder="7.8"
-                value={stateForm.rating}
-                onChange={onHandleFormItems}
-              />
-            </div>
-            <div className={styles.modalGenre}>
-              <MultipleDropdown
-                title="Select Genre"
-                isDropdownOpen={genreIsOpen}
-                setDropdownOpen={setGenreIsOpen}
-                handleValue={handleCheckbox}
-                choseGenres={stateForm.genre}
-                isShowValidationError={isShowValidationError}
-                setIsShowValidationError={setIsShowValidationError}
-                genresValue={genresValue}
-              />
-            </div>
-            <div className={styles.modalRuntime}>
-              <label htmlFor="runtime" className={styles.modalContentLabel}>
-                Runtime
-              </label>
-              <input
-                name="runtime"
-                type="text"
-                placeholder="minutes"
-                value={stateForm.runtime}
-                onChange={onHandleFormItems}
-              />
-            </div>
-          </div>
-          <div className={styles.modalOverview}>
-            <label htmlFor="overview" className={styles.modalContentLabel}>
-              Overview
-            </label>
-            <textarea
-              name="overview"
-              placeholder="Movie description"
-              value={stateForm.overview}
-              onChange={onHandleFormItems}
-            />
-          </div>
-          <div className={styles.modalBtn}>
-            <Button
-              className={styles.modalBtnReset}
-              text="Reset"
-              onClick={closeModalWindow}
-              type={ButtonType.SUBMIT}
-            />
-            <Button
-              className={styles.modalBtnSubmit}
-              text="Submit"
-              onClick={completeAddMovie}
-              type={ButtonType.SUBMIT}
-            />
-          </div>
-        </div>
+        <Formik
+          initialValues={stateForm}
+          validationSchema={validationSchema}
+          onSubmit={(values, { resetForm, setSubmitting }) => {
+            resetForm();
+            setSubmitting(false);
+            completeAddMovie(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <div className={styles.modalContent}>
+                <div className={styles.modalInputsFields}>
+                  <FormField
+                    className={styles.modalTitle}
+                    nameField="title"
+                    placeholder="Movie title"
+                    errors={errors}
+                    touched={touched}
+                    labelText="Title"
+                  />
+                  <FormField
+                    className={styles.modalReleaseDate}
+                    nameField="release_date"
+                    // placeholder="Select Date"
+                    errors={errors}
+                    touched={touched}
+                    labelText="Release date"
+                    // onBlur={switchToTextType}
+                    // onFocus={switchToDateType}
+                    typeField="date"
+                  />
+                  <FormField
+                    className={styles.modalMovieUrl}
+                    nameField="poster_path"
+                    placeholder="htpps://"
+                    errors={errors}
+                    touched={touched}
+                    labelText="Movie url"
+                  />
+                  <FormField
+                    className={styles.modalRating}
+                    nameField="vote_average"
+                    placeholder="7.8"
+                    errors={errors}
+                    touched={touched}
+                    labelText="Rating"
+                  />
+                  <div className={styles.modalGenre}>
+                    <Field
+                      name="genres"
+                      render={(fieldProps: FieldProps) => (
+                        <MultipleDropdown
+                          title="Select Genre"
+                          isDropdownOpen={genreIsOpen}
+                          setDropdownOpen={setGenreIsOpen}
+                          handleValue={handleCheckbox}
+                          choseGenres={stateForm.genres}
+                          genresValue={genresValue}
+                          fieldProps={fieldProps}
+                          errors={errors}
+                          touched={touched}
+                        />
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    className={styles.modalRuntime}
+                    nameField="runtime"
+                    placeholder="minutes"
+                    errors={errors}
+                    touched={touched}
+                    labelText="Runtime"
+                  />
+                </div>
+                <Field
+                  name="overview"
+                  render={({ field, form: { touched, errors } }: FieldProps) => (
+                    <div className={styles.modalOverview}>
+                      <label htmlFor="overview" className={styles.modalContentLabel}>
+                        Overview
+                      </label>
+                      <textarea {...field} name="overview" placeholder="Movie description" />
+                      {touched[field.name] && errors[field.name] && (
+                        <div className={styles.textareaErrorWarning}>{errors[field.name]}</div>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
+              <div className={styles.modalBtn}>
+                <Button
+                  className={styles.modalBtnReset}
+                  text="Reset"
+                  onClick={closeModalWindow}
+                  type={ButtonType.SUBMIT}
+                />
+                <Button className={styles.modalBtnSubmit} text="Submit" type={ButtonType.SUBMIT} />
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   ) : null;

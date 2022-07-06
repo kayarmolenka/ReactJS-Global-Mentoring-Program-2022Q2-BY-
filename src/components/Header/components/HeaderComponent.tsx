@@ -31,7 +31,11 @@ export const HeaderComponent = (props: IHeaderComponentProps) => {
         />
       </div>
       {isSuccessModal && (
-        <CongratulationsModal isOpenModal={isSuccessModal} setIsOpenModal={setSuccessModal} />
+        <CongratulationsModal
+          isOpenModal={isSuccessModal}
+          setIsOpenModal={setSuccessModal}
+          modalText="The movie has been added to database successfully"
+        />
       )}
       <SearchForm />
     </header>

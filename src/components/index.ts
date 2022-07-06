@@ -17,3 +17,4 @@ export * from './PopupMovieCard';
 export * from './DeleteMovie';
 export * from './MultipleDropdown';
 export * from './DescriptionMovie';
+export * from './FormField';
