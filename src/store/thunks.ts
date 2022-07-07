@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IFetchMovieListResponse, ISortingParams } from './index';
+import { EDIT_MOVIE, IFetchMovieListResponse, ISortingParams } from './index';
 import {
   FETCH_FILTERED_MOVIE_LIST,
   FETCH_MOVIE_LIST,
@@ -75,6 +75,21 @@ export const deleteMovie = createAsyncThunk<void, IdMovieForDelete>(
     try {
       await useFetch(`${API_URL}movies/${idMovie}`, {
         method: 'delete',
+      });
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const editMovie = createAsyncThunk<void, IMovieParams>(
+  EDIT_MOVIE,
+  async (params, thunkApi) => {
+    try {
+      await useFetch(`${API_URL}movies`, {
+        method: 'put',
+        body: JSON.stringify(params),
+        headers: { 'content-type': 'application/json' },
       });
 
       thunkApi.dispatch(fetchMovieList({ sortBy: mapSortsName(valueSortMovie[0]) }));

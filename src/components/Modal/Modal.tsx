@@ -1,12 +1,12 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { FieldProps } from 'formik/dist/Field';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, FormField, MultipleDropdown } from '../index';
-import { ButtonType } from '../../models';
+import { ButtonType, ValueFilter } from '../../models';
 import { valueFilter } from '../../constants';
-import { addMovie, useAppDispatch } from '../../store';
+import { addMovie, editMovie, useAppDispatch } from '../../store';
 import { validationSchema } from '../../utils';
 
 import styles from './Modal.module.scss';
@@ -54,7 +54,7 @@ export const Modal = (props: IModalProps) => {
   const genresValue = [
     ...new Set([
       ...valueFilter
-        .filter((genre) => genre !== 'All')
+        .filter((genre) => genre !== ValueFilter.ALL)
         .concat(initialState?.genres || [])
         .sort(),
     ]),
@@ -97,7 +97,13 @@ export const Modal = (props: IModalProps) => {
 
   const completeAddMovie = (values: IInitialStateMovieDescription) => {
     editMode
-      ? console.log(1)
+      ? dispatch(
+          editMovie({
+            ...values,
+            runtime: Number(values.runtime),
+            vote_average: Number(values.vote_average),
+          }),
+        )
       : dispatch(
           addMovie({
             ...values,
@@ -143,17 +149,23 @@ export const Modal = (props: IModalProps) => {
                     touched={touched}
                     labelText="Title"
                   />
-                  <FormField
-                    className={styles.modalReleaseDate}
-                    nameField="release_date"
-                    // placeholder="Select Date"
-                    errors={errors}
-                    touched={touched}
-                    labelText="Release date"
-                    // onBlur={switchToTextType}
-                    // onFocus={switchToDateType}
-                    typeField="date"
-                  />
+                  <div>
+                    <FormField
+                      className={styles.modalReleaseDate}
+                      nameField="release_date"
+                      // placeholder="Select Date"
+                      errors={errors}
+                      touched={touched}
+                      labelText="Release date"
+                      // onBlur={switchToTextType}
+                      // onFocus={switchToDateType}
+                      typeField="date"
+                    />
+                    <div className={styles.modalReleaseDateIconWrapper}>
+                      <FontAwesomeIcon icon={faCalendarDays} className={styles.iconCalendar} />
+                    </div>
+                  </div>
+
                   <FormField
                     className={styles.modalMovieUrl}
                     nameField="poster_path"

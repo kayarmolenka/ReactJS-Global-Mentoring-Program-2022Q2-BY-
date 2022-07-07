@@ -9,8 +9,8 @@
   transform: translate(-50%, -50%);
   background: $mainBlack;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(0, 0, 0, 0.07), 0 10px 20px rgba(0, 0, 0, 0.05), 0 10px 50px rgba(0, 0, 0, 0.05);
-  padding: 50px;
-  width: 754px;
+  padding: 45px 66px 20px 50px;
+  width: 744px;
   height: 840px;
 
   .modalCloseIcon {
@@ -55,7 +55,7 @@
       @include font-family;
       background: rgba(50, 50, 50, 0.948044);
       mix-blend-mode: normal;
-      padding: 17px 0 16px 19px;
+      padding: 17px 10px 16px 19px;
       border: none;
       border-radius: 4px;
       color: $white;
@@ -96,7 +96,20 @@
     }
 
     input::-webkit-calendar-picker-indicator {
+      opacity: 0;
+    }
+  }
+
+  .modalReleaseDateIconWrapper {
+    position: absolute;
+
+    .iconCalendar {
+      position: relative;
+      bottom: 43px;
+      left: 297px;
+      font-size: 25px;
       color: $pink;
+      pointer-events: none;
     }
   }
 
@@ -168,6 +181,7 @@
       font-size: 20px;
       line-height: 24px;
       padding: 10px;
+      width: 100%;
     }
 
     .textareaErrorWarning {
