@@ -1,33 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NetflixRoulette } from '../index';
+import { IMovieList } from '../../models';
 
 import styles from './DescriptionMovie.module.scss';
 
 interface IDescriptionMovieProps {
-  title: string;
   poster: string;
-  realiseDate: string;
-  genres: string[];
-  rating?: number;
-  runtime?: number;
-  overview?: string;
+  activeMovieDescription: IMovieList;
   handleSearchIcon: () => void;
   handleErrorImage: () => void;
 }
 
 export const DescriptionMovie = (props: IDescriptionMovieProps) => {
-  const {
-    realiseDate,
-    title,
-    poster,
-    genres,
-    rating,
-    runtime,
-    overview,
-    handleSearchIcon,
-    handleErrorImage,
-  } = props;
+  const { activeMovieDescription, handleSearchIcon, handleErrorImage, poster } = props;
+  const { genres, title, release_date, vote_average, runtime, overview } = activeMovieDescription;
 
   const runtimeDescription = !runtime ? 'No Data' : `${runtime} min`;
   return (
@@ -50,7 +37,7 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
         <div>
           <div className={styles.wrapperTitleRating}>
             <h2 className={styles.descriptionTitle}>{title}</h2>
-            <span className={styles.descriptionRating}>{rating}</span>
+            <span className={styles.descriptionRating}>{vote_average}</span>
           </div>
           <div>
             <span className={styles.descriptionGenre}>
@@ -60,7 +47,7 @@ export const DescriptionMovie = (props: IDescriptionMovieProps) => {
             </span>
           </div>
           <div className={styles.wrapperReleaseDataRuntime}>
-            <span>{realiseDate}</span>
+            <span>{release_date}</span>
             <span>{runtimeDescription}</span>
           </div>
           <p className={styles.descriptionOverview}>{overview}</p>

@@ -3,9 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal, CongratulationsModal } from '../index';
 import { MovieCardProps } from '../../models';
-import { DEFAULT_SRC, valueSortMovie } from '../../constants';
+import { DEFAULT_SRC } from '../../constants';
 import { deleteMovie, fetchMovieList, useAppDispatch } from '../../store';
-import { mapSortsName } from '../../utils';
 
 import styles from './MovieCard.module.scss';
 
@@ -58,7 +57,7 @@ export const MovieCard = (props: MovieCardProps) => {
 
   const handleDeleteMovie = async () => {
     await dispatch(deleteMovie(id));
-    dispatch(fetchMovieList({ sortBy: mapSortsName(valueSortMovie[0]) }));
+    dispatch(fetchMovieList());
   };
 
   return (

@@ -1,21 +1,21 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { FieldArrayRenderProps } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik/dist/types';
 import { faCaretDown, faCaretUp, faSquareCheck, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useClickOutside } from '../../hooks';
+import { IMovieList } from '../../models';
 
 import styles from './MultipleDropdown.module.scss';
-import { FieldProps } from 'formik/dist/Field';
-import { FormikErrors, FormikTouched } from 'formik/dist/types';
-import { IMovieList } from '../../models';
 
 interface IDropdownProps {
   title: string;
   isDropdownOpen: boolean;
   setDropdownOpen: (params: boolean) => void;
-  handleValue: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleValue: (e: ChangeEvent<HTMLInputElement>, clickedGenre: string) => void;
   choseGenres: string[];
   genresValue: string[];
-  fieldProps: FieldProps;
+  fieldProps: FieldArrayRenderProps;
   errors: FormikErrors<IMovieList>;
   touched: FormikTouched<IMovieList>;
 }
@@ -32,6 +32,7 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     touched,
     fieldProps,
   } = props;
+  const { form } = fieldProps;
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -41,16 +42,13 @@ export const MultipleDropdown = (props: IDropdownProps) => {
     setDropdownOpen(false);
   });
 
-  const { form } = fieldProps;
-
-  const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const genre = e.target.name;
-    const chosenGenres = genresValue.includes(genre)
-      ? genresValue.filter((g) => g !== genre)
-      : [...genresValue, genre];
-    form.setFieldValue('genres', chosenGenres);
-    handleValue(e);
+  const changeValue = (e: ChangeEvent<HTMLInputElement>, clickedGenre: string) => {
+    handleValue(e, clickedGenre);
   };
+
+  useEffect(() => {
+    form.setFieldValue('genres', choseGenres);
+  }, [choseGenres]);
 
   return (
     <>
@@ -81,14 +79,14 @@ export const MultipleDropdown = (props: IDropdownProps) => {
               {genresValue.map((genre) => (
                 <div key={genre} className={styles.row}>
                   <input
+                    name={`${genre}`}
                     type="checkbox"
-                    name={genre}
                     id={genre}
                     className={styles.input}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => changeValue(e, genre)}
                     checked={choseGenres.includes(genre)}
-                    onChange={changeValue}
                   />
-                  <label htmlFor={genre} className={styles.option}>
+                  <label htmlFor={`${genre}`} className={styles.option}>
                     {choseGenres.includes(genre) && (
                       <div className={styles.wrapperIcons}>
                         <FontAwesomeIcon icon={faSquare} className={styles.faSquare} />

@@ -1,12 +1,12 @@
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import { FieldProps } from 'formik/dist/Field';
 import { faXmark, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, FormField, MultipleDropdown } from '../index';
 import { ButtonType, ValueFilter } from '../../models';
 import { valueFilter } from '../../constants';
-import { addMovie, editMovie, useAppDispatch } from '../../store';
+import { addMovie, editMovie, fetchMovieList, useAppDispatch } from '../../store';
 import { validationSchema } from '../../utils';
 
 import styles from './Modal.module.scss';
@@ -50,6 +50,7 @@ export const Modal = (props: IModalProps) => {
   };
 
   const [stateForm, setStateForm] = useState(initState);
+  const [isVisibleCalendar, setIsVisibleCalendar] = useState(false);
 
   const genresValue = [
     ...new Set([
@@ -63,6 +64,7 @@ export const Modal = (props: IModalProps) => {
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
     setGenreIsOpen(false);
+    setStateForm(initState);
     document.body.style.overflow = 'auto';
   }, [setIsOpenModal]);
 
@@ -70,9 +72,7 @@ export const Modal = (props: IModalProps) => {
     e.stopPropagation();
   }, []);
 
-  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    const clickedGenre = e.target.name;
-
+  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>, clickedGenre: string) => {
     if (stateForm.genres.includes(clickedGenre)) {
       setStateForm((state) => ({
         ...state,
@@ -88,23 +88,25 @@ export const Modal = (props: IModalProps) => {
 
   const switchToDateType = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.type = 'date';
+    setIsVisibleCalendar(true);
   };
 
   const switchToTextType = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.type = 'text';
     stateForm.release_date ? (e.target.value = String(stateForm.release_date)) : '';
+    setIsVisibleCalendar(false);
   };
 
-  const completeAddMovie = (values: IInitialStateMovieDescription) => {
+  const completeAddMovie = async (values: IInitialStateMovieDescription) => {
     editMode
-      ? dispatch(
+      ? await dispatch(
           editMovie({
             ...values,
             runtime: Number(values.runtime),
             vote_average: Number(values.vote_average),
           }),
         )
-      : dispatch(
+      : await dispatch(
           addMovie({
             ...values,
             runtime: Number(values.runtime),
@@ -115,6 +117,7 @@ export const Modal = (props: IModalProps) => {
     setGenreIsOpen(false);
     document.body.style.overflow = 'auto';
     setSuccessModal(true);
+    await dispatch(fetchMovieList());
   };
 
   return isOpenModal ? (
@@ -153,17 +156,19 @@ export const Modal = (props: IModalProps) => {
                     <FormField
                       className={styles.modalReleaseDate}
                       nameField="release_date"
-                      // placeholder="Select Date"
+                      placeholder="Select Date"
                       errors={errors}
                       touched={touched}
                       labelText="Release date"
-                      // onBlur={switchToTextType}
-                      // onFocus={switchToDateType}
-                      typeField="date"
+                      onBlur={switchToTextType}
+                      onFocus={switchToDateType}
+                      typeField="text"
                     />
-                    <div className={styles.modalReleaseDateIconWrapper}>
-                      <FontAwesomeIcon icon={faCalendarDays} className={styles.iconCalendar} />
-                    </div>
+                    {isVisibleCalendar && (
+                      <div className={styles.modalReleaseDateIconWrapper}>
+                        <FontAwesomeIcon icon={faCalendarDays} className={styles.iconCalendar} />
+                      </div>
+                    )}
                   </div>
 
                   <FormField
@@ -183,9 +188,8 @@ export const Modal = (props: IModalProps) => {
                     labelText="Rating"
                   />
                   <div className={styles.modalGenre}>
-                    <Field
-                      name="genres"
-                      render={(fieldProps: FieldProps) => (
+                    <FieldArray name="genres">
+                      {(fieldProps) => (
                         <MultipleDropdown
                           title="Select Genre"
                           isDropdownOpen={genreIsOpen}
@@ -198,7 +202,7 @@ export const Modal = (props: IModalProps) => {
                           touched={touched}
                         />
                       )}
-                    />
+                    </FieldArray>
                   </div>
                   <FormField
                     className={styles.modalRuntime}

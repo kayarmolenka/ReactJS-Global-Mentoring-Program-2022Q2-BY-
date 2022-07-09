@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFilteredMovieList, fetchMovieList, fetchSortedMovieList } from './thunks';
+import { changeFilter, fetchMovieList, setGenre } from './thunks';
 import { initialState } from './constants';
 
 export const applicationSlice = createSlice({
@@ -7,15 +7,15 @@ export const applicationSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(setGenre, (state, action) => {
+      state.activeGenre = action.payload;
+    });
+
+    builder.addCase(changeFilter, (state, action) => {
+      state.sortingType = action.payload;
+    });
+
     builder.addCase(fetchMovieList.fulfilled, (state, action) => {
-      state.movieList = action.payload.data;
-    });
-
-    builder.addCase(fetchSortedMovieList.fulfilled, (state, action) => {
-      state.movieList = action.payload.data;
-    });
-
-    builder.addCase(fetchFilteredMovieList.fulfilled, (state, action) => {
       state.movieList = action.payload.data;
     });
   },

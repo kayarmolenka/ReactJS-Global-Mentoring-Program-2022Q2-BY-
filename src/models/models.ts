@@ -50,4 +50,4 @@ export interface IMovieParams {
   vote_average?: number;
 }
 
-export type IdMovieForDelete = number;
+export type IdMovie = number;

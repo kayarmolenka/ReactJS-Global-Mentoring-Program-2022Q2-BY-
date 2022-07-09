@@ -1,48 +1,43 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { EDIT_MOVIE, IFetchMovieListResponse, ISortingParams } from './index';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  FETCH_FILTERED_MOVIE_LIST,
+  getActiveGenreSelector,
+  getActiveSortingTypeSelector,
+  IFetchMovieListResponse,
+  RootState,
+} from './index';
+import {
   FETCH_MOVIE_LIST,
-  FETCH_SORTED_MOVIE_LIST,
   ADD_MOVIE,
   API_URL,
   DELETE_MOVIE,
+  CHANGE_GENRE,
+  CHANGE_FILTER,
+  EDIT_MOVIE,
 } from './constants';
 import { useFetch } from '../hooks/useFetch';
-import { IdMovieForDelete, IMovieParams } from '../models';
-import { mapSortsName } from '../utils';
-import { valueSortMovie } from '../constants';
+import { IdMovie, IMovieParams, ValueFilter } from '../models';
 
-export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, ISortingParams>(
+export const setGenre = createAction(CHANGE_GENRE, (action) => ({
+  payload: action,
+}));
+
+export const changeFilter = createAction(CHANGE_FILTER, (action) => ({
+  payload: action,
+}));
+
+export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, void, { state: RootState }>(
   FETCH_MOVIE_LIST,
-  async ({ sortBy }, thunkApi) => {
+  async (_, thunkApi) => {
     try {
-      return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
-    } catch (error) {
-      return thunkApi.rejectWithValue((error as Error).message);
-    }
-  },
-);
+      const genre = getActiveGenreSelector(thunkApi.getState());
+      const sortBy = getActiveSortingTypeSelector(thunkApi.getState());
 
-export const fetchSortedMovieList = createAsyncThunk<IFetchMovieListResponse, ISortingParams>(
-  FETCH_SORTED_MOVIE_LIST,
-  async ({ sortBy, activeGenre }, thunkApi) => {
-    try {
-      return await useFetch(
-        `${API_URL}movies?sortBy=${sortBy}&sortOrder=asc&filter=${activeGenre}&offset=1&limit=12`,
-      );
-    } catch (error) {
-      return thunkApi.rejectWithValue((error as Error).message);
-    }
-  },
-);
+      if (genre === ValueFilter.ALL) {
+        return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
+      }
 
-export const fetchFilteredMovieList = createAsyncThunk<IFetchMovieListResponse, ISortingParams>(
-  FETCH_FILTERED_MOVIE_LIST,
-  async ({ sortBy, activeGenre }, thunkApi) => {
-    try {
       return await useFetch(
-        `${API_URL}movies?sortBy=${sortBy}&sortOrder=asc&filter=${activeGenre}&offset=1&limit=12`,
+        `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&filter=${genre}&offset=1&limit=12`,
       );
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message);
@@ -54,22 +49,18 @@ export const addMovie = createAsyncThunk<IFetchMovieListResponse, IMovieParams>(
   ADD_MOVIE,
   async (params, thunkApi) => {
     try {
-      const response = await useFetch(`${API_URL}movies`, {
+      return await useFetch(`${API_URL}movies`, {
         method: 'post',
         body: JSON.stringify(params),
         headers: { 'content-type': 'application/json' },
       });
-
-      thunkApi.dispatch(fetchMovieList({ sortBy: mapSortsName(valueSortMovie[0]) }));
-
-      return response;
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message);
     }
   },
 );
 
-export const deleteMovie = createAsyncThunk<void, IdMovieForDelete>(
+export const deleteMovie = createAsyncThunk<void, IdMovie>(
   DELETE_MOVIE,
   async (idMovie, thunkApi) => {
     try {
@@ -91,8 +82,6 @@ export const editMovie = createAsyncThunk<void, IMovieParams>(
         body: JSON.stringify(params),
         headers: { 'content-type': 'application/json' },
       });
-
-      thunkApi.dispatch(fetchMovieList({ sortBy: mapSortsName(valueSortMovie[0]) }));
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message);
     }

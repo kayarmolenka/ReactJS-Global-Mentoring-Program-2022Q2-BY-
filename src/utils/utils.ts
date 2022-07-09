@@ -12,6 +12,17 @@ export const mapSortsName = (typeSort: string) => {
   return 'vote_average';
 };
 
+export const mapNameSorts = (typeSort: string) => {
+  if (typeSort === 'release_date') {
+    return ValueSortMovie.RELEASE_DATE;
+  }
+  if (typeSort === 'genres') {
+    return ValueSortMovie.GENRE;
+  }
+
+  return ValueSortMovie.RATING;
+};
+
 export const validationSchema = Yup.object().shape({
   title: Yup.string()
     .min(2, 'Title must contain at least 2 characters.')

@@ -34,7 +34,7 @@
   .modalInputsFields {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 30px;
+    grid-row-gap: 19px;
     grid-column-gap: 30px;
   }
 
@@ -76,7 +76,7 @@
   .modalTitle {
     display: flex;
     flex-direction: column;
-
+    height: 102px;
     input {
       padding: 17px 148px 16px 18px;
     }
@@ -85,12 +85,13 @@
   .modalMovieUrl {
     display: flex;
     flex-direction: column;
+    height: 102px;
   }
 
   .modalReleaseDate {
     display: flex;
     flex-direction: column;
-
+    height: 102px;
     input {
       min-width: 301px;
     }
@@ -105,7 +106,7 @@
 
     .iconCalendar {
       position: relative;
-      bottom: 43px;
+      bottom: 61px;
       left: 297px;
       font-size: 25px;
       color: $pink;
@@ -116,11 +117,13 @@
   .modalRating {
     display: flex;
     flex-direction: column;
+    height: 102px;
   }
 
   .modalRuntime {
     display: flex;
     flex-direction: column;
+    height: 102px;
   }
 
   .modalGenre {
@@ -128,6 +131,7 @@
     flex-direction: column;
     height: 134px;
     gap: 6px;
+
 
     select {
       @include font-family;
@@ -170,13 +174,14 @@
   .modalOverview {
     display: flex;
     flex-direction: column;
+    height: 225px;
 
     textarea {
       background: rgba(50, 50, 50, 0.948044);
       mix-blend-mode: normal;
       border: none;
       border-radius: 4px;
-      height: 177px;
+      height: 160px;
       color: $white;
       font-size: 20px;
       line-height: 24px;
@@ -204,7 +209,7 @@
   }
 
   .modalBtn {
-    margin-top: 60px;
+    margin-top: 50px;
     display: flex;
     justify-content: end;
     gap: 13px;

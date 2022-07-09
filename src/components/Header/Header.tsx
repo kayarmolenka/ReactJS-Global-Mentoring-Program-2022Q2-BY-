@@ -13,9 +13,9 @@ export const Header = (props: IHeaderProps) => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSuccessModal, setSuccessModal] = useState(false);
-  const { genres, poster_path, title, release_date, vote_average, runtime, overview } =
-    activeMovieDescription;
-  const [srcImg, setSrcImg] = useState(poster_path ? poster_path : DEFAULT_SRC);
+  const [srcImg, setSrcImg] = useState(
+    activeMovieDescription.poster_path ? activeMovieDescription.poster_path : DEFAULT_SRC,
+  );
 
   const handleSearchIcon = useCallback(() => {
     handleMovieDescription();
@@ -32,19 +32,14 @@ export const Header = (props: IHeaderProps) => {
 
   useEffect(() => {
     if (activeMovieDescription.id) {
-      setSrcImg(poster_path);
+      setSrcImg(activeMovieDescription.poster_path);
     }
-  }, [activeMovieDescription, poster_path]);
+  }, [activeMovieDescription, activeMovieDescription.poster_path]);
 
   return !!activeMovieDescription.id ? (
     <DescriptionMovie
-      title={title}
-      rating={vote_average}
-      overview={overview}
-      genres={genres}
-      runtime={runtime}
       poster={srcImg}
-      realiseDate={release_date}
+      activeMovieDescription={activeMovieDescription}
       handleSearchIcon={handleSearchIcon}
       handleErrorImage={handleErrorImage}
     />
