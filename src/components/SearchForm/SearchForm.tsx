@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '../Button';
@@ -7,18 +8,19 @@ import { ButtonType } from '../../models';
 import styles from './SearchForm.module.scss';
 
 export const SearchForm = () => {
-  const searchHandle = () => {
-    console.log('searchHandle'); //TODO for search form
-  };
-
   const [isVisibleCross, setIsVisibleCross] = useState(false);
   const [valueSearchForm, setValueSearchForm] = useState('');
+  const navigate = useNavigate();
 
   const handleValueSearchForm = (e: ChangeEvent<HTMLInputElement>) => {
     setValueSearchForm(e.target.value);
     if (e.target.value.length) {
       setIsVisibleCross(true);
     }
+  };
+
+  const searchHandle = () => {
+    navigate(valueSearchForm);
   };
 
   const removeSearchText = () => {

@@ -13,6 +13,7 @@ import {
   CHANGE_GENRE,
   CHANGE_FILTER,
   EDIT_MOVIE,
+  FETCH_MOVIE_LIST_WITH_PARAMS,
 } from './constants';
 import { useFetch } from '../hooks/useFetch';
 import { IdMovie, IMovieParams, ValueFilter } from '../models';
@@ -44,6 +45,26 @@ export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, void, { 
     }
   },
 );
+
+export const fetchMovieListWithParams = createAsyncThunk<
+  IFetchMovieListResponse,
+  { sortBy: string; filter: string },
+  { state: RootState }
+>(FETCH_MOVIE_LIST_WITH_PARAMS, async ({ sortBy, filter }, thunkApi) => {
+  try {
+    console.log(sortBy);
+    console.log(filter);
+    if (filter === ValueFilter.ALL) {
+      return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
+    }
+
+    return await useFetch(
+      `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&filter=${filter}&offset=1&limit=12`,
+    );
+  } catch (error) {
+    return thunkApi.rejectWithValue((error as Error).message);
+  }
+});
 
 export const addMovie = createAsyncThunk<IFetchMovieListResponse, IMovieParams>(
   ADD_MOVIE,

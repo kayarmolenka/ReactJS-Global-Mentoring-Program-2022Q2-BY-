@@ -8,6 +8,7 @@ export const initialState: IApplicationState = {
 };
 
 export const FETCH_MOVIE_LIST = 'movies/fetchMovieList';
+export const FETCH_MOVIE_LIST_WITH_PARAMS = 'movies/fetchMovieListWithParams';
 export const ADD_MOVIE = 'movies/addMovie';
 export const DELETE_MOVIE = 'movies/deleteMovie';
 export const EDIT_MOVIE = 'movies/editMovie';

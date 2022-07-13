@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { valueSortMovie } from '../../constants';
@@ -13,6 +14,7 @@ interface IMovieSortProps {
 
 export const MovieSort = (props: IMovieSortProps) => {
   const { chosenTypeSorting, onHandleSortType } = props;
+  const [searchParams] = useSearchParams();
 
   return (
     <div className={styles.movieSort}>

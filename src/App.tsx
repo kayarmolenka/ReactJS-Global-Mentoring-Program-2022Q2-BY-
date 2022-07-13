@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Footer, ErrorBoundary, Main } from './components';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import { Header, Footer, ErrorBoundary, Main, NotFound } from './components';
 import { INIT_STATE } from './constants';
 import { movieListSelector } from './store';
 
@@ -18,10 +19,6 @@ export const App = () => {
     setActiveMovieDescription(description);
   };
 
-  const handleMovieDescription = () => {
-    setActiveMovieDescription(INIT_STATE);
-  };
-
   useEffect(() => {
     if (activeMovieId) {
       handleMovieCard(activeMovieId);
@@ -29,15 +26,25 @@ export const App = () => {
   }, [movies]);
 
   return (
-    <ErrorBoundary>
-      <div className={styles.app}>
-        <Header
-          activeMovieDescription={activeMovieDescription || {}}
-          handleMovieDescription={handleMovieDescription}
-        />
-        <Main handleMovieCard={handleMovieCard} />
-        <Footer />
-      </div>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<Navigate to="/search" />} />
+          <Route
+            path="/search/*"
+            element={
+              <Fragment>
+                <div className={styles.app}>
+                  <Header activeMovieDescription={activeMovieDescription || {}} />
+                  <Main handleMovieCard={handleMovieCard} />
+                  <Footer />
+                </div>
+              </Fragment>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </ErrorBoundary>
+    </BrowserRouter>
   );
 };

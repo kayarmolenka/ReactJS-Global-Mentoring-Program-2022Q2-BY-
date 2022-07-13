@@ -1,5 +1,6 @@
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { HotModuleReplacementPlugin } = require('webpack');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -7,9 +8,10 @@ module.exports = merge(common, {
   mode: 'development',
   devServer: {
     compress: true,
-    https: true,
     open: true,
-    port: 9000,
+    hot: true,
+    port: 9100,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -18,5 +20,6 @@ module.exports = merge(common, {
       filename: 'index.html',
       favicon: 'src/public/favicon.ico',
     }),
+    new HotModuleReplacementPlugin(),
   ],
 });

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { changeFilter, fetchMovieList, setGenre } from './thunks';
+import { changeFilter, fetchMovieList, fetchMovieListWithParams, setGenre } from './thunks';
 import { initialState } from './constants';
 
 export const applicationSlice = createSlice({
@@ -16,6 +16,10 @@ export const applicationSlice = createSlice({
     });
 
     builder.addCase(fetchMovieList.fulfilled, (state, action) => {
+      state.movieList = action.payload.data;
+    });
+
+    builder.addCase(fetchMovieListWithParams.fulfilled, (state, action) => {
       state.movieList = action.payload.data;
     });
   },

@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal, CongratulationsModal } from '../index';
@@ -61,60 +62,62 @@ export const MovieCard = (props: MovieCardProps) => {
   };
 
   return (
-    <div className={styles.movieCard} id={title}>
-      <div className={styles.movieCardImage}>
-        <img
-          src={srcImg}
-          alt={title}
-          className={styles.movieCardPoster}
-          onClick={showDescription}
-          onError={handleErrorImage}
-        />
-        <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={id}>
-          <FontAwesomeIcon
-            icon={faEllipsisVertical}
-            className={styles.movieCardThreeDots}
-            data-name={id}
+    <NavLink to={`movie=:${id}`}>
+      <div className={styles.movieCard} id={title}>
+        <div className={styles.movieCardImage}>
+          <img
+            src={srcImg}
+            alt={title}
+            className={styles.movieCardPoster}
+            onClick={showDescription}
+            onError={handleErrorImage}
           />
+          <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={id}>
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              className={styles.movieCardThreeDots}
+              data-name={id}
+            />
+          </div>
+          {isShowEditModal && activePopupId === id && (
+            <PopupMovieCard
+              isOpenModal={isShowEditModal}
+              setIsOpenModal={setIsShowEditModal}
+              setOpenEditMode={setOpenEditMode}
+              setOpenDeleteModal={setOpenDeleteModal}
+            />
+          )}
+          <DeleteMovie
+            isDeleteMovieModal={isOpenDeleteModal}
+            setIsDeleteMovie={setOpenDeleteModal}
+            deleteMovie={handleDeleteMovie}
+          />
+          <Modal
+            textHeader="Edit Movie"
+            isOpenModal={isOpenEditMode}
+            setIsOpenModal={setOpenEditMode}
+            setSuccessModal={completeEditMovie}
+            initialState={descriptionMovie}
+            editMode={true}
+          />
+          {isSuccessModal && (
+            <CongratulationsModal
+              isOpenModal={isSuccessModal}
+              setIsOpenModal={setSuccessModal}
+              modalText="The movie has been edited successfully!!"
+            />
+          )}
         </div>
-        {isShowEditModal && activePopupId === id && (
-          <PopupMovieCard
-            isOpenModal={isShowEditModal}
-            setIsOpenModal={setIsShowEditModal}
-            setOpenEditMode={setOpenEditMode}
-            setOpenDeleteModal={setOpenDeleteModal}
-          />
-        )}
-        <DeleteMovie
-          isDeleteMovieModal={isOpenDeleteModal}
-          setIsDeleteMovie={setOpenDeleteModal}
-          deleteMovie={handleDeleteMovie}
-        />
-        <Modal
-          textHeader="Edit Movie"
-          isOpenModal={isOpenEditMode}
-          setIsOpenModal={setOpenEditMode}
-          setSuccessModal={completeEditMovie}
-          initialState={descriptionMovie}
-          editMode={true}
-        />
-        {isSuccessModal && (
-          <CongratulationsModal
-            isOpenModal={isSuccessModal}
-            setIsOpenModal={setSuccessModal}
-            modalText="The movie has been edited successfully!!"
-          />
-        )}
+        <div className={styles.movieCardDescription}>
+          <div className={styles.movieCardTitle}>{title}</div>
+          <div className={styles.movieCardRealiseDate}>{release_date}</div>
+        </div>
+        <p className={styles.movieCardGenre}>
+          {genres.map((genre) => (
+            <li key={genre}>{genre}</li>
+          ))}
+        </p>
       </div>
-      <div className={styles.movieCardDescription}>
-        <div className={styles.movieCardTitle}>{title}</div>
-        <div className={styles.movieCardRealiseDate}>{release_date}</div>
-      </div>
-      <p className={styles.movieCardGenre}>
-        {genres.map((genre) => (
-          <li key={genre}>{genre}</li>
-        ))}
-      </p>
-    </div>
+    </NavLink>
   );
 };
