@@ -26,6 +26,7 @@ export const SearchForm = () => {
   const removeSearchText = () => {
     setValueSearchForm('');
     setIsVisibleCross(false);
+    navigate(-1);
   };
 
   return (

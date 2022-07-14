@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { HeaderComponent } from './components';
 import { DescriptionMovie } from '../DescriptionMovie';
-import { IMovieList } from '../../models';
 import { DEFAULT_SRC } from '../../constants';
+import { fetchMovieById, getActiveDescriptionMovieSelector, useAppDispatch } from '../../store';
+import { NotFound } from '../NotFound';
+import { convertIdFromStringToNumber } from '../../utils';
 
-interface IHeaderProps {
-  activeMovieDescription: IMovieList;
-}
-export const Header = (props: IHeaderProps) => {
-  const { activeMovieDescription } = props;
-
+export const Header = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSuccessModal, setSuccessModal] = useState(false);
+  const activeMovieDescription = useSelector(getActiveDescriptionMovieSelector);
   const [srcImg, setSrcImg] = useState(
-    activeMovieDescription.poster_path ? activeMovieDescription.poster_path : DEFAULT_SRC,
+    activeMovieDescription?.poster_path ? activeMovieDescription.poster_path : DEFAULT_SRC,
   );
+  const { '*': idMovie } = useParams();
+  const dispatch = useAppDispatch();
 
   const addMovieHandle = () => {
     setIsOpenModal(true);
@@ -27,15 +28,25 @@ export const Header = (props: IHeaderProps) => {
   };
 
   useEffect(() => {
-    if (activeMovieDescription.id) {
+    if (activeMovieDescription?.id) {
       setSrcImg(activeMovieDescription.poster_path);
     }
-  }, [activeMovieDescription, activeMovieDescription.poster_path]);
+  }, [activeMovieDescription, activeMovieDescription?.poster_path]);
+
+  useEffect(() => {
+    if (idMovie) {
+      try {
+        dispatch(fetchMovieById(convertIdFromStringToNumber(idMovie)));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [idMovie]);
 
   return (
     <Routes>
       <Route
-        path="/"
+        path="/*"
         element={
           <HeaderComponent
             isOpenModal={isOpenModal}
@@ -47,15 +58,18 @@ export const Header = (props: IHeaderProps) => {
         }
       />
       <Route
-        path="movie:id"
+        path={`/movie:${idMovie && convertIdFromStringToNumber(idMovie)}`}
         element={
-          <DescriptionMovie
-            poster={srcImg}
-            activeMovieDescription={activeMovieDescription}
-            handleErrorImage={handleErrorImage}
-          />
+          activeMovieDescription && (
+            <DescriptionMovie
+              poster={srcImg}
+              activeMovieDescription={activeMovieDescription}
+              handleErrorImage={handleErrorImage}
+            />
+          )
         }
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

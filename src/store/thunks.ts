@@ -14,9 +14,10 @@ import {
   CHANGE_FILTER,
   EDIT_MOVIE,
   FETCH_MOVIE_LIST_WITH_PARAMS,
+  FETCH_MOVIE_BY_ID,
 } from './constants';
 import { useFetch } from '../hooks/useFetch';
-import { IdMovie, IMovieParams, ValueFilter } from '../models';
+import { IdMovie, IMovieList, IMovieParams, ValueFilter } from '../models';
 
 export const setGenre = createAction(CHANGE_GENRE, (action) => ({
   payload: action,
@@ -52,8 +53,6 @@ export const fetchMovieListWithParams = createAsyncThunk<
   { state: RootState }
 >(FETCH_MOVIE_LIST_WITH_PARAMS, async ({ sortBy, filter }, thunkApi) => {
   try {
-    console.log(sortBy);
-    console.log(filter);
     if (filter === ValueFilter.ALL) {
       return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
     }
@@ -65,6 +64,17 @@ export const fetchMovieListWithParams = createAsyncThunk<
     return thunkApi.rejectWithValue((error as Error).message);
   }
 });
+
+export const fetchMovieById = createAsyncThunk<IMovieList, IdMovie>(
+  FETCH_MOVIE_BY_ID,
+  async (id, thunkApi) => {
+    try {
+      return await useFetch(`${API_URL}movies/${id}`);
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message);
+    }
+  },
+);
 
 export const addMovie = createAsyncThunk<IFetchMovieListResponse, IMovieParams>(
   ADD_MOVIE,

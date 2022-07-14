@@ -15,8 +15,8 @@ interface IDescriptionMovieProps {
 export const DescriptionMovie = (props: IDescriptionMovieProps) => {
   const { activeMovieDescription, handleErrorImage, poster } = props;
   const { genres, title, release_date, vote_average, runtime, overview } = activeMovieDescription;
-
   const runtimeDescription = !runtime ? 'No Data' : `${runtime} min`;
+
   return (
     <div className={styles.descriptionWrapper}>
       <div className={styles.descriptionHeader}>

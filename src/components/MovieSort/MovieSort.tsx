@@ -23,7 +23,7 @@ export const MovieSort = (props: IMovieSortProps) => {
         <li className={styles.movieSortRealiseDate}>
           <select
             className={styles.movieSortSelect}
-            value={mapNameSorts(chosenTypeSorting)}
+            value={mapNameSorts(searchParams.get('sortBy') || chosenTypeSorting)}
             onChange={onHandleSortType}
           >
             {valueSortMovie.map((typeSort) => (

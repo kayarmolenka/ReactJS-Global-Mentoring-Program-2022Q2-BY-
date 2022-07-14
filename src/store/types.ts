@@ -9,6 +9,7 @@ export interface IApplicationState {
   movieList: IMovieList[];
   sortingType: string;
   activeGenre: string;
+  activeDescriptionMovie?: IMovieList;
 }
 
 export interface IFetchMovieListResponse {

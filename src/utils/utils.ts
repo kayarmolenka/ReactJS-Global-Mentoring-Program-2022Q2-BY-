@@ -25,6 +25,10 @@ export const mapNameSorts = (typeSort: string) => {
   }
 };
 
+export const convertIdFromStringToNumber = (id: string) => {
+  return Number(id.slice(7));
+};
+
 export const validationSchema = Yup.object().shape({
   title: Yup.string()
     .min(2, 'Title must contain at least 2 characters.')
