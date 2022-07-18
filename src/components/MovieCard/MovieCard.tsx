@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { PopupMovieCard, DeleteMovie, Modal, CongratulationsModal } from '../index';
@@ -63,13 +64,15 @@ export const MovieCard = (props: MovieCardProps) => {
   return (
     <div className={styles.movieCard} id={title}>
       <div className={styles.movieCardImage}>
-        <img
-          src={srcImg}
-          alt={title}
-          className={styles.movieCardPoster}
-          onClick={showDescription}
-          onError={handleErrorImage}
-        />
+        <NavLink to={`movie=:${id}`}>
+          <img
+            src={srcImg}
+            alt={title}
+            className={styles.movieCardPoster}
+            onClick={showDescription}
+            onError={handleErrorImage}
+          />
+        </NavLink>
         <div className={styles.movieCardCircle} onClick={handleEditMenu} data-name={id}>
           <FontAwesomeIcon
             icon={faEllipsisVertical}

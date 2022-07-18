@@ -1,11 +1,13 @@
+import { NavLink } from 'react-router-dom';
+
 import styles from './NetflixRoulette.module.scss';
 
 export const NetflixRoulette = () => {
   return (
     <div className={styles.logo}>
-      <a href="#">
+      <NavLink to="/">
         <strong>netflix</strong>roulette
-      </a>
+      </NavLink>
     </div>
   );
 };

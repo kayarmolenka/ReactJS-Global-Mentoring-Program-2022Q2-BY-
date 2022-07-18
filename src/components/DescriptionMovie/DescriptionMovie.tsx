@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NetflixRoulette } from '../index';
@@ -8,22 +9,21 @@ import styles from './DescriptionMovie.module.scss';
 interface IDescriptionMovieProps {
   poster: string;
   activeMovieDescription: IMovieList;
-  handleSearchIcon: () => void;
   handleErrorImage: () => void;
 }
 
 export const DescriptionMovie = (props: IDescriptionMovieProps) => {
-  const { activeMovieDescription, handleSearchIcon, handleErrorImage, poster } = props;
+  const { activeMovieDescription, handleErrorImage, poster } = props;
   const { genres, title, release_date, vote_average, runtime, overview } = activeMovieDescription;
-
   const runtimeDescription = !runtime ? 'No Data' : `${runtime} min`;
+
   return (
     <div className={styles.descriptionWrapper}>
       <div className={styles.descriptionHeader}>
-        <div onClick={handleSearchIcon}>
-          <NetflixRoulette />
-        </div>
-        <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} onClick={handleSearchIcon} />
+        <NetflixRoulette />
+        <NavLink to="/">
+          <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
+        </NavLink>
       </div>
       <div className={styles.descriptionContent}>
         <div>

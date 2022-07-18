@@ -1,4 +1,5 @@
 import { MouseEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { valueFilter } from '../../constants';
 
@@ -11,6 +12,7 @@ interface IMovieFilterProps {
 
 export const MovieFilter = (props: IMovieFilterProps) => {
   const { activeGenre, onHandleGenre } = props;
+  const [searchParams] = useSearchParams();
 
   return (
     <div className={styles.movieFilter}>
@@ -18,7 +20,8 @@ export const MovieFilter = (props: IMovieFilterProps) => {
         <button
           key={genre}
           className={classNames(`${styles.movieFilterBtn}`, {
-            [styles.movieFilterBtnChosen]: genre === activeGenre,
+            [styles.movieFilterBtnChosen]:
+              genre === activeGenre || genre === searchParams.get('filter'),
           })}
           onClick={onHandleGenre}
         >

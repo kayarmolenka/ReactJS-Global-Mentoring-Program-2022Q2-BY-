@@ -20,7 +20,13 @@ export const mapNameSorts = (typeSort: string) => {
     return ValueSortMovie.GENRE;
   }
 
-  return ValueSortMovie.RATING;
+  if (typeSort === 'vote_average') {
+    return ValueSortMovie.RATING;
+  }
+};
+
+export const convertIdFromStringToNumber = (id: string) => {
+  return Number(id.slice(7));
 };
 
 export const validationSchema = Yup.object().shape({
