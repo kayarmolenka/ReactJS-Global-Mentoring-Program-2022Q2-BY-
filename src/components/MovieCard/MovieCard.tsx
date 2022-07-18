@@ -1,9 +1,10 @@
 import { SyntheticEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { PopupMovieCard, DeleteMovie, Modal } from '../index';
+import { PopupMovieCard, DeleteMovie, Modal, CongratulationsModal } from '../index';
 import { MovieCardProps } from '../../models';
 import { DEFAULT_SRC } from '../../constants';
+import { deleteMovie, fetchMovieList, useAppDispatch } from '../../store';
 
 import styles from './MovieCard.module.scss';
 
@@ -25,22 +26,25 @@ export const MovieCard = (props: MovieCardProps) => {
     setIsShowEditModal(true);
   };
 
+  const [isSuccessModal, setSuccessModal] = useState(false);
   const [isOpenEditMode, setOpenEditMode] = useState(false);
   const [isOpenDeleteModal, setOpenDeleteModal] = useState(false);
   const [srcImg, setSrcImg] = useState(poster_path ? poster_path : DEFAULT_SRC);
+  const dispatch = useAppDispatch();
 
   const completeEditMovie = () => {
-    console.log('Completed edit movie'); // TODO for edit movie functionality
+    setSuccessModal(true);
   };
 
   const descriptionMovie = {
     title,
-    releaseDate: release_date,
-    genre: genres,
+    release_date,
+    genres,
     runtime,
     overview,
-    rating: vote_average,
-    movieUrl: poster_path,
+    vote_average,
+    poster_path,
+    id,
   };
 
   const showDescription = () => {
@@ -49,6 +53,11 @@ export const MovieCard = (props: MovieCardProps) => {
 
   const handleErrorImage = () => {
     setSrcImg(DEFAULT_SRC);
+  };
+
+  const handleDeleteMovie = async () => {
+    await dispatch(deleteMovie(id));
+    dispatch(fetchMovieList());
   };
 
   return (
@@ -76,14 +85,26 @@ export const MovieCard = (props: MovieCardProps) => {
             setOpenDeleteModal={setOpenDeleteModal}
           />
         )}
-        <DeleteMovie isDeleteMovieModal={isOpenDeleteModal} setIsDeleteMovie={setOpenDeleteModal} />
+        <DeleteMovie
+          isDeleteMovieModal={isOpenDeleteModal}
+          setIsDeleteMovie={setOpenDeleteModal}
+          deleteMovie={handleDeleteMovie}
+        />
         <Modal
           textHeader="Edit Movie"
           isOpenModal={isOpenEditMode}
           setIsOpenModal={setOpenEditMode}
           setSuccessModal={completeEditMovie}
           initialState={descriptionMovie}
+          editMode={true}
         />
+        {isSuccessModal && (
+          <CongratulationsModal
+            isOpenModal={isSuccessModal}
+            setIsOpenModal={setSuccessModal}
+            modalText="The movie has been edited successfully!!"
+          />
+        )}
       </div>
       <div className={styles.movieCardDescription}>
         <div className={styles.movieCardTitle}>{title}</div>

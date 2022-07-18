@@ -1,0 +1,23 @@
+@import "src/style/variables";
+@import "src/style/mixins";
+
+.labelFormField {
+  @include font-family;
+  letter-spacing: 0.888889px;
+  text-transform: uppercase;
+  color: $pink;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+
+.errorWarning {
+  @include font-family;
+  color: $pink;
+  font-size: 14px;
+  line-height: 17px;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}

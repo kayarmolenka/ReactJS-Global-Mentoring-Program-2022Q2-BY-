@@ -2,7 +2,7 @@ import { ButtonType } from '../../models';
 
 interface ButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   type?: ButtonType;
   className?: string;
 }

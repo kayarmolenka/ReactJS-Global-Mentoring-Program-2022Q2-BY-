@@ -8,10 +8,12 @@ import styles from './DeleteMovie.module.scss';
 interface IDeleteMovieProps {
   isDeleteMovieModal: boolean;
   setIsDeleteMovie: (data: boolean) => void;
+  deleteMovie: () => void;
 }
 
 export const DeleteMovie = (props: IDeleteMovieProps) => {
-  const { isDeleteMovieModal, setIsDeleteMovie } = props;
+  const { isDeleteMovieModal, setIsDeleteMovie, deleteMovie } = props;
+
   const closeModalWindow = useCallback(() => {
     setIsDeleteMovie(false);
     document.body.style.overflow = 'auto';
@@ -22,7 +24,7 @@ export const DeleteMovie = (props: IDeleteMovieProps) => {
   }, []);
 
   const handleConfirmDelete = () => {
-    console.log('The movie was successfully deleted'); //TODO for functionality of delete movie
+    deleteMovie();
     setIsDeleteMovie(false);
   };
 

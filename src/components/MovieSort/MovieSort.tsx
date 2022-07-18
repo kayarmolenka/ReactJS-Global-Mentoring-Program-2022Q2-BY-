@@ -2,20 +2,17 @@ import { SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { valueSortMovie } from '../../constants';
+import { mapNameSorts } from '../../utils';
 
 import styles from './MovieSort.module.scss';
 
 interface IMovieSortProps {
   chosenTypeSorting: string;
-  setChosenTypeSorting: (param: string) => void;
+  onHandleSortType: (e: SyntheticEvent<HTMLSelectElement>) => void;
 }
 
 export const MovieSort = (props: IMovieSortProps) => {
-  const { chosenTypeSorting, setChosenTypeSorting } = props;
-
-  const handleSortType = (e: SyntheticEvent<HTMLSelectElement>) => {
-    setChosenTypeSorting(e.currentTarget.value);
-  };
+  const { chosenTypeSorting, onHandleSortType } = props;
 
   return (
     <div className={styles.movieSort}>
@@ -24,8 +21,8 @@ export const MovieSort = (props: IMovieSortProps) => {
         <li className={styles.movieSortRealiseDate}>
           <select
             className={styles.movieSortSelect}
-            value={chosenTypeSorting}
-            onChange={handleSortType}
+            value={mapNameSorts(chosenTypeSorting)}
+            onChange={onHandleSortType}
           >
             {valueSortMovie.map((typeSort) => (
               <option key={typeSort} value={typeSort}>

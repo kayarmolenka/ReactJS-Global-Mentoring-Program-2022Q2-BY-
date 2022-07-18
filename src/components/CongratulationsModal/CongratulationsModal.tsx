@@ -7,10 +7,11 @@ import styles from './CongratulationsModal.module.scss';
 interface IModalProps {
   isOpenModal: boolean;
   setIsOpenModal: (data: boolean) => void;
+  modalText: string;
 }
 
 export const CongratulationsModal = (props: IModalProps) => {
-  const { isOpenModal, setIsOpenModal } = props;
+  const { isOpenModal, setIsOpenModal, modalText } = props;
   const closeModalWindow = useCallback(() => {
     setIsOpenModal(false);
     document.body.style.overflow = 'auto';
@@ -35,7 +36,7 @@ export const CongratulationsModal = (props: IModalProps) => {
             <FontAwesomeIcon icon={faCircleCheck} className={styles.modalCongratulationsIcon} />
           </div>
           <h2>Congratulations!</h2>
-          <p>The movie has been added to database successfully </p>
+          <p>{modalText}</p>
         </div>
       </div>
     </div>

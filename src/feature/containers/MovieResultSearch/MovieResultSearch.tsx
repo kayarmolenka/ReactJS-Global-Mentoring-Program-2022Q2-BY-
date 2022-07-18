@@ -1,57 +1,35 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, SyntheticEvent } from 'react';
+import { useSelector } from 'react-redux';
 import { MovieFilter, MovieSort } from '../../../components';
+import { changeFilter, fetchMovieList, setGenre } from '../../../store/thunks';
 import {
-  fetchFilteredMovieList,
-  fetchMovieList,
-  fetchSortedMovieList,
-} from '../../../store/thunks';
-import { useAppDispatch } from '../../../store';
+  getActiveGenreSelector,
+  getActiveSortingTypeSelector,
+  useAppDispatch,
+} from '../../../store';
 import { mapSortsName } from '../../../utils';
-import { valueFilter, valueSortMovie } from '../../../constants';
-import { ValueFilter } from '../../../models';
 
 import styles from './MovieResultSearch.module.scss';
 
 export const MovieResultSearch = () => {
-  const [chosenTypeSorting, setChosenTypeSorting] = useState(valueSortMovie[0]);
-  const [activeGenre, setActiveGenre] = useState(valueFilter[0]);
-
   const dispatch = useAppDispatch();
+  const activeGenre = useSelector(getActiveGenreSelector);
+  const chosenTypeSorting = useSelector(getActiveSortingTypeSelector);
 
-  const onHandleGenre = async (e: MouseEvent<HTMLButtonElement>) => {
-    setActiveGenre(e.currentTarget.innerHTML);
-
-    if (e.currentTarget.innerHTML !== ValueFilter.ALL) {
-      await dispatch(
-        fetchFilteredMovieList({
-          activeGenre: e.currentTarget.innerHTML,
-          sortBy: mapSortsName(chosenTypeSorting),
-        }),
-      );
-      return;
-    }
-    await dispatch(fetchMovieList({ sortBy: mapSortsName(chosenTypeSorting) }));
+  const handleSortType = async (e: SyntheticEvent<HTMLSelectElement>) => {
+    dispatch(changeFilter(mapSortsName(e.currentTarget.value)));
+    await dispatch(fetchMovieList());
   };
 
-  useEffect(() => {
-    if (chosenTypeSorting && activeGenre !== valueSortMovie[0]) {
-      dispatch(
-        fetchSortedMovieList({ sortBy: mapSortsName(chosenTypeSorting), activeGenre: activeGenre }),
-      );
-      return;
-    }
-    if (chosenTypeSorting) {
-      dispatch(fetchMovieList({ sortBy: mapSortsName(chosenTypeSorting) }));
-    }
-  }, [chosenTypeSorting, dispatch]);
+  const handleGenre = async (e: MouseEvent<HTMLButtonElement>) => {
+    dispatch(setGenre(e.currentTarget.innerHTML));
+    await dispatch(fetchMovieList());
+  };
 
   return (
     <div className={styles.movieResultSearch}>
-      <MovieFilter activeGenre={activeGenre} onHandleGenre={onHandleGenre} />
-      <MovieSort
-        chosenTypeSorting={chosenTypeSorting}
-        setChosenTypeSorting={setChosenTypeSorting}
-      />
+      <MovieFilter activeGenre={activeGenre} onHandleGenre={handleGenre} />
+      <MovieSort chosenTypeSorting={chosenTypeSorting} onHandleSortType={handleSortType} />
       <div className={styles.movieResultSearchBorderLine} />
     </div>
   );
