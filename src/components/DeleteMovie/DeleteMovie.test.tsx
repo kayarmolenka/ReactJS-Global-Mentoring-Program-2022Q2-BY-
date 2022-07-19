@@ -2,8 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { DeleteMovie } from './DeleteMovie';
 
-jest.mock('../../constants');
-
 describe('DeleteMovie', () => {
   const handleIsDeleteMovie = jest.fn();
   const handleDeleteMovie = jest.fn();
@@ -40,12 +38,11 @@ describe('DeleteMovie', () => {
   it('should call handleDeleteMovie after click on confirm button', () => {
     render(
       <DeleteMovie
-        isDeleteMovieModal={false}
+        isDeleteMovieModal={true}
         setIsDeleteMovie={handleIsDeleteMovie}
         deleteMovie={handleDeleteMovie}
       />,
     );
-
     fireEvent.click(screen.getByText('Confirm'));
 
     expect(handleDeleteMovie).toHaveBeenCalled();
@@ -54,7 +51,7 @@ describe('DeleteMovie', () => {
   it('should call handleIsDeleteMovie after click on close icon modal', () => {
     render(
       <DeleteMovie
-        isDeleteMovieModal={false}
+        isDeleteMovieModal={true}
         setIsDeleteMovie={handleIsDeleteMovie}
         deleteMovie={handleDeleteMovie}
       />,
