@@ -4,11 +4,7 @@ import { CongratulationsModal } from './CongratulationsModal';
 describe('CongratulationsModal', () => {
   const handleOpenModal = jest.fn();
 
-  afterEach(() => {
-    handleOpenModal.mockRestore();
-  });
-
-  it('should return "You add movie!" text when modal is open', () => {
+  it('should render modal text as "You add movie!" when isOpenModal equal true', () => {
     render(
       <CongratulationsModal
         isOpenModal={true}
@@ -20,7 +16,7 @@ describe('CongratulationsModal', () => {
     expect(screen.getByText('You add movie!')).toBeInTheDocument();
   });
 
-  it('should not return "You add movie!" text when modal is closed', () => {
+  it('should not render modal text as "You add movie!" when isOpenModal equal false', () => {
     render(
       <CongratulationsModal
         isOpenModal={false}

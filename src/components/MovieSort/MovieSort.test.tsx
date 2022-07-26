@@ -1,34 +1,18 @@
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { createStore } from '../../store';
 import { MovieSort } from './MovieSort';
 import { valueSortMovie } from '../../constants';
+import { TestWrapper } from '../../utils/TestWrapper';
 
 const onHandleSortType = jest.fn();
 
 describe('MovieSort', () => {
-  afterEach(() => {
-    onHandleSortType.mockRestore();
-  });
-
   it('should render "SortBy" component', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieSort
-                  chosenTypeSorting={valueSortMovie[0]}
-                  onHandleSortType={onHandleSortType}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieSort chosenTypeSorting={valueSortMovie[0]} onHandleSortType={onHandleSortType} />
+        }
+      />,
     );
 
     expect(screen.getByText('Sort by')).toBeInTheDocument();
@@ -36,21 +20,11 @@ describe('MovieSort', () => {
 
   it('should call onHandleSortType after chose other genre from dropdown', async () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieSort
-                  chosenTypeSorting={valueSortMovie[0]}
-                  onHandleSortType={onHandleSortType}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieSort chosenTypeSorting={valueSortMovie[0]} onHandleSortType={onHandleSortType} />
+        }
+      />,
     );
 
     fireEvent.change(screen.getByTestId('select'), {

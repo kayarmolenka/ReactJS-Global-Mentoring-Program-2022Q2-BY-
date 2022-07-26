@@ -36,7 +36,7 @@ export const Main = (props: IMainProps) => {
   return (
     <main>
       <Divider />
-      <MovieResultSearch />
+      <MovieResultSearch activeGenre={activeGenre} chosenTypeSorting={chosenTypeSorting} />
       <CountMovie countMovie={movies.length} />
       <MovieList
         movies={movies}

@@ -1,9 +1,10 @@
 import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { createStore } from '../../store';
+import { Routes, Route, MemoryRouter } from 'react-router-dom';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MovieCard } from './MovieCard';
 import { IMovieList } from '../../models';
+import { TestWrapper } from '../../utils/TestWrapper';
+import { createStore } from '../../store';
 
 const movieList: IMovieList = {
   budget: 23000,
@@ -29,33 +30,20 @@ const handleMovieCard = jest.fn();
 const MovieDetailMock = () => <div>{'Movie detail mock'}</div>;
 
 describe('MovieCard', () => {
-  afterEach(() => {
-    setIsShowEditModal.mockRestore();
-    setActivePopup.mockRestore();
-    handleMovieCard.mockRestore();
-  });
-
   it('should return movie date', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieCard
-                  movieData={movieList}
-                  isShowEditModal={true}
-                  setIsShowEditModal={setIsShowEditModal}
-                  setActivePopup={setActivePopup}
-                  activePopupId={123}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieCard
+            movieData={movieList}
+            isShowEditModal={true}
+            setIsShowEditModal={setIsShowEditModal}
+            setActivePopup={setActivePopup}
+            activePopupId={123}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     expect(screen.getByText('Marvel')).toBeInTheDocument();
@@ -84,33 +72,27 @@ describe('MovieCard', () => {
         </MemoryRouter>
       </Provider>,
     );
-
-    fireEvent.click(screen.getByAltText('Marvel'));
+    act(() => {
+      fireEvent.click(screen.getByAltText('Marvel'));
+    });
 
     expect(screen.getByText('Movie detail mock')).toBeInTheDocument();
   });
 
   it('should return open pop up when activePopupId equal movie id', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieCard
-                  movieData={movieList}
-                  isShowEditModal={true}
-                  setIsShowEditModal={setIsShowEditModal}
-                  setActivePopup={setActivePopup}
-                  activePopupId={123456789}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieCard
+            movieData={movieList}
+            isShowEditModal={true}
+            setIsShowEditModal={setIsShowEditModal}
+            setActivePopup={setActivePopup}
+            activePopupId={123456789}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     expect(screen.getByText('Delete')).toBeInTheDocument();
@@ -119,28 +101,22 @@ describe('MovieCard', () => {
 
   it('should call setIsShowEditModal and setActivePopup after click on threeDotsIcon', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieCard
-                  movieData={movieList}
-                  isShowEditModal={true}
-                  setIsShowEditModal={setIsShowEditModal}
-                  setActivePopup={setActivePopup}
-                  activePopupId={123456789}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieCard
+            movieData={movieList}
+            isShowEditModal={true}
+            setIsShowEditModal={setIsShowEditModal}
+            setActivePopup={setActivePopup}
+            activePopupId={123456789}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
-
-    fireEvent.click(screen.getAllByTestId('threeDotsIcon')[0]);
+    act(() => {
+      fireEvent.click(screen.getAllByTestId('threeDotsIcon')[0]);
+    });
 
     expect(setIsShowEditModal).toHaveBeenCalled();
     expect(setActivePopup).toHaveBeenCalled();
@@ -148,54 +124,44 @@ describe('MovieCard', () => {
 
   it('should return confirm pop up after click delete button', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieCard
-                  movieData={movieList}
-                  isShowEditModal={true}
-                  setIsShowEditModal={setIsShowEditModal}
-                  setActivePopup={setActivePopup}
-                  activePopupId={123456789}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieCard
+            movieData={movieList}
+            isShowEditModal={true}
+            setIsShowEditModal={setIsShowEditModal}
+            setActivePopup={setActivePopup}
+            activePopupId={123456789}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
+    act(() => {
+      fireEvent.click(screen.getByText('Delete'));
+    });
 
-    fireEvent.click(screen.getByText('Delete'));
     expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Confirm'));
+    act(() => {
+      fireEvent.click(screen.getByText('Confirm'));
+    });
   });
 
   it('should return "The movie has been edited successfully!!" pop up after edit and submitted form', async () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieCard
-                  movieData={movieList}
-                  isShowEditModal={true}
-                  setIsShowEditModal={setIsShowEditModal}
-                  setActivePopup={setActivePopup}
-                  activePopupId={123456789}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieCard
+            movieData={movieList}
+            isShowEditModal={true}
+            setIsShowEditModal={setIsShowEditModal}
+            setActivePopup={setActivePopup}
+            activePopupId={123456789}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     fireEvent.click(screen.getByText('Edit'));

@@ -1,9 +1,7 @@
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { createStore } from '../../store';
 import { MovieList } from './MovieList';
 import { IMovieList } from '../../models';
+import { TestWrapper } from '../../utils/TestWrapper';
 
 const movie1: IMovieList = {
   budget: 23000,
@@ -43,30 +41,18 @@ const setIsShowEditModal = jest.fn();
 const handleMovieCard = jest.fn();
 
 describe('MovieList', () => {
-  afterEach(() => {
-    setIsShowEditModal.mockRestore();
-    handleMovieCard.mockRestore();
-  });
-
   it('should return two movies in the list', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieList
-                  movies={[movie1, movie2]}
-                  isShowEditModal={false}
-                  setIsShowEditModal={setIsShowEditModal}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieList
+            movies={[movie1, movie2]}
+            isShowEditModal={false}
+            setIsShowEditModal={setIsShowEditModal}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     expect(screen.getByText('Marvel')).toBeInTheDocument();
@@ -75,23 +61,16 @@ describe('MovieList', () => {
 
   it('should call handleMovieCard after click on the card', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieList
-                  movies={[movie1, movie2]}
-                  isShowEditModal={false}
-                  setIsShowEditModal={setIsShowEditModal}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieList
+            movies={[movie1, movie2]}
+            isShowEditModal={false}
+            setIsShowEditModal={setIsShowEditModal}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     fireEvent.click(screen.getByAltText('Marvel'));
@@ -101,23 +80,16 @@ describe('MovieList', () => {
 
   it('should call setIsShowEditModal after click on threeDotsIcon', () => {
     render(
-      <Provider store={createStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <MovieList
-                  movies={[movie1, movie2]}
-                  isShowEditModal={false}
-                  setIsShowEditModal={setIsShowEditModal}
-                  handleMovieCard={handleMovieCard}
-                />
-              }
-            />
-          </Routes>
-        </MemoryRouter>
-      </Provider>,
+      <TestWrapper
+        Component={
+          <MovieList
+            movies={[movie1, movie2]}
+            isShowEditModal={false}
+            setIsShowEditModal={setIsShowEditModal}
+            handleMovieCard={handleMovieCard}
+          />
+        }
+      />,
     );
 
     fireEvent.click(screen.getAllByTestId('threeDotsIcon')[0]);

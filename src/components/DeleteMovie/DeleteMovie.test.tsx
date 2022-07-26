@@ -6,11 +6,6 @@ describe('DeleteMovie', () => {
   const handleIsDeleteMovie = jest.fn();
   const handleDeleteMovie = jest.fn();
 
-  afterEach(() => {
-    handleIsDeleteMovie.mockRestore();
-    handleDeleteMovie.mockRestore();
-  });
-
   it('should return "Delete Movie" when modal is open', () => {
     render(
       <DeleteMovie

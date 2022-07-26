@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal should render Add movie when isOpenModal equal true 1`] = `
+<DocumentFragment>
+  <div
+    class="modalShadow"
+  >
+    <div
+      class="modal"
+    >
+      <header
+        class="modalHeader"
+      >
+        Add Movie
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-xmark modalCloseIcon"
+          data-icon="xmark"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          viewBox="0 0 320 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"
+            fill="currentColor"
+          />
+        </svg>
+      </header>
+      <form
+        action="#"
+      >
+        <div
+          class="modalContent"
+        >
+          <div
+            class="modalInputsFields"
+          >
+            <div
+              class="modalTitle"
+            >
+              <label
+                class="labelFormField"
+                for="title"
+              >
+                Title
+              </label>
+              <input
+                name="title"
+                placeholder="Movie title"
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <div
+                class="modalReleaseDate"
+              >
+                <label
+                  class="labelFormField"
+                  for="release_date"
+                >
+                  Release date
+                </label>
+                <input
+                  name="release_date"
+                  placeholder="Select Date"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="modalMovieUrl"
+            >
+              <label
+                class="labelFormField"
+                for="poster_path"
+              >
+                Movie url
+              </label>
+              <input
+                name="poster_path"
+                placeholder="htpps://"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="modalRating"
+            >
+              <label
+                class="labelFormField"
+                for="vote_average"
+              >
+                Rating
+              </label>
+              <input
+                name="vote_average"
+                placeholder="7.8"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="modalGenre"
+            >
+              <label
+                class="modalLabel"
+              >
+                Genre
+              </label>
+              <div>
+                <button
+                  class="title"
+                  type="button"
+                >
+                  Select Genre
+                </button>
+                <div
+                  class="arrowIcon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-caret-down "
+                    data-icon="caret-down"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modalRuntime"
+            >
+              <label
+                class="labelFormField"
+                for="runtime"
+              >
+                Runtime
+              </label>
+              <input
+                name="runtime"
+                placeholder="minutes"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="modalOverview"
+          >
+            <label
+              class="modalContentLabel"
+              for="overview"
+            >
+              Overview
+            </label>
+            <textarea
+              name="overview"
+              placeholder="Movie description"
+            />
+          </div>
+        </div>
+        <div
+          class="modalBtn"
+        >
+          <button
+            class="modalBtnReset"
+            type="submit"
+          >
+            Reset
+          </button>
+          <button
+            class="modalBtnSubmit"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

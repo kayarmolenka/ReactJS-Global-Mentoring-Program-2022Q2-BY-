@@ -6,12 +6,6 @@ describe('PopupMovieCard', () => {
   const setOpenEditMode = jest.fn();
   const setOpenDeleteModal = jest.fn();
 
-  afterEach(() => {
-    setIsOpenModal.mockRestore();
-    setOpenEditMode.mockRestore();
-    setOpenDeleteModal.mockRestore();
-  });
-
   it('should return pop up modal with two buttons because modal is open', () => {
     render(
       <PopupMovieCard
