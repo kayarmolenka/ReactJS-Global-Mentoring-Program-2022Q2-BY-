@@ -3,6 +3,7 @@
     "runtime": "automatic"
   }]],
 
+  "plugins": [["@babel/plugin-transform-runtime", {"polyfill": false, "regenerator": true}]],
   "env": {
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
