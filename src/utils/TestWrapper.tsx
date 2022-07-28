@@ -1,8 +1,7 @@
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { IMovieList } from '../models';
-import { createStore, IApplicationState } from '../store';
-import { JSX } from 'cypress/react';
+import { createStore } from '../store';
 
 const movieList: IMovieList[] = [
   {
@@ -21,11 +20,13 @@ const movieList: IMovieList[] = [
   },
 ];
 
-const store: IApplicationState = {
-  movieList: movieList,
-  sortingType: 'Rating',
-  activeGenre: 'All',
-  activeDescriptionMovie: movieList[0],
+const store = {
+  application: {
+    movieList: movieList,
+    sortingType: 'Rating',
+    activeGenre: 'All',
+    activeDescriptionMovie: movieList[0],
+  },
 };
 
 interface ITestWrapper {
@@ -36,7 +37,7 @@ export const TestWrapper = (props: ITestWrapper) => {
   const { Component } = props;
 
   return (
-    <Provider store={createStore({ application: store })}>
+    <Provider store={createStore(store)}>
       <MemoryRouter initialEntries={['/']}>
         <Routes>
           <Route path="*" element={Component} />

@@ -1,5 +1,4 @@
 import { actionApplicationReducer } from './movieListSlice';
-import { valueFilter, valueSortMovie } from '../constants';
 import {
   changeFilter,
   fetchMovieById,
@@ -37,17 +36,23 @@ const params = {
   sortBy: 'genres',
   filter: 'Drama',
 };
+const initialState = {
+  application: {
+    movieList: [movieList],
+    sortingType: 'Rating',
+    activeGenre: 'All',
+    activeDescriptionMovie: movieList,
+  },
+};
+
+jest.mock('./store');
 
 describe('movieListSliceReducer', () => {
-  const initialState = {
-    movieList: [],
-    activeGenre: valueFilter[0],
-    sortingType: valueSortMovie[0],
-  };
-
   it('should return movieList date after fulfilled response', () => {
-    expect(actionApplicationReducer(initialState, fetchMovieList.fulfilled(response, ''))).toEqual({
-      ...initialState,
+    expect(
+      actionApplicationReducer(initialState.application, fetchMovieList.fulfilled(response, '')),
+    ).toEqual({
+      ...initialState.application,
       movieList: [movieList],
     });
   });
@@ -55,11 +60,11 @@ describe('movieListSliceReducer', () => {
   it('should return movieList date after fulfilled response with params', () => {
     expect(
       actionApplicationReducer(
-        initialState,
+        initialState.application,
         fetchMovieListWithParams.fulfilled(response, '', params),
       ),
     ).toEqual({
-      ...initialState,
+      ...initialState.application,
       movieList: [movieList],
     });
   });
@@ -67,25 +72,25 @@ describe('movieListSliceReducer', () => {
   it('should return activeDescriptionMovie date after fulfilled response', () => {
     expect(
       actionApplicationReducer(
-        initialState,
+        initialState.application,
         fetchMovieById.fulfilled(movieList, '123456789', 123456789),
       ),
     ).toEqual({
-      ...initialState,
+      ...initialState.application,
       activeDescriptionMovie: movieList,
     });
   });
 
   it('should setGenre Documentary', () => {
-    expect(actionApplicationReducer(initialState, setGenre('Documentary'))).toEqual({
-      ...initialState,
+    expect(actionApplicationReducer(initialState.application, setGenre('Documentary'))).toEqual({
+      ...initialState.application,
       activeGenre: 'Documentary',
     });
   });
 
   it('should return sorting type of genres after trigger changeFilter', () => {
-    expect(actionApplicationReducer(initialState, changeFilter('genres'))).toEqual({
-      ...initialState,
+    expect(actionApplicationReducer(initialState.application, changeFilter('genres'))).toEqual({
+      ...initialState.application,
       sortingType: 'genres',
     });
   });

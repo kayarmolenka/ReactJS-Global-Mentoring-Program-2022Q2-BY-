@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormField should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="class"
+  >
+    <label
+      class="labelFormField"
+      for="title"
+    >
+      Title
+    </label>
+  </div>
+</DocumentFragment>
+`;
