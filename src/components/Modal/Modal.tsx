@@ -213,9 +213,8 @@ export const Modal = (props: IModalProps) => {
                     labelText="Runtime"
                   />
                 </div>
-                <Field
-                  name="overview"
-                  render={({ field, form: { touched, errors } }: FieldProps) => (
+                <Field name="overview">
+                  {({ field, form: { touched, errors } }: FieldProps) => (
                     <div className={styles.modalOverview}>
                       <label htmlFor="overview" className={styles.modalContentLabel}>
                         Overview
@@ -226,7 +225,7 @@ export const Modal = (props: IModalProps) => {
                       )}
                     </div>
                   )}
-                />
+                </Field>
               </div>
               <div className={styles.modalBtn}>
                 <Button

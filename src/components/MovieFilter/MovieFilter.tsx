@@ -21,7 +21,7 @@ export const MovieFilter = (props: IMovieFilterProps) => {
           key={genre}
           className={classNames(`${styles.movieFilterBtn}`, {
             [styles.movieFilterBtnChosen]:
-              genre === activeGenre || genre === searchParams.get('filter'),
+              genre === searchParams.get('filter') || genre === activeGenre,
           })}
           onClick={onHandleGenre}
         >
