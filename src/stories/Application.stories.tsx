@@ -1,7 +1,6 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Application } from './Application';
+import { Application, NavMenu } from './index';
 
 export default {
   title: 'Example/Application',
@@ -13,4 +12,7 @@ export default {
 
 const Template: ComponentStory<typeof Application> = () => <Application />;
 
-export const App = Template.bind({});
+const Template2: ComponentStory<typeof NavMenu> = () => <NavMenu />;
+
+export const ApplicationTemplate = Template.bind({});
+export const NavMenuTemplate = Template2.bind({});
