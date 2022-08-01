@@ -24,7 +24,11 @@ describe('MovieResultSearch', () => {
     const { asFragment } = render(
       <MemoryRouter>
         <Provider store={createStore()}>
-          <MovieResultSearch activeGenre={valueFilter[0]} chosenTypeSorting={valueSortMovie[0]} />
+          <MovieResultSearch
+            activeGenre={valueFilter[0]}
+            chosenTypeSorting={valueSortMovie[0]}
+            offset={12}
+          />
         </Provider>
       </MemoryRouter>,
     );
@@ -39,6 +43,7 @@ describe('MovieResultSearch', () => {
           <MovieResultSearch
             activeGenre={valueFilter[1]}
             chosenTypeSorting={mapSortsName(valueSortMovie[0])}
+            offset={12}
           />
         </Provider>
       </MemoryRouter>,
@@ -60,6 +65,7 @@ describe('MovieResultSearch', () => {
           <MovieResultSearch
             activeGenre={valueFilter[0]}
             chosenTypeSorting={mapSortsName(valueSortMovie[2])}
+            offset={12}
           />
         </Provider>
       </MemoryRouter>,

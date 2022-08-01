@@ -36,12 +36,14 @@ const params = {
   sortBy: 'genres',
   filter: 'Drama',
 };
+
 const initialState = {
   application: {
     movieList: [movieList],
     sortingType: 'Rating',
     activeGenre: 'All',
     activeDescriptionMovie: movieList,
+    currentOffset: 1,
   },
 };
 
@@ -65,7 +67,7 @@ describe('movieListSliceReducer', () => {
       ),
     ).toEqual({
       ...initialState.application,
-      movieList: [movieList],
+      movieList: [movieList, movieList],
     });
   });
 

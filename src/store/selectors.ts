@@ -5,3 +5,4 @@ export const getActiveGenreSelector = (state: RootState) => state.application.ac
 export const getActiveSortingTypeSelector = (state: RootState) => state.application.sortingType;
 export const getActiveDescriptionMovieSelector = (state: RootState) =>
   state.application.activeDescriptionMovie;
+export const getCurrentOffsetSelector = (state: RootState) => state.application.currentOffset;

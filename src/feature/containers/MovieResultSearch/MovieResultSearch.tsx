@@ -10,9 +10,10 @@ import styles from './MovieResultSearch.module.scss';
 interface IMovieResultSearchProps {
   activeGenre: string;
   chosenTypeSorting: string;
+  offset: number;
 }
 export const MovieResultSearch = (props: IMovieResultSearchProps) => {
-  const { chosenTypeSorting, activeGenre } = props;
+  const { chosenTypeSorting, activeGenre, offset } = props;
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -31,6 +32,7 @@ export const MovieResultSearch = (props: IMovieResultSearchProps) => {
       fetchMovieListWithParams({
         sortBy: searchParams.get('sortBy') || chosenTypeSorting,
         filter: searchParams.get('filter') || activeGenre,
+        page: offset,
       }),
     );
   }, [activeGenre, chosenTypeSorting]);

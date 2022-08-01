@@ -10,6 +10,7 @@ export interface IApplicationState {
   sortingType: string;
   activeGenre: string;
   activeDescriptionMovie?: IMovieList;
+  currentOffset: number;
 }
 
 export interface IFetchMovieListResponse {
