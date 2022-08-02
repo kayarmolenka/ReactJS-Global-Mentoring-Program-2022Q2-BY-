@@ -28,6 +28,7 @@ export const MovieSort = (props: IMovieSortProps) => {
               <InputLabel className={styles.movieSortSelect}>Select Sort</InputLabel>
               <Select
                 className={styles.movieSortSelect}
+                data-testid="materialUiSelect"
                 value={mapNameSorts(searchParams.get('sortBy') || '') || chosenTypeSorting}
                 label="Select Sort"
                 onChange={onHandleSortType}

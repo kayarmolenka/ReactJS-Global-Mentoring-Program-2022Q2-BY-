@@ -53,29 +53,7 @@ describe('MovieResultSearch', () => {
 
     await waitFor(() => {
       expect(useFetch as jest.Mock).toHaveBeenCalledWith(
-        'http://localhost:4000/movies?sortBy=release_date&sortOrder=desc&filter=Documentary&offset=1&limit=12',
-      );
-    });
-  });
-
-  it('should call useFetch with sort equal Rating after click on Rating button', async () => {
-    render(
-      <MemoryRouter>
-        <Provider store={createStore()}>
-          <MovieResultSearch
-            activeGenre={valueFilter[0]}
-            chosenTypeSorting={mapSortsName(valueSortMovie[2])}
-            offset={12}
-          />
-        </Provider>
-      </MemoryRouter>,
-    );
-
-    fireEvent.click(screen.getByText('Rating'));
-
-    await waitFor(() => {
-      expect(useFetch as jest.Mock).toHaveBeenCalledWith(
-        'http://localhost:4000/movies?sortBy=vote_average&sortOrder=desc&offset=1&limit=12',
+        'http://localhost:4000/movies?sortBy=release_date&sortOrder=desc&offset=1&limit=12',
       );
     });
   });

@@ -19,6 +19,7 @@ import {
 } from './constants';
 import { useFetch } from '../hooks/useFetch';
 import { IdMovie, IMovieList, IMovieParams, ValueFilter } from '../models';
+import { mapSortsName } from '../utils';
 
 export const setGenre = createAction(CHANGE_GENRE, (action) => ({
   payload: action,
@@ -40,11 +41,15 @@ export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, void, { 
       const sortBy = getActiveSortingTypeSelector(thunkApi.getState());
 
       if (genre === ValueFilter.ALL) {
-        return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
+        return await useFetch(
+          `${API_URL}movies?sortBy=${mapSortsName(sortBy)}&sortOrder=desc&offset=1&limit=12`,
+        );
       }
 
       return await useFetch(
-        `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&filter=${genre}&offset=1&limit=12`,
+        `${API_URL}movies?sortBy=${mapSortsName(
+          sortBy,
+        )}&sortOrder=desc&filter=${genre}&offset=1&limit=12`,
       );
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message);
