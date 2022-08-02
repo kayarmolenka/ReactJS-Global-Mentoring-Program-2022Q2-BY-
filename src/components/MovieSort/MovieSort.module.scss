@@ -12,33 +12,27 @@
     mix-blend-mode: normal;
     opacity: 0.6;
     padding:8px;
+    display: flex;
+    align-items: center;
   }
-
   .movieSortRealiseDate {
     display: flex;
     align-items: flex-start;
 
-    .movieSortIconCaret {
-      color: $pink;
-      position: relative;
-      right: 16px;
-      font-size: 21px;
-      top: 4px;
+    #demo-simple-select {
+      color: $white;
     }
   }
 
   .movieSortSelect {
     @include font-family;
     font-size: 16px;
-    width: 210px;
     letter-spacing: 0.888889px;
     text-transform: uppercase;
     color: $white;
     border: none;
     cursor: pointer;
-    appearance: none;
     background: rgba(35, 35, 35, 1);
-    padding: 8px;
   }
 
   ul {
@@ -47,3 +41,4 @@
     list-style-type: none;
   }
 }
+

@@ -114,11 +114,11 @@ export const MovieCard = (props: MovieCardProps) => {
         <div className={styles.movieCardTitle}>{title}</div>
         <div className={styles.movieCardRealiseDate}>{release_date}</div>
       </div>
-      <p className={styles.movieCardGenre}>
+      <ul className={styles.movieCardGenre}>
         {genres.map((genre) => (
           <li key={genre}>{genre}</li>
         ))}
-      </p>
+      </ul>
     </div>
   );
 };

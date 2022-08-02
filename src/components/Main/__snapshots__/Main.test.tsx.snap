@@ -50,41 +50,63 @@ exports[`Main should match snapshot 1`] = `
           <li
             class="movieSortRealiseDate"
           >
-            <select
-              class="movieSortSelect"
-              data-testid="select"
+            <div
+              class="MuiBox-root css-gqssyb"
             >
-              <option
-                value="Release date"
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
               >
-                Release date
-              </option>
-              <option
-                value="Genre"
-              >
-                Genre
-              </option>
-              <option
-                value="Rating"
-              >
-                Rating
-              </option>
-            </select>
-            <svg
-              aria-hidden="true"
-              class="svg-inline--fa fa-caret-down movieSortIconCaret"
-              data-icon="caret-down"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              viewBox="0 0 320 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"
-                fill="currentColor"
-              />
-            </svg>
+                <label
+                  class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled movieSortSelect css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="true"
+                >
+                  Select Sort
+                </label>
+                <div
+                  class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl movieSortSelect css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                  data-testid="materialUiSelect"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                    role="button"
+                    tabindex="0"
+                  >
+                    Release date
+                  </div>
+                  <input
+                    aria-hidden="true"
+                    class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                    tabindex="-1"
+                    value="Release date"
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                    data-testid="ArrowDropDownIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-1in441m"
+                    >
+                      <span>
+                        Select Sort
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>

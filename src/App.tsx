@@ -1,7 +1,7 @@
 import { useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Routes, Route, BrowserRouter, Navigate, useParams } from 'react-router-dom';
-import { Header, Footer, ErrorBoundary, Main, NotFound } from './components';
+import { Header, Footer, ErrorBoundary, Main, NotFound, BackToTop } from './components';
 import { fetchMovieById, movieListSelector, useAppDispatch } from './store';
 import { convertIdFromStringToNumber } from './utils';
 
@@ -49,6 +49,7 @@ export const App = () => {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <BackToTop />
       </ErrorBoundary>
     </BrowserRouter>
   );

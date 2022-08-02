@@ -15,15 +15,21 @@ import {
   EDIT_MOVIE,
   FETCH_MOVIE_LIST_WITH_PARAMS,
   FETCH_MOVIE_BY_ID,
+  CHANGE_OFFSET,
 } from './constants';
 import { useFetch } from '../hooks/useFetch';
 import { IdMovie, IMovieList, IMovieParams, ValueFilter } from '../models';
+import { mapSortsName } from '../utils';
 
 export const setGenre = createAction(CHANGE_GENRE, (action) => ({
   payload: action,
 }));
 
 export const changeFilter = createAction(CHANGE_FILTER, (action) => ({
+  payload: action,
+}));
+
+export const setCurrentOffset = createAction(CHANGE_OFFSET, (action) => ({
   payload: action,
 }));
 
@@ -35,11 +41,15 @@ export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, void, { 
       const sortBy = getActiveSortingTypeSelector(thunkApi.getState());
 
       if (genre === ValueFilter.ALL) {
-        return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
+        return await useFetch(
+          `${API_URL}movies?sortBy=${mapSortsName(sortBy)}&sortOrder=desc&offset=1&limit=12`,
+        );
       }
 
       return await useFetch(
-        `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&filter=${genre}&offset=1&limit=12`,
+        `${API_URL}movies?sortBy=${mapSortsName(
+          sortBy,
+        )}&sortOrder=desc&filter=${genre}&offset=1&limit=12`,
       );
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message);
@@ -49,12 +59,14 @@ export const fetchMovieList = createAsyncThunk<IFetchMovieListResponse, void, { 
 
 export const fetchMovieListWithParams = createAsyncThunk<
   IFetchMovieListResponse,
-  { sortBy: string; filter: string },
+  { sortBy: string; filter: string; page?: number },
   { state: RootState }
->(FETCH_MOVIE_LIST_WITH_PARAMS, async ({ sortBy, filter }, thunkApi) => {
+>(FETCH_MOVIE_LIST_WITH_PARAMS, async ({ sortBy, filter, page }, thunkApi) => {
   try {
     if (filter === ValueFilter.ALL) {
-      return await useFetch(`${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=1&limit=12`);
+      return await useFetch(
+        `${API_URL}movies?sortBy=${sortBy}&sortOrder=desc&offset=${page || 1}&limit=12`,
+      );
     }
 
     return await useFetch(

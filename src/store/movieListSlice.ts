@@ -4,6 +4,7 @@ import {
   fetchMovieById,
   fetchMovieList,
   fetchMovieListWithParams,
+  setCurrentOffset,
   setGenre,
 } from './thunks';
 import { initialState } from './constants';
@@ -21,12 +22,16 @@ export const applicationSlice = createSlice({
       state.sortingType = action.payload;
     });
 
+    builder.addCase(setCurrentOffset, (state, action) => {
+      state.currentOffset = state.currentOffset + action.payload;
+    });
+
     builder.addCase(fetchMovieList.fulfilled, (state, action) => {
       state.movieList = action.payload.data;
     });
 
     builder.addCase(fetchMovieListWithParams.fulfilled, (state, action) => {
-      state.movieList = action.payload.data;
+      state.movieList = [...state.movieList, ...action.payload.data];
     });
 
     builder.addCase(fetchMovieById.fulfilled, (state, action) => {

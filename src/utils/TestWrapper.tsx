@@ -26,6 +26,7 @@ const store = {
     sortingType: 'Rating',
     activeGenre: 'All',
     activeDescriptionMovie: movieList[0],
+    currentOffset: 1,
   },
 };
 
