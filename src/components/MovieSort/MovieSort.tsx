@@ -1,7 +1,9 @@
-import { SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { valueSortMovie } from '../../constants';
 import { mapNameSorts } from '../../utils';
 
@@ -9,7 +11,7 @@ import styles from './MovieSort.module.scss';
 
 interface IMovieSortProps {
   chosenTypeSorting: string;
-  onHandleSortType: (e: SyntheticEvent<HTMLSelectElement>) => void;
+  onHandleSortType: (e: SelectChangeEvent) => void;
 }
 
 export const MovieSort = (props: IMovieSortProps) => {
@@ -21,19 +23,23 @@ export const MovieSort = (props: IMovieSortProps) => {
       <ul>
         <li className={styles.movieSortBy}>{'Sort by'}</li>
         <li className={styles.movieSortRealiseDate}>
-          <select
-            className={styles.movieSortSelect}
-            value={mapNameSorts(searchParams.get('sortBy') || chosenTypeSorting)}
-            onChange={onHandleSortType}
-            data-testid="select"
-          >
-            {valueSortMovie.map((typeSort) => (
-              <option key={typeSort} value={typeSort}>
-                {typeSort}
-              </option>
-            ))}
-          </select>
-          <FontAwesomeIcon icon={faCaretDown} className={styles.movieSortIconCaret} />
+          <Box sx={{ minWidth: 200 }}>
+            <FormControl fullWidth>
+              <InputLabel className={styles.movieSortSelect}>Select Sort</InputLabel>
+              <Select
+                className={styles.movieSortSelect}
+                value={mapNameSorts(searchParams.get('sortBy') || '') || chosenTypeSorting}
+                label="Select Sort"
+                onChange={onHandleSortType}
+              >
+                {valueSortMovie.map((typeSort) => (
+                  <MenuItem key={typeSort} value={typeSort}>
+                    {typeSort}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
         </li>
       </ul>
     </div>

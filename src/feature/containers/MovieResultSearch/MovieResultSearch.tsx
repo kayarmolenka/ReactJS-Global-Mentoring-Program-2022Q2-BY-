@@ -1,7 +1,8 @@
-import { MouseEvent, SyntheticEvent, useEffect } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { SelectChangeEvent } from '@mui/material/Select';
 import { MovieFilter, MovieSort } from '../../../components';
-import { changeFilter, fetchMovieListWithParams, setGenre } from '../../../store/thunks';
+import { changeFilter, fetchMovieList, setGenre } from '../../../store/thunks';
 import { useAppDispatch } from '../../../store';
 import { mapSortsName } from '../../../utils';
 
@@ -13,13 +14,13 @@ interface IMovieResultSearchProps {
   offset: number;
 }
 export const MovieResultSearch = (props: IMovieResultSearchProps) => {
-  const { chosenTypeSorting, activeGenre, offset } = props;
+  const { chosenTypeSorting, activeGenre } = props;
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
-  const handleSortType = async (e: SyntheticEvent<HTMLSelectElement>) => {
-    setSearchParams({ sortBy: mapSortsName(e.currentTarget.value) });
-    dispatch(changeFilter(mapSortsName(e.currentTarget.value)));
+  const handleSortType = async (e: SelectChangeEvent) => {
+    setSearchParams({ sortBy: mapSortsName(e.target.value) });
+    dispatch(changeFilter(mapSortsName(e.target.value)));
   };
 
   const handleGenre = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -28,13 +29,7 @@ export const MovieResultSearch = (props: IMovieResultSearchProps) => {
   };
 
   useEffect(() => {
-    dispatch(
-      fetchMovieListWithParams({
-        sortBy: searchParams.get('sortBy') || chosenTypeSorting,
-        filter: searchParams.get('filter') || activeGenre,
-        page: offset,
-      }),
-    );
+    dispatch(fetchMovieList());
   }, [activeGenre, chosenTypeSorting]);
 
   return (

@@ -20,7 +20,7 @@ interface IMainProps {
 export const Main = (props: IMainProps) => {
   const { handleMovieCard } = props;
   const [isShowEditModal, setIsShowEditModal] = useState(false);
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const dispatch = useAppDispatch();
   const movies = useSelector(movieListSelector);
   const activeGenre = useSelector(getActiveGenreSelector);
